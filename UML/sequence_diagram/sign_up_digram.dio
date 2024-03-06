@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="F_yw_CQn4tfW_uXNjKrX" name="Page-1">
-        <mxGraphModel dx="1324" dy="970" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1600" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="883" dy="647" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1600" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -319,8 +319,8 @@
                 <mxCell id="131" value="&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;check if there any user related to the token&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=22;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="539" y="1179" width="324" height="39" as="geometry"/>
                 </mxCell>
-                <mxCell id="132" value="&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;returne the user related with the token&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=22;fontColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="531" y="1230" width="293" height="39" as="geometry"/>
+                <mxCell id="132" value="&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;return the user related with the token&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=22;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="535" y="1230" width="285" height="39" as="geometry"/>
                 </mxCell>
                 <mxCell id="133" value="" style="endArrow=classic;html=1;rounded=1;strokeColor=#000000;strokeWidth=3;fontFamily=Verdana;fontSize=14;fontColor=#000000;jumpStyle=arc;jumpSize=0;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -349,22 +349,22 @@
                 <mxCell id="142" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=2;fontFamily=Verdana;fontSize=14;fontColor=#000000;fillColor=#FFFFFF;" parent="1" vertex="1">
                     <mxGeometry x="999" y="853" width="29" height="529" as="geometry"/>
                 </mxCell>
-                <mxCell id="146" value="&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;set the user verified attribute to True&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=22;fontColor=#000000;" vertex="1" parent="1">
+                <mxCell id="146" value="&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;set the user verified attribute to True&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=22;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="560" y="1281" width="279" height="39" as="geometry"/>
                 </mxCell>
-                <mxCell id="147" value="" style="endArrow=classic;html=1;rounded=1;strokeColor=#000000;strokeWidth=3;fontSize=22;fontColor=#000000;jumpStyle=arc;jumpSize=0;" edge="1" parent="1">
+                <mxCell id="147" value="" style="endArrow=classic;html=1;rounded=1;strokeColor=#000000;strokeWidth=3;fontSize=22;fontColor=#000000;jumpStyle=arc;jumpSize=0;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="429" y="1316" as="sourcePoint"/>
                         <mxPoint x="997" y="1316" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="148" value="" style="endArrow=classic;html=1;rounded=1;strokeColor=#000000;strokeWidth=3;fontFamily=Verdana;fontSize=14;fontColor=#000000;jumpStyle=arc;jumpSize=0;dashed=1;" edge="1" parent="1">
+                <mxCell id="148" value="" style="endArrow=classic;html=1;rounded=1;strokeColor=#000000;strokeWidth=3;fontFamily=Verdana;fontSize=14;fontColor=#000000;jumpStyle=arc;jumpSize=0;dashed=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="995" y="1364" as="sourcePoint"/>
                         <mxPoint x="428" y="1364" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="149" value="&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;user hase been verified&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=22;fontColor=#000000;" vertex="1" parent="1">
+                <mxCell id="149" value="&lt;font face=&quot;Verdana&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;user hase been verified&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=22;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="594" y="1328" width="183" height="39" as="geometry"/>
                 </mxCell>
             </root>
