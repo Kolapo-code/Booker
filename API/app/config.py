@@ -8,10 +8,13 @@ class DBConfig:
     user = "admin"
     passworld = "admin"
     host = "localhost"
-    data_base = "booker"
-    url = f"mysql+mysqldb://{user}:{passworld}@{host}/{data_base}"
+    database = "booker"
+    @property
+    def url(self):
+        # print('hey, am here')
+        return f"mysql+mysqlconnector://{self.user}:{self.passworld}@{self.host}/{self.database}"
 
 
 classes = {
-    "user": User
+    "User": User
 }
