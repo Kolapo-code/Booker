@@ -11,7 +11,6 @@ class DBStorage:
     __session = None
 
     def __init__(self) -> None:
-        print(DBConfig().url)
         self.__engine = create_engine(DBConfig().url)
 
     @property
