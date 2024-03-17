@@ -1,18 +1,18 @@
-from config import DBConfig, classes
+from app.config import DBConfig, classes
 from sqlalchemy import create_engine
-from models import Base
+from app.models import Base
 from sqlalchemy.orm import scoped_session, sessionmaker
-from app.utils import set_dict
+from app.utils.helper import set_dict
 
 
 class DBStorage:
     """The main storage configuration."""
-
     __engine = None
     __session = None
 
     def __init__(self) -> None:
-        self.__engine = create_engine(DBConfig.url)
+        print(DBConfig().url)
+        self.__engine = create_engine(DBConfig().url)
 
     @property
     def session(self):
@@ -41,6 +41,9 @@ class DBStorage:
     def close(self):
         """A method that closes the database session."""
         self.__session.close()
+
+    def drop(self):
+        Base.metadata.drop_all(self.__engine)
 
     def get(self, cls=None, **kwargs):
         """A method that returns a object based on the class name and the id."""
