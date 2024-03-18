@@ -3,9 +3,8 @@ from app.models.base_model import BaseModel
 from sqlalchemy import Column, String
 from uuid import uuid4
 
-class User(BaseModel, Base):
+class User(BaseModel):
     """The User model"""
-    __tablename__ = 'users'
     first_name = Column(String(60))
     last_name = Column(String(60))
     email = Column(String(128))
