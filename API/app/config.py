@@ -3,6 +3,8 @@ This file stores configuration variables
 for the Flask application.
 """
 from app.models.user import User
+from app.models.regular_user import RegularUser
+from app.models.premium_user import PremiumUser
 
 class DBConfig:
     user = "admin"
@@ -16,5 +18,7 @@ class DBConfig:
 
 
 classes = {
-    "User": User
+    "User": User,
+    "RegularUser": RegularUser,
+    "PremiumUser": PremiumUser
 }

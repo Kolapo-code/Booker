@@ -27,6 +27,5 @@ class BaseModel:
                 setattr(self, key, val)
 
     def to_dict(self):
-        new_dict =  self.__dict__.copy()
-        del new_dict["_sa_instance_state"]
+        new_dict =  dict(filter(lambda x : not x[0].startswith('_'), self.__dict__.items()))
         return new_dict
