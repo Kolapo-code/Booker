@@ -1,5 +1,5 @@
 from app import storage
-from app.models.user import User, BaseModel
+from app.models.regular_user import User, RegularUser
 
 # user = User(name='Omar')
 # storage.new(user)
@@ -14,7 +14,7 @@ from app.models.user import User, BaseModel
 # user = User(name='Mariam', age='18')
 # user.save()
 # storage.save()
-# user = User(name='Mariam', age='30')
+# user = RegularUser(first_name='Mariam', last_name='Makaynach', email='RahMakaynach@booker.net', password='a%dz5223-rea43f9faf')
 # user.save()
 
 
@@ -24,10 +24,13 @@ from app.models.user import User, BaseModel
 #     storage.delete(val)
 #     storage.save()
 
-data = storage.get('User')
+data = storage.get('RegularUser')
 
 # print(data)
 for key, val in data.items():
     print(f'{key}: {val.to_dict()}')
 
-print(BaseModel.activity_log())
+# car_dict ={'a': 'Mercedes-Benz', 'b': 'BMW', 'c': 'Ferrari', 'd': 'Lamborghini', 'e': 'Jeep'}
+
+
+# car_dict = dict(filter(lambda x: x[0] != 'a', car_dict.items() ))
