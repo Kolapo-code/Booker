@@ -1,5 +1,6 @@
 from app.models import Base
 from app.models.base_model import BaseModel
+from app.utils.helper import hash_to_sha256
 from sqlalchemy import Column, String
 from uuid import uuid4
 
@@ -22,8 +23,16 @@ class User(BaseModel):
 
     @password.setter
     def password(self, value):
-        self.__password = value
+        if value is None or type(value) is not str:
+            return 'Unable to set password'
+        self.__password = hash_to_sha256(value) # Hashing the password before setting it.
 
     def check_password(self, given_password):
-        """decrypting_hashing..."""
-        return given_password == self.password
+        """A method responsible for validating the password, by hashing
+        the given password and comparing it to the saved password in db."""
+        if given_password is None:
+            return False
+        if type(given_password) is not str:
+            return False
+        hashed_password = hash_to_sha256(given_password)
+        return True if self.__password == hashed_password else False
