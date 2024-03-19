@@ -5,6 +5,7 @@ for the Flask application.
 from app.models.user import User
 from app.models.regular_user import RegularUser
 from app.models.premium_user import PremiumUser
+from app.models.session import Session
 
 class DBConfig:
     user = "admin"
@@ -19,5 +20,6 @@ class DBConfig:
 
 classes = {
     "RegularUser": RegularUser,
-    "PremiumUser": PremiumUser
+    "PremiumUser": PremiumUser,
+    "Session": Session
 }
