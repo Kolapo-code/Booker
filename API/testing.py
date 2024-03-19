@@ -1,8 +1,48 @@
 from app import storage
 from app.models.regular_user import User, RegularUser
+from app.models.premium_user import PremiumUser
+from datetime import datetime
 
-# user = User(name='Omar')
+user = RegularUser(
+    first_name="Asmaa",
+    last_name="Hadar",
+    email="asmaehadar32@gmail.com",
+    password="hellooo",
+    birth_date=datetime(1980, 11, 4),
+    location="Morocco",
+)
 # storage.new(user)
+# print(user.check_password("hellooo"))
+# storage.save()
+storage.get('RegularUser')
+# user = RegularUser(
+#     first_name="Omar",
+#     last_name="Idhmaid",
+#     email="omaridhmaid@gmail.com",
+#     password="omarrrrr",
+#     birth_date=datetime(1927, 2, 28),
+#     location="Colombia",
+# )
+# storage.new(user)
+# print(user.check_password("omarrrrr"))
+
+# user = PremiumUser(
+#     first_name="Asmaa",
+#     last_name="Hadar",
+#     email="asmaehadar32@gmail.com",
+#     password="hi",
+#     birth_date=datetime(1980, 11, 4),
+#     location="Morocco",
+#     field="IT",
+#     biography="EMMMM",
+#     subscription_start_date=datetime.now(),
+#     subscription_end_date=datetime.now(),
+#     subscription_plan='something',
+#     subscription_status='Pending'
+# )
+# storage.new(user)
+# print(user.check_password("hi"))
+
 # user = User(name='Abderrahim')
 # storage.new(user)
 # user = User(name='Abdellatif', age='14')
@@ -24,11 +64,11 @@ from app.models.regular_user import User, RegularUser
 #     storage.delete(val)
 #     storage.save()
 
-data = storage.get('RegularUser')
+data = storage.get("RegularUser")
 
 # print(data)
 for key, val in data.items():
-    print(f'{key}: {val.to_dict()}')
+    print(f"{key}: {val.to_dict()}")
 
 # car_dict ={'a': 'Mercedes-Benz', 'b': 'BMW', 'c': 'Ferrari', 'd': 'Lamborghini', 'e': 'Jeep'}
 
