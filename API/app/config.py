@@ -18,7 +18,6 @@ class DBConfig:
 
 
 classes = {
-    "User": User,
     "RegularUser": RegularUser,
     "PremiumUser": PremiumUser
 }

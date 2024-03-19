@@ -1,30 +1,34 @@
 from app import storage
+import base64
 from app.models.regular_user import User, RegularUser
 from app.models.premium_user import PremiumUser
 from datetime import datetime
 
-user = RegularUser(
-    first_name="Asmaa",
-    last_name="Hadar",
-    email="asmaehadar32@gmail.com",
-    password="hellooo",
-    birth_date=datetime(1980, 11, 4),
-    location="Morocco",
-)
-# storage.new(user)
-# print(user.check_password("hellooo"))
-# storage.save()
-storage.get('RegularUser')
 # user = RegularUser(
-#     first_name="Omar",
-#     last_name="Idhmaid",
-#     email="omaridhmaid@gmail.com",
-#     password="omarrrrr",
-#     birth_date=datetime(1927, 2, 28),
-#     location="Colombia",
+#     first_name="Asmaa",
+#     last_name="Hadar",
+#     email="asmaehadar32@gmail.com",
+#     password=base64.b64encode(b'helloo'),
+#     birth_date=datetime(1980, 11, 4),
+#     location="Morocco",
 # )
 # storage.new(user)
-# print(user.check_password("omarrrrr"))
+# print(user.check_password(base64.b64encode(b'helloo')))
+# storage.save()
+# storage.get('RegularUser')
+user = RegularUser(
+    first_name="Omar",
+    last_name="Idhmaid",
+    email="omaridhmaid@gmail.com",
+    password=base64.b64encode('hellooo'.encode('utf-8')),
+    birth_date=datetime(1927, 2, 28),
+    location="Colombia",
+)
+storage.new(user)
+print(user.check_password(base64.b64encode('hellooo'.encode('utf-8'))))
+# storage.delete()
+
+# print(user.check_password(base64.b64encode('hellooo'.encode('utf-8'))))
 
 # user = PremiumUser(
 #     first_name="Asmaa",
@@ -58,7 +62,7 @@ storage.get('RegularUser')
 # user.save()
 
 
-# data = storage.get('User', name='Mariam')
+# data = storage.get()
 
 # for key, val in data.items():
 #     storage.delete(val)
