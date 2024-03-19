@@ -22,7 +22,7 @@ def forbidden(error) -> str:
 def forbidden(error) -> str:
     """ Forbidden handler
     """
-    return jsonify({"error": "notfound"}), 404
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
