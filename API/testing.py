@@ -16,16 +16,17 @@ from datetime import datetime
 # print(user.check_password(base64.b64encode(b'helloo')))
 # storage.save()
 # storage.get('RegularUser')
-user = RegularUser(
-    first_name="Omar",
-    last_name="Idhmaid",
-    email="omaridhmaid@gmail.com",
-    password=base64.b64encode('hellooo'.encode('utf-8')),
-    birth_date=datetime(1927, 2, 28),
-    location="Colombia",
-)
-storage.new(user)
-print(user.check_password(base64.b64encode('hellooo'.encode('utf-8'))))
+# user = RegularUser(
+#     first_name="Omar",
+#     last_name="Idhmaid",
+#     email="omaridhmaid@gmail.com",
+#     password=base64.b64encode('hellooo'.encode('utf-8')),
+#     birth_date=datetime(1927, 2, 28),
+#     location="Colombia",
+# )
+# user.save()
+# storage.new(user)
+# print(user.check_password(base64.b64encode('hellooo'.encode('utf-8'))))
 # storage.delete()
 
 # print(user.check_password(base64.b64encode('hellooo'.encode('utf-8'))))
@@ -70,7 +71,7 @@ print(user.check_password(base64.b64encode('hellooo'.encode('utf-8'))))
 
 data = storage.get("RegularUser")
 
-# print(data)
+# # print(data)
 for key, val in data.items():
     print(f"{key}: {val.to_dict()}")
 
