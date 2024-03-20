@@ -34,7 +34,7 @@ def post_user(data):
             user_data[key] = base64.b64encode(data[key].encode("utf-8"))
             continue
         user_data[key] = data[key]
-    if auth.check_email(user_data["email"]):
+    if auth.check_email(user_data["email"]) is not None:
         abort(
             403,
             description="The provided email already exists. Try to log in or change the email.",
@@ -52,3 +52,27 @@ def put_validation(users):
     user.valid = True
     user.token = None
     user.save()
+
+def verify_login(data):
+    if 'email' not in data or 'password' not in data:
+        abort(400)
+    email = data['email']
+    password = data['password']
+    user = auth.check_email(email)
+    if user is None:
+        abort(403, 'email not found please sign up')
+    if not user.check_password(base64.b64encode(password.encode('utf-8'))):
+        abort(403, 'password is incorrect')
+    if not user.valid:
+        abort(403, 'email is not yet validated')
+    session_id = auth.create_session(user.id)
+    if session_id is None:
+        abort(403, 'there has been error while creating the session')
+    return session_id
+
+def verify_logout(request):
+    session_id = auth.get_session_id(request)
+    if not session_id or not auth.check_session(session_id):
+        abort(403, 'no session exists')
+    session = auth.get_session(session_id)
+    auth.delete_session(session)

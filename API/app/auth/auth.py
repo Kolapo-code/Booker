@@ -1,6 +1,6 @@
 import base64
 from app.engine.storage import DBStorage
-from app.config import classes
+from app.config import classes, EXPIRY
 from app import storage
 from app.models.session import Session
 
@@ -13,8 +13,12 @@ class Auth:
         return request.cookies.get('session_id')
 
     def check_session(self, session_id):
-        session = storage.get('Session', id=session_id)
-        if session == {}:
+        """check """
+        session = self.get_session(session_id)
+        if session is None:
+            return False
+        if not session.check_expiry():
+            self.delete_session(session)
             return False
         return True
 
@@ -33,17 +37,30 @@ class Auth:
         if session is None:
             return None
         if not session.check_expiry():
-            self.delete_session(session_id)
+            self.delete_session(session)
             return None
-        return session.user
+        user = storage.get('RegularUser', id=session.user_id)
+        if user == {}:
+            user = storage.get('PremiumUser', id=session.user_id)
+            if user == {}:
+                return None
+        user = list(user.values())[0]
+        return user
 
     def create_session(self, user_id):
         """return session id"""
+        users = storage.get('RegularUser', id=user_id)
+        if users == {}:
+            users = storage.get('PremiumUser', id=user_id)
+            if users == {}:
+                return None
+        user = list(users.values())[0]
+        session = Session(expiry_time=EXPIRY, user_id=user.id)
+        session.save()
+        return session.id
 
-
-    def delete_session(self, session_id):
+    def delete_session(self, session):
         """delete session in database"""
-        session = self.get_session(session_id)
         if session is None:
             return None
         storage.delete(session)
@@ -55,8 +72,8 @@ class Auth:
         if users == {}:
             users = storage.get('PremiumUser', email=email)
             if users == {}:
-                return False
-        return True
+                return None
+        return list(users.values())[0]
 
     def get_user_by_token(self, token):
         """A method that gets the user by the given token."""

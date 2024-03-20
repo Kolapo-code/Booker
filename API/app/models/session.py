@@ -9,8 +9,7 @@ from datetime import datetime, timedelta
 class Session(BaseModel, Base):
     __tablename__ = 'sessions'
     expiry_time = Column(Integer, nullable=False)
-    regular_user_id = Column(String(60) , ForeignKey('regular_users.id'), nullable=True)
-    premium_user_id = Column(String(60) , ForeignKey('premium_users.id'), nullable=True)
+    user_id = Column(String(60), nullable=False)
 
     def check_expiry(self):
         time_change = timedelta(seconds=self.expiry_time)

@@ -22,3 +22,5 @@ classes = {
     "PremiumUser": PremiumUser,
     "Session": Session
 }
+
+EXPIRY = 3600 * 24

@@ -23,6 +23,3 @@ class PremiumUser(User, Base):
     ban = Column(Boolean, default=False)
     token = Column(String(60), nullable=True)
     valid = Column(Boolean, default=False)
-    sessions = relationship('Session',
-                            backref='p_user',
-                            cascade= 'all, delete-orphan')
