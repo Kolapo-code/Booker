@@ -1,6 +1,5 @@
 from app.models import Base
 from app.models.user import User
-from app.models.session import Session
 from app.utils.countries import ALL_COUNTRIES
 from sqlalchemy import Column, String, Date, Boolean, Enum
 from sqlalchemy.orm import relationship

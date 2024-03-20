@@ -35,13 +35,14 @@ def verify_email(user_name, user_email, verification_link):
     import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
+    import os
 
+    path = os.getenv('PWD')
     sender_email = "bookerapiteam@gmail.com"
     recipient_email = user_email
     recipient_name = user_name
-    verification_link = verification_link
     subject = "Booker email verification."
-    img_filename = "/app/templates/pictures/giphy.gif"
+    img_filename = f"{path}/app/templates/pictures/giphy.gif"
 
     img_data = open(img_filename, "rb").read()
 
@@ -69,5 +70,4 @@ def verify_email(user_name, user_email, verification_link):
         server.starttls()
         server.login("bookerapiteam@gmail.com", "wuzg nnvd eztu ygck")
         server.sendmail(sender_email, recipient_email, message.as_string())
-
     print("Email sent successfully!")
