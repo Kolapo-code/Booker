@@ -1,8 +1,6 @@
-from app.models import Base
 from app.models.base_model import BaseModel
 from app.utils.helper import hash_to_sha256
 from sqlalchemy import Column, String
-from uuid import uuid4
 import base64
 
 

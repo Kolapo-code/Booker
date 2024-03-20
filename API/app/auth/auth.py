@@ -48,3 +48,21 @@ class Auth:
             return None
         storage.delete(session)
         storage.save()
+
+    def check_email(self, email):
+        """A method that checks if an email already registered in the database."""
+        users = storage.get('RegularUser', email=email)
+        if users == {}:
+            users = storage.get('PremiumUser', email=email)
+            if users == {}:
+                return False
+        return True
+
+    def get_user_by_token(self, token):
+        """A method that gets the user by the given token."""
+        users = storage.get('RegularUser', token=token)
+        if users == {}:
+            users = storage.get('PremiumUser', token=token)
+            if users == {}:
+                return None
+        return users
