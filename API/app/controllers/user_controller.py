@@ -86,13 +86,16 @@ def get_profile(request):
     if not session_id or not auth.check_session(session_id):
         abort(403, 'no session exists, please log in')
     session = auth.get_session(session_id)
-    return dict(filter(lambda x : x[0] != 'token', session.user.to_dict().items()))
+    data = dict(filter(lambda x : x[0] != 'token', session.user.to_dict().items()))
+    if session.user.admin_account != []:
+        data["admin"] = True
+    return data
 
 def get_profile_by_id(id):
     session_id = auth.get_session_id(request)
     if not session_id or not auth.check_session(session_id):
         abort(403, 'no session exists, please log in')
-    user = storage.session.query(RegularUser).filter_by(id=id).first()
+    user = storage.session.query(User).filter_by(id=id).first()
     if user:
         return dict(filter(lambda x : x[0] != 'token', user.to_dict().items()))
     abort(403, 'no user exists with this id')

@@ -21,6 +21,7 @@ class User(BaseModel, Base):
     ban = Column(Boolean, default=False)
     token = Column(String(60), nullable=True)
     valid = Column(Boolean, default=False)
+    admin_account = relationship("AdminAccount", backref="user", cascade='all, delete-orphan')
     premium_account = relationship("PremiumAccount", backref="user", cascade='all, delete-orphan')
     sessions = relationship('Session', backref='user', cascade='all, delete-orphan')
 
