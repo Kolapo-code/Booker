@@ -14,4 +14,4 @@ class RegularUser(User, Base):
     token = Column(String(60) , nullable=True)
     valid = Column(Boolean, default=False)
     premium_account = relationship('PremiumAccount', backref='user')
-    sessions = relationship('Session', backref='user')
+    sessions = relationship('Session', backref='user', cascade='all, delete-orphan')

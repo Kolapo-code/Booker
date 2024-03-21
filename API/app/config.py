@@ -23,4 +23,4 @@ classes = {
     "Session": Session
 }
 
-EXPIRY = 15
+EXPIRY = 3600 * 24
