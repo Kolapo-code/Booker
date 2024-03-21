@@ -2,7 +2,8 @@ from app.models.user import User
 from datetime import datetime
 from flask import abort, request
 from uuid import uuid4
-from app import auth
+from app import auth, storage
+import re
 import base64
 from app.utils.helper import verify_email
 
@@ -23,12 +24,11 @@ def post_user(data):
             abort(400, description=f"{key} does not exits in the given data")
         if key == "birth_date":
             if not isinstance(data[key], list) or len(data[key]) != 3:
-                print("wrong date")
                 abort(403, "Birthdate should be in this format [Y, M, D]")
             user_data[key] = datetime(*data[key])
             continue
         if key == "email":
-            if not data[key] and not isinstance(data[key], str):
+            if not isinstance(data[key], str) or not re.search("^[\w_\-.0-9]+@\w+\.\w+$", data[key]):
                 abort(400, description=f"{data[key]} is not valid")
         if key == "password":
             user_data[key] = base64.b64encode(data[key].encode("utf-8"))
@@ -76,6 +76,63 @@ def verify_login(data):
 def verify_logout(request):
     session_id = auth.get_session_id(request)
     if not session_id or not auth.check_session(session_id):
-        abort(403, 'no session exists')
+        abort(403, 'no session exists, please log in')
     session = auth.get_session(session_id)
     auth.delete_session(session)
+
+
+def get_profile(request):
+    session_id = auth.get_session_id(request)
+    if not session_id or not auth.check_session(session_id):
+        abort(403, 'no session exists, please log in')
+    session = auth.get_session(session_id)
+    return dict(filter(lambda x : x[0] != 'token', session.user.to_dict().items()))
+
+def get_profile_by_id(id):
+    session_id = auth.get_session_id(request)
+    if not session_id or not auth.check_session(session_id):
+        abort(403, 'no session exists, please log in')
+    user = storage.session.query(RegularUser).filter_by(id=id).first()
+    if user:
+        return dict(filter(lambda x : x[0] != 'token', user.to_dict().items()))
+    abort(403, 'no user exists with this id')
+
+def update_profile():
+    session_id = auth.get_session_id(request)
+    if not session_id or not auth.check_session(session_id):
+        abort(403, 'no session exists, please log in')
+    data = request.get_json()
+    session = auth.get_session(session_id)
+    user = session.user
+    allowed = [
+        "birth_date",
+        "email",
+        "first_name",
+        "last_name",
+        "location",
+        "picture"
+        ]
+    for key, val in data.items():
+        if key in allowed:
+            if key == "birth_date":
+                if not isinstance(val, list) or len(val) != 3:
+                    abort(403, "Birthdate should be in this format [Y, M, D]")
+                setattr(user, key, datetime(*val))
+                continue
+            if key == "email":
+                if not isinstance(val, str) or not re.search("^[\w_\-.0-9]+@\w+\.\w+$", val):
+                    abort(400, description=f"{val} is not valid")
+            if key == "password":
+                setattr(user, key, base64.b64encode(val.encode("utf-8")))
+                continue
+            setattr(user, key, val)
+    user.save()
+    return dict(filter(lambda x : x[0] != 'token', session.user.to_dict().items()))
+
+def delete_user():
+    session_id = auth.get_session_id(request)
+    if not session_id or not auth.check_session(session_id):
+        abort(403, 'no session exists, please log in')
+    session = auth.get_session(session_id)
+    storage.delete(session.user)
+    storage.save()

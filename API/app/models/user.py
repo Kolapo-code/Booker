@@ -7,8 +7,10 @@ from sqlalchemy import Column, String
 from app.utils.helper import hash_to_sha256
 import base64
 
+
 class User(BaseModel, Base):
-    __tablename__ = "users"
+    """The User model"""
+    __tablename__ = 'users'
     first_name = Column(String(60))
     last_name = Column(String(60))
     email = Column(String(128))
@@ -19,8 +21,8 @@ class User(BaseModel, Base):
     ban = Column(Boolean, default=False)
     token = Column(String(60), nullable=True)
     valid = Column(Boolean, default=False)
-    premium_account = relationship("PremiumAccount", backref="user")
-    sessions = relationship("Session", backref="user")
+    premium_account = relationship("PremiumAccount", backref="user", cascade='all, delete-orphan')
+    sessions = relationship('Session', backref='user', cascade='all, delete-orphan')
 
     def __init__(self, **kwargs) -> None:
         filtered = dict(filter(lambda x: x[0] != "password", kwargs.items()))
