@@ -5,6 +5,8 @@ from sqlalchemy import Column, String, Date, Boolean, Enum
 from sqlalchemy.orm import relationship
 from uuid import uuid4
 
+
+# CHANGE TO RegularAccount, Remove User class because it has no purpose.
 class RegularUser(User, Base):
     __tablename__ = 'regular_users'
     birth_date = Column(Date, nullable=False)
