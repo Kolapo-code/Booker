@@ -43,7 +43,7 @@ class Auth:
 
     def create_session(self, user_id):
         """return session id"""
-        users = storage.get('RegularUser', id=user_id)
+        users = storage.get('User', id=user_id)
         if users == {}:
             return None
         user = list(users.values())[0]
@@ -60,14 +60,14 @@ class Auth:
 
     def check_email(self, email):
         """A method that checks if an email already registered in the database."""
-        users = storage.get('RegularUser', email=email)
+        users = storage.get('User', email=email)
         if users == {}:
             return None
         return list(users.values())[0]
 
     def get_user_by_token(self, token):
         """A method that gets the user by the given token."""
-        users = storage.get('RegularUser', token=token)
+        users = storage.get('User', token=token)
         if users == {}:
             return None
         return users

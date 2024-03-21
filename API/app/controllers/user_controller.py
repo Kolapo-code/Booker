@@ -1,4 +1,4 @@
-from app.models.regular_user import RegularUser
+from app.models.user import User
 from datetime import datetime
 from flask import abort, request
 from uuid import uuid4
@@ -41,7 +41,7 @@ def post_user(data):
         )
     token = str(uuid4())
     user_data["token"] = token
-    user = RegularUser(**user_data)
+    user = User(**user_data)
     user.save()
     verify_email(user.first_name, user.email, f"Booker.com/validation/{token}")
     return user.id

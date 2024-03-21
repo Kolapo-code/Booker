@@ -1,17 +1,26 @@
+from app.models import Base
+from app.utils.countries import ALL_COUNTRIES
+from sqlalchemy import Column, String, Date, Boolean, Enum
+from sqlalchemy.orm import relationship
 from app.models.base_model import BaseModel
-from app.utils.helper import hash_to_sha256
 from sqlalchemy import Column, String
+from app.utils.helper import hash_to_sha256
 import base64
 
-
-class User(BaseModel):
-    """The User model"""
-
+class User(BaseModel, Base):
+    __tablename__ = "users"
     first_name = Column(String(60))
     last_name = Column(String(60))
     email = Column(String(128))
     __password = Column(String(128))
     picture = Column(String(256), nullable=True)
+    birth_date = Column(Date, nullable=False)
+    location = Column(Enum(*ALL_COUNTRIES), nullable=True)
+    ban = Column(Boolean, default=False)
+    token = Column(String(60), nullable=True)
+    valid = Column(Boolean, default=False)
+    premium_account = relationship("PremiumAccount", backref="user")
+    sessions = relationship("Session", backref="user")
 
     def __init__(self, **kwargs) -> None:
         filtered = dict(filter(lambda x: x[0] != "password", kwargs.items()))
