@@ -3,7 +3,7 @@ This file stores configuration variables
 for the Flask application.
 """
 from app.models.regular_user import RegularUser
-from app.models.premium_user import PremiumUser
+from app.models.premium_account import PremiumAccount
 from app.models.session import Session
 
 class DBConfig:
@@ -19,8 +19,8 @@ class DBConfig:
 
 classes = {
     "RegularUser": RegularUser,
-    "PremiumUser": PremiumUser,
+    "PremiumAccount": PremiumAccount,
     "Session": Session
 }
 
-EXPIRY = 3600 * 24
+EXPIRY = 15

@@ -1,14 +1,14 @@
 from app.models import Base
-from app.models.user import User
+from app.models.user import BaseModel
 from app.utils.countries import ALL_COUNTRIES
-from sqlalchemy import Column, String, Date, Boolean, Enum
+from sqlalchemy import Column, String, Date, Boolean, Enum, ForeignKey
 from sqlalchemy.orm import relationship
 from uuid import uuid4
 
 
-class PremiumUser(User, Base):
-    __tablename__ = "premium_users"
-    birth_date = Column(Date, nullable=True)
+class PremiumAccount(BaseModel, Base):
+    __tablename__ = "premium_account"
+    user_id = Column(String(60), ForeignKey('regular_users.id'), nullable=False)
     field = Column(String(100), nullable=False)   # General field of activity.
     location = Column(Enum(*ALL_COUNTRIES, name="countries"), nullable=True)
     biography = Column(String(300), nullable=False)
@@ -20,6 +20,3 @@ class PremiumUser(User, Base):
         nullable=False,
     )
     auto_renewal = Column(Boolean, default=False)
-    ban = Column(Boolean, default=False)
-    token = Column(String(60), nullable=True)
-    valid = Column(Boolean, default=False)

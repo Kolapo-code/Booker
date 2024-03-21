@@ -1,6 +1,6 @@
 from app.models.regular_user import RegularUser
 from datetime import datetime
-from flask import abort
+from flask import abort, request
 from uuid import uuid4
 from app import auth
 import base64
@@ -54,6 +54,9 @@ def put_validation(users):
     user.save()
 
 def verify_login(data):
+    session_id = auth.get_session_id(request)
+    if session_id is not None and auth.check_session(session_id):
+        abort(403, "user already logged in")
     if 'email' not in data or 'password' not in data:
         abort(400)
     email = data['email']
