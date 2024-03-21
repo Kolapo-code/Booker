@@ -8,7 +8,7 @@ from uuid import uuid4
 
 class PremiumAccount(BaseModel, Base):
     __tablename__ = "premium_account"
-    user_id = Column(String(60), ForeignKey('regular_users.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     field = Column(String(100), nullable=False)   # General field of activity.
     location = Column(Enum(*ALL_COUNTRIES, name="countries"), nullable=True)
     biography = Column(String(300), nullable=False)

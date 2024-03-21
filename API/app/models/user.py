@@ -1,28 +1,28 @@
-from app.models.base_model import BaseModel
 from app.models import Base
-from app.utils.helper import hash_to_sha256
 from app.utils.countries import ALL_COUNTRIES
 from sqlalchemy import Column, String, Date, Boolean, Enum
 from sqlalchemy.orm import relationship
+from app.models.base_model import BaseModel
+from sqlalchemy import Column, String
+from app.utils.helper import hash_to_sha256
 import base64
 
 
 class User(BaseModel, Base):
     """The User model"""
     __tablename__ = 'users'
-    birth_date = Column(Date, nullable=False)
-    location = Column(Enum(*ALL_COUNTRIES), nullable=True)
-    # account_status = Column(String(100)) WHY DID WE ADD THIS!!!!
-    ban = Column(Boolean, default=False)
-    token = Column(String(60) , nullable=True)
-    valid = Column(Boolean, default=False)
-    premium_account = relationship('PremiumAccount', backref='user')
-    sessions = relationship('Session', backref='user', cascade='all, delete-orphan')
     first_name = Column(String(60))
     last_name = Column(String(60))
     email = Column(String(128))
     __password = Column(String(128))
     picture = Column(String(256), nullable=True)
+    birth_date = Column(Date, nullable=False)
+    location = Column(Enum(*ALL_COUNTRIES), nullable=True)
+    ban = Column(Boolean, default=False)
+    token = Column(String(60), nullable=True)
+    valid = Column(Boolean, default=False)
+    premium_account = relationship("PremiumAccount", backref="user", cascade='all, delete-orphan')
+    sessions = relationship('Session', backref='user', cascade='all, delete-orphan')
 
     def __init__(self, **kwargs) -> None:
         filtered = dict(filter(lambda x: x[0] != "password", kwargs.items()))

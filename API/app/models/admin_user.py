@@ -7,7 +7,7 @@ class AdminAccount(BaseModel, Base):
     """The AdminUser model"""
 
     __tablename__ = "admin_account"
-    user_id = Column(String(60), ForeignKey('regular_users.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
 
 
     # def list_appointments():

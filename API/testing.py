@@ -1,6 +1,6 @@
 from app import storage
 import base64
-from app.models.regular_user import User, RegularUser
+from Booker.API.app.models.user import User, RegularUser
 from app.models.premium_user import PremiumUser
 from datetime import datetime
 
