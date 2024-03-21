@@ -21,5 +21,5 @@ def validation(token):
     users = auth.get_user_by_token(token)
     if users is None:
         abort(403, description="No user was found.")
-    put_validation(token, users)
+    put_validation(users)
     return jsonify({"status": "OK"}), 200
