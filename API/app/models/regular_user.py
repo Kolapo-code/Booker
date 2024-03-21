@@ -13,3 +13,5 @@ class RegularUser(User, Base):
     ban = Column(Boolean, default=False)
     token = Column(String(60) , nullable=True)
     valid = Column(Boolean, default=False)
+    premium_account = relationship('PremiumAccount', backref='user')
+    sessions = relationship('Session', backref='user')

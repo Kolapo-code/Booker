@@ -39,21 +39,13 @@ class Auth:
         if not session.check_expiry():
             self.delete_session(session)
             return None
-        user = storage.get('RegularUser', id=session.user_id)
-        if user == {}:
-            user = storage.get('PremiumUser', id=session.user_id)
-            if user == {}:
-                return None
-        user = list(user.values())[0]
-        return user
+        return session.user
 
     def create_session(self, user_id):
         """return session id"""
         users = storage.get('RegularUser', id=user_id)
         if users == {}:
-            users = storage.get('PremiumUser', id=user_id)
-            if users == {}:
-                return None
+            return None
         user = list(users.values())[0]
         session = Session(expiry_time=EXPIRY, user_id=user.id)
         session.save()
@@ -70,16 +62,12 @@ class Auth:
         """A method that checks if an email already registered in the database."""
         users = storage.get('RegularUser', email=email)
         if users == {}:
-            users = storage.get('PremiumUser', email=email)
-            if users == {}:
-                return None
+            return None
         return list(users.values())[0]
 
     def get_user_by_token(self, token):
         """A method that gets the user by the given token."""
         users = storage.get('RegularUser', token=token)
         if users == {}:
-            users = storage.get('PremiumUser', token=token)
-            if users == {}:
-                return None
+            return None
         return users
