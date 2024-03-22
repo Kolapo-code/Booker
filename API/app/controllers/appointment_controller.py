@@ -33,7 +33,7 @@ def get_appointment(appointment_id):
     return appointment_instance.to_dict()
 
 
-def put_appointment(appointment_id):
+def put_appointment(appointment_id, data):
     """A function that updates the appointment with the given id."""
     user_by_session = auth.get_user_by_session_id(request)
     if not user_by_session:
@@ -51,7 +51,6 @@ def put_appointment(appointment_id):
     administration = False
     if admin != {}:
         administration = True
-    data = request.get_json()
     if not data:
         abort(403, "No update data was given.")
     keys = [
@@ -78,8 +77,9 @@ def put_appointment(appointment_id):
             and not administration
         ):
             abort(404, f"Not allowed to modify {key}.")
-        if key == "status" and val not in ["Pending", "Verified", "Blocked"]:
+        if key == "status" and val not in ["Pending", "Verified", "Canceled"]:
             abort(404, f"Incorrect value for {key}.")
+        # remember to check if the key is setted to the given value already
         # remember to take the workspace into considerations when the model is added.
         setattr(appointment_instance, key, val)
     appointment_instance.save()

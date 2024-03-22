@@ -1,4 +1,5 @@
 from app.views import app_views
+from flask import request
 from app.controllers.appointment_controller import (
     get_appointments,
     get_appointment,
@@ -29,5 +30,13 @@ def appointment(id):
 @app_views.route("/appointments/<id>", methods=["PUT"])
 def update_appointment(id):
     """A route that can be used to update an appointment."""
-    appointment = put_appointment(id)
+    data = request.get_json()
+    appointment = put_appointment(id, data)
+    return jsonify({"Appointment updated successfully": appointment}), 200
+
+@app_views.route("/appointments/<id>/cancel", methods=["PUT"])
+def cancel_appointment(id):
+    """A route that can be used to cancel an appointment."""
+    data = {"status": "Canceled"}
+    appointment = put_appointment(id, data)
     return jsonify({"Appointment updated successfully": appointment}), 200
