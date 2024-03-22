@@ -29,6 +29,7 @@ class User(BaseModel, Base):
         "PremiumAccount", backref="user", cascade="all, delete-orphan"
     )
     sessions = relationship("Session", backref="user", cascade="all, delete-orphan")
+    appointment = relationship("Appointment", backref="user", cascade="all, delete-orphan")
 
     def __init__(self, **kwargs) -> None:
         """A method that intializes attributes."""
