@@ -37,7 +37,7 @@ def verify_email(user_name, user_email, verification_link):
     from email.mime.text import MIMEText
     import os
 
-    path = os.getenv('PWD')
+    path = os.getenv("PWD")
     sender_email = "bookerapiteam@gmail.com"
     recipient_email = user_email
     recipient_name = user_name
@@ -70,4 +70,3 @@ def verify_email(user_name, user_email, verification_link):
         server.starttls()
         server.login("bookerapiteam@gmail.com", "wuzg nnvd eztu ygck")
         server.sendmail(sender_email, recipient_email, message.as_string())
-    print("Email sent successfully!")
