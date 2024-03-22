@@ -32,4 +32,4 @@ def reset_password():
         abort(403)
     email = request.get_json().get('email')
     create_temp_password(email)
-    return jsonify({"status": "OK", "message": "check your email for the temporary password"}), 200
+    return jsonify({"status": "OK", "message": "check your email for the temporary password"}), 201
