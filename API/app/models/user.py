@@ -2,7 +2,7 @@ from app.models import Base
 from app.utils.countries import ALL_COUNTRIES
 from sqlalchemy import Column, String, Date, Boolean, Enum
 from sqlalchemy.orm import relationship
-from app.models.base_model import BaseModel, storage
+from app.models.base_model import BaseModel
 from sqlalchemy import Column, String
 from app.utils.helper import hash_to_sha256
 import base64

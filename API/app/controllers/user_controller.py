@@ -100,6 +100,8 @@ def get_profile(request):
     data = dict(filter(lambda x: x[0] != "token", session.user.to_dict().items()))
     if session.user.admin_account != []:
         data["admin"] = True
+    if session.user.appointment != []:
+        data["appointments"] = list(map(lambda x: x.to_dict() , session.user.appointment))
     return data
 
 
@@ -155,13 +157,13 @@ def delete_user():
 def create_temp_password(email):
     if email is None:
         abort(400)
-    if auth.check_email(email) is None:
+    user = auth.check_email(email)
+    if user is None:
         abort(
             403,
             description="The provided email doesn't exists",
         )
-    user = storage.session.query(TemporaryPassword).filter_by(email=email).first()
     password = generate_password()
-    TemporaryPassword(user_id=user.id, password=password)
-    storage.save()
+    tmp = TemporaryPassword(user_id=user.id, password=base64.b64encode(password.encode("utf-8")))
+    tmp.save()
     send_password(user.first_name, user.email, password)

@@ -27,7 +27,7 @@ def validation(token):
     return jsonify({"status": "OK"}), 200
 
 
-@app_views.route("/reset-password", methods=["POST"])
+@app_views.route("/reset_password", methods=["POST"])
 def reset_password():
     sesson_id = auth.get_session_id(request)
     if sesson_id is not None and auth.check_session(sesson_id):

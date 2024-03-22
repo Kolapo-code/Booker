@@ -2,15 +2,15 @@ from app.models import Base
 from app.models.base_model import BaseModel
 from app.utils.countries import ALL_COUNTRIES
 from sqlalchemy import Column, String, Integer, ForeignKey, Enum
-from uuid import uuid4
 import base64
 from datetime import datetime, timedelta
 from app.utils.helper import hash_to_sha256
 
 class TemporaryPassword(BaseModel, Base):
+    """The temporary model"""
     __tablename__ = 'temporary_passwords'
-    __password = Column(String(128))
     expiry_time = Column(Integer, default=600)
+    __password = Column(String(128))
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
 
     def __init__(self, **kwargs) -> None:

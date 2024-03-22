@@ -8,6 +8,7 @@ from app.models.user import User
 from app.models.premium_account import PremiumAccount
 from app.models.appointment import Appointment
 from app.models.session import Session
+from app.models.temporary_password import TemporaryPassword
 
 
 class DBConfig:
@@ -28,6 +29,7 @@ classes = {
     "PremiumAccount": PremiumAccount,
     "Appointment": Appointment,
     "Session": Session,
+    "TemporaryPassword": TemporaryPassword
 }
 
 EXPIRY = 3600 * 24
