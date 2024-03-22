@@ -22,6 +22,7 @@ class User(BaseModel, Base):
     ban = Column(Boolean, default=False)
     token = Column(String(60), nullable=True)
     valid = Column(Boolean, default=False)
+
     admin_account = relationship(
         "AdminAccount", backref="user", cascade="all, delete-orphan"
     )
@@ -30,6 +31,7 @@ class User(BaseModel, Base):
     )
     sessions = relationship("Session", backref="user", cascade="all, delete-orphan")
     appointment = relationship("Appointment", backref="user", cascade="all, delete-orphan")
+    temporaries = relationship('TemporaryPassword', backref='user', cascade='all, delete-orphan')
 
     def __init__(self, **kwargs) -> None:
         """A method that intializes attributes."""
@@ -60,4 +62,14 @@ class User(BaseModel, Base):
             return False
         decoded_password = base64.b64decode(password)
         hashed_password = hash_to_sha256(decoded_password.decode("utf-8"))
+        if self.temporaries != []:
+            from app import storage
+            temp_password = self.temporaries[0].password
+            if temp_password is None:
+                storage.delete(self.temporaries[0])
+                storage.save()
+            elif temp_password == hashed_password:
+                storage.delete(self.temporaries[0])
+                storage.save()
+                return True
         return True if self.__password == hashed_password else False

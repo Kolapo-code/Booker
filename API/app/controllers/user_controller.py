@@ -1,4 +1,5 @@
 from app.models.user import User
+from app.models.temporary_password import TemporaryPassword
 from datetime import datetime
 from flask import abort, request
 from uuid import uuid4
@@ -6,6 +7,8 @@ from app import auth, storage
 import re
 import base64
 from app.utils.helper import verify_email
+from app.utils.helper_ import send_password, generate_password
+
 
 
 def post_user(data):
@@ -97,6 +100,8 @@ def get_profile(request):
     data = dict(filter(lambda x: x[0] != "token", session.user.to_dict().items()))
     if session.user.admin_account != []:
         data["admin"] = True
+    if session.user.appointment != []:
+        data["appointments"] = list(map(lambda x: x.to_dict() , session.user.appointment))
     return data
 
 
@@ -148,3 +153,17 @@ def delete_user():
     session = auth.get_session(session_id)
     storage.delete(session.user)
     storage.save()
+
+def create_temp_password(email):
+    if email is None:
+        abort(400)
+    user = auth.check_email(email)
+    if user is None:
+        abort(
+            403,
+            description="The provided email doesn't exists",
+        )
+    password = generate_password()
+    tmp = TemporaryPassword(user_id=user.id, password=base64.b64encode(password.encode("utf-8")))
+    tmp.save()
+    send_password(user.first_name, user.email, password)
