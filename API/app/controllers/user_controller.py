@@ -1,4 +1,5 @@
 from app.models.user import User
+from app.models.temporary_password import TemporaryPassword
 from datetime import datetime
 from flask import abort, request
 from uuid import uuid4
@@ -6,6 +7,8 @@ from app import auth, storage
 import re
 import base64
 from app.utils.helper import verify_email
+from app.utils.helper_ import send_password, generate_password
+
 
 
 def post_user(data):
@@ -139,3 +142,17 @@ def delete_user():
     session = auth.get_session(session_id)
     storage.delete(session.user)
     storage.save()
+
+def create_temp_password(email):
+    if email is None:
+        abort(400)
+    if auth.check_email(email) is None:
+        abort(
+            403,
+            description="The provided email doesn't exists",
+        )
+    user = storage.session.query(TemporaryPassword).filter_by(email=email).first()
+    password = generate_password()
+    TemporaryPassword(user_id=user.id, password=password)
+    storage.save()
+    send_password(user.first_name, user.email, password)
