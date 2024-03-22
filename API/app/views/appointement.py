@@ -1,11 +1,15 @@
 from app.views import app_views
-from app.controllers.appointment_controller import get_appointments
+from app.controllers.appointment_controller import (
+    get_appointments,
+    get_appointment,
+    put_appointment,
+)
 from flask import jsonify
 
 
 @app_views.route("/appointments", methods=["GET"])
 def appointments():
-    """A route that the admin can use to get all the appointments."""
+    """A route that can be used to get all the appointments."""
     appointments = get_appointments()
     appointments_list = []
     for key, val in appointments.items():
@@ -13,3 +17,17 @@ def appointments():
         appointment[key] = val.to_dict()
         appointments_list.append(appointment)
     return jsonify({"Appointments": appointments_list}), 200
+
+
+@app_views.route("/appointments/<id>", methods=["GET"])
+def appointment(id):
+    """A route that can be used to get the appintment by id."""
+    appointment = get_appointment(id)
+    return jsonify({"Appointment": appointment}), 200
+
+
+@app_views.route("/appointments/<id>", methods=["PUT"])
+def update_appointment(id):
+    """A route that can be used to update an appointment."""
+    appointment = put_appointment(id)
+    return jsonify({"Appointment updated successfully": appointment}), 200
