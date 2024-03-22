@@ -1,13 +1,16 @@
+from app.models import Base
 from app.models.base_model import BaseModel
-from sqlalchemy import Column, String, Date, Integer, Boolean, Enum, ForeignKey
+from datetime import datetime
+from sqlalchemy import Column, String, DATETIME, Integer, Boolean, Enum, ForeignKey
 
 
-class Appointment(BaseModel):
+class Appointment(BaseModel, Base):
     """The Appointement model"""
 
-    date = Column(Date)
+    __tablename__ = "appointments"
+    date = Column(DATETIME, default=datetime.now)
     range = Column(Integer)
-    status = Column(Enum('Pending', 'Verified', 'Blocked'))
-    attended = Column(Boolean)
-    verify = Column(Boolean)
-    user_id = Column(String(60), ForeignKey('regular_users.id'), nullable=False)
+    status = Column(Enum("Pending", "Verified", "Blocked"), default="Pending")
+    attended = Column(Boolean, default=False)
+    verify = Column(Boolean, default=False)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)

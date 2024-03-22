@@ -1,6 +1,4 @@
-import base64
-from app.engine.storage import DBStorage
-from app.config import classes, EXPIRY
+from app.config import EXPIRY
 from app import storage
 from app.models.session import Session
 
@@ -10,10 +8,10 @@ class Auth:
 
     def get_session_id(self, request):
         """get session id from cookies"""
-        return request.cookies.get('session_id')
+        return request.cookies.get("session_id")
 
     def check_session(self, session_id):
-        """check """
+        """A method that checks the existance of a session"""
         session = self.get_session(session_id)
         if session is None:
             return False
@@ -23,16 +21,18 @@ class Auth:
         return True
 
     def get_session(self, session_id):
-        if  session_id is None or session_id == '':
+        """A method that gets a session from db."""
+        if session_id is None or session_id == "":
             return None
-        sessions = storage.get('Session', id=session_id)
+        sessions = storage.get("Session", id=session_id)
         if sessions == {}:
             return None
         session = list(sessions.values())[0]
         return session
 
     def get_user_by_session_id(self, request):
-        session_id = self.get_session_id(self, request)
+        """A method that gets a user by the session id."""
+        session_id = self.get_session_id(request)
         session = self.get_session(session_id)
         if session is None:
             return None
@@ -42,8 +42,8 @@ class Auth:
         return session.user
 
     def create_session(self, user_id):
-        """return session id"""
-        users = storage.get('User', id=user_id)
+        """A method that creates a new session using the user_id."""
+        users = storage.get("User", id=user_id)
         if users == {}:
             return None
         user = list(users.values())[0]
@@ -52,7 +52,7 @@ class Auth:
         return session.id
 
     def delete_session(self, session):
-        """delete session in database"""
+        """A method that deletes a session from db."""
         if session is None:
             return None
         storage.delete(session)
@@ -60,14 +60,14 @@ class Auth:
 
     def check_email(self, email):
         """A method that checks if an email already registered in the database."""
-        users = storage.get('User', email=email)
+        users = storage.get("User", email=email)
         if users == {}:
             return None
         return list(users.values())[0]
 
     def get_user_by_token(self, token):
         """A method that gets the user by the given token."""
-        users = storage.get('User', token=token)
+        users = storage.get("User", token=token)
         if users == {}:
             return None
         return users

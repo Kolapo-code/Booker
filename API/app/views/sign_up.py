@@ -6,6 +6,7 @@ from app.controllers.user_controller import post_user, put_validation
 
 @app_views.route("/sign_up", methods=["POST"])
 def sign_up():
+    """A route that handles the signup."""
     sesson_id = auth.get_session_id(request)
     if sesson_id is not None and auth.check_session(sesson_id):
         abort(403)
@@ -16,6 +17,7 @@ def sign_up():
 
 @app_views.route("/validation/<token>", methods=["PUT"])
 def validation(token):
+    """A route that handles the validation of the token."""
     if token == "":
         abort(400, description="Empty token.")
     users = auth.get_user_by_token(token)

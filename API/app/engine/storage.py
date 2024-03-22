@@ -6,7 +6,8 @@ from app.utils.helper import set_dict
 
 
 class DBStorage:
-    """The main storage configuration."""
+    """The storage configuration class."""
+
     __engine = None
     __session = None
 
@@ -42,6 +43,7 @@ class DBStorage:
         self.__session.close()
 
     def drop(self):
+        """A method that drops the data of the database."""
         Base.metadata.drop_all(self.__engine)
 
     def get(self, cls=None, **kwargs):

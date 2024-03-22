@@ -10,7 +10,8 @@ import base64
 
 class User(BaseModel, Base):
     """The User model"""
-    __tablename__ = 'users'
+
+    __tablename__ = "users"
     first_name = Column(String(60))
     last_name = Column(String(60))
     email = Column(String(128))
@@ -21,21 +22,28 @@ class User(BaseModel, Base):
     ban = Column(Boolean, default=False)
     token = Column(String(60), nullable=True)
     valid = Column(Boolean, default=False)
-    admin_account = relationship("AdminAccount", backref="user", cascade='all, delete-orphan')
-    premium_account = relationship("PremiumAccount", backref="user", cascade='all, delete-orphan')
-    sessions = relationship('Session', backref='user', cascade='all, delete-orphan')
+    admin_account = relationship(
+        "AdminAccount", backref="user", cascade="all, delete-orphan"
+    )
+    premium_account = relationship(
+        "PremiumAccount", backref="user", cascade="all, delete-orphan"
+    )
+    sessions = relationship("Session", backref="user", cascade="all, delete-orphan")
 
     def __init__(self, **kwargs) -> None:
+        """A method that intializes attributes."""
         filtered = dict(filter(lambda x: x[0] != "password", kwargs.items()))
         super().__init__(**filtered)
         self.password = kwargs["password"]
 
     @property
     def password(self):
+        """A method that gets the password."""
         return "You can not get the password it is indeed private"
 
     @password.setter
     def password(self, value):
+        """A method that sets the password."""
         if value is None or type(value) is not bytes:
             return "Unable to set password"
         decoded_password = base64.b64decode(value)

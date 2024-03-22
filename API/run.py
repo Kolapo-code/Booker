@@ -27,7 +27,8 @@ def forbidden(error) -> str:
     """Forbidden handler"""
     if error.description:
         return jsonify({"error": error.description}), 403
-    return jsonify({"error": 'Forbidden'}), 403
+    return jsonify({"error": "Forbidden"}), 403
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
