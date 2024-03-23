@@ -4,7 +4,7 @@ from sqlalchemy import Column, String, DATETIME
 
 
 class BaseModel:
-    """The BaseModel class."""
+    """The BaseModel model."""
 
     id = Column(String(60), primary_key=True)
     created_at = Column(DATETIME, default=datetime.now)

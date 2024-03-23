@@ -30,8 +30,12 @@ class User(BaseModel, Base):
         "PremiumAccount", backref="user", cascade="all, delete-orphan"
     )
     sessions = relationship("Session", backref="user", cascade="all, delete-orphan")
-    appointments = relationship("Appointment", backref="user", cascade="all, delete-orphan")
-    temporaries = relationship('TemporaryPassword', backref='user', cascade='all, delete-orphan')
+    appointments = relationship(
+        "Appointment", backref="user", cascade="all, delete-orphan"
+    )
+    temporaries = relationship(
+        "TemporaryPassword", backref="user", cascade="all, delete-orphan"
+    )
 
     def __init__(self, **kwargs) -> None:
         """A method that intializes attributes."""
@@ -64,6 +68,7 @@ class User(BaseModel, Base):
         hashed_password = hash_to_sha256(decoded_password.decode("utf-8"))
         if self.temporaries != []:
             from app import storage
+
             temp_password = self.temporaries[0].password
             if temp_password is None:
                 storage.delete(self.temporaries[0])

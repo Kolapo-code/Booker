@@ -1,6 +1,8 @@
 from flask import request, abort
 from app import auth
 from app import storage
+from app.models.appointment import Appointment
+from datetime import datetime
 
 
 def get_appointments():
@@ -34,6 +36,36 @@ def get_appointment(appointment_id):
     return appointment_instance.to_dict()
 
 
+def post_appointment(workspace_id, data):
+    """A function that creates an appointment with the workspace id."""
+    user = auth.get_user_by_session_id(request)
+    if not user:
+        abort(403, "No session exists, try to log in.")
+    workspace = storage.get(cls="Workspace", id=workspace_id)
+    if not workspace:
+        abort(404, "Workspace couldn't be found.")
+    if not data:
+        abort(403, "No update appointment data was given.")
+    appointment_data = {
+        "date": "",
+        "range": None,
+    }
+    for key, val in data.items():
+        if key not in appointment_data.keys():
+            abort(404, f"{key} is not recognized as an attribute in the appointment.")
+        if key == "date":
+            try:
+                appointment_data["date"] = datetime.strptime(val, "%Y-%m-%d")
+            except ValueError:
+                abort(404, "Date string is not in the correct format %Y-%m-%d.")
+        appointment_data[key] = val
+    appointment_data["user_id"] = user.id
+    appointment_data["workspace_id"] = workspace_id
+    appointment = Appointment(**appointment_data)
+    appointment.save()
+    return appointment.id
+
+
 def put_appointment(appointment_id, data):
     """A function that updates the appointment with the given id."""
     user = auth.get_user_by_session_id(request)
@@ -44,6 +76,11 @@ def put_appointment(appointment_id, data):
         abort(404, "Appointment couldn't be found.")
     appointment_key = f"Appointment.{appointment_id}"
     appointment_instance = appointment.get(appointment_key)
+    if data == {"status": "Canceled"} and appointment_instance.verify:
+        abort(
+            404,
+            "You can't cancel Appointment, it has been verified by the workspace owner. Contact the owner.",
+        )
     if appointment_instance.user_id != user.id and not user.admin_account:
         abort(403, "Not allowed to update the appointement.")
     administration = False

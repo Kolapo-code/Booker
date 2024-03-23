@@ -8,7 +8,7 @@ from app.utils.helper import hash_to_sha256
 
 
 class TemporaryPassword(BaseModel, Base):
-    """The temporary model"""
+    """The TemporaryPassword model"""
 
     __tablename__ = "temporary_passwords"
     __password = Column(String(128))

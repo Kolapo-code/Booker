@@ -5,8 +5,9 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, DATETIME, Integer, Boolean, Enum, ForeignKey
 
 
-class Reviews(BaseModel, Base):
-    """The Appointement model"""
+class Review(BaseModel, Base):
+    """The Review model"""
+
     __tablename__ = "reviews"
     title = Column(String(60))
     content = Column(String(500))
