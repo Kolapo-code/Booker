@@ -17,7 +17,7 @@ class Workspace(BaseModel, Base):
     location = Column(String(256), nullable=True)
     contact = Column(String(256), nullable=True)
     premium_account_id = Column(
-        String(60), ForeignKey("premium_account.id"), nullable=False
+        String(60), ForeignKey("premium_accounts.id"), nullable=False
     )
     reviews = relationship("Review", backref="workspace", cascade="all, delete-orphan")
     appointments = relationship(

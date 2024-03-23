@@ -8,7 +8,7 @@ from sqlalchemy import Column, String, Date, Boolean, Enum, ForeignKey
 class PremiumAccount(BaseModel, Base):
     """The PremiumAccount model."""
 
-    __tablename__ = "premium_account"
+    __tablename__ = "premium_accounts"
     field = Column(String(100), nullable=False)
     location = Column(String(100), nullable=True)
     biography = Column(String(300), nullable=False)

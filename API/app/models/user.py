@@ -27,7 +27,7 @@ class User(BaseModel, Base):
         "AdminAccount", backref="user", cascade="all, delete-orphan"
     )
     premium_account = relationship(
-        "PremiumAccount", backref="user", cascade="all, delete-orphan"
+        "PremiumAccounts", backref="user", cascade="all, delete-orphan"
     )
     sessions = relationship("Session", backref="user", cascade="all, delete-orphan")
     appointments = relationship(
