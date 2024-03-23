@@ -204,7 +204,6 @@ def upgrade_to_premium():
                 abort(403, f"{key} must be at most 300 characters.")
         premium_account[key] = val
     premium_account["user_id"] = user.id
-    premium_account["subscription_start_date"] = datetime.now()
     if data.get("subscription_plan") == "Montly":
         premium_account["subscription_end_date"] = datetime.now() + timedelta(days=30)
     else:
