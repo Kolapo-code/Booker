@@ -108,7 +108,7 @@ def get_profile(request):
         )
     if session.user.premium_account:
          data["workspaces"] = list(map(lambda x: x.to_dict() ,
-                                       session.user.premium_account.workspaces))
+                                       session.user.premium_account[0].workspaces))
     return data
 
 
@@ -148,6 +148,8 @@ def update_profile():
                 setattr(user, key, base64.b64encode(val.encode("utf-8")))
                 continue
             setattr(user, key, val)
+        else:
+            abort(403, f"{key} is not recognized")
     user.save()
     return dict(filter(lambda x: x[0] != "token", session.user.to_dict().items()))
 

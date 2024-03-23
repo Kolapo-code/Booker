@@ -10,7 +10,7 @@ class Workspace(BaseModel, Base):
 
     __tablename__ = "workspaces"
     title = Column(String(60), nullable=False)
-    feild = Column(String(60), nullable=False)
+    field = Column(String(60), nullable=False)
     description = Column(String(500), nullable=True)
     picture = Column(String(256), nullable=True)
     schedules = Column(String(256), nullable=True)

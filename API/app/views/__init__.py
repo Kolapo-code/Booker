@@ -8,3 +8,4 @@ from app.views.sign_up import *
 from app.views.login import *
 from app.views.profile import *
 from app.views.appointement import *
+from app.views.workspace import *
