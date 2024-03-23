@@ -6,7 +6,7 @@ from sqlalchemy import Column, String, DATETIME
 class BaseModel:
     """The BaseModel class."""
 
-    id = Column(String(60), primary_key=True, default=str(uuid4))
+    id = Column(String(60), primary_key=True)
     created_at = Column(DATETIME, default=datetime.now)
     updated_at = Column(DATETIME, default=datetime.now)
 
@@ -16,7 +16,7 @@ class BaseModel:
             for key, val in kwargs.items():
                 if key not in ["id", "created_at", "updated_at"]:
                     setattr(self, key, val)
-            self.id = str(uuid4())
+        self.id = str(uuid4())
 
     def save(self):
         """A method that saves an instance."""

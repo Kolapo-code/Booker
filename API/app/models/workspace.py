@@ -8,9 +8,9 @@ from sqlalchemy import Column, String, DATETIME, Integer, Boolean, Enum, Foreign
 class Workspace(BaseModel, Base):
     """The Appointement model"""
     __tablename__ = "workspaces"
-    title = Column(String(60))
-    feild = Column(String(60))
-    description = Column(String(500))
+    title = Column(String(60), nullable=False)
+    feild = Column(String(60), nullable=False)
+    description = Column(String(500), nullable=True)
     picture = Column(String(256), nullable=True)
     schedules = Column(String(256), nullable=True)
     location = Column(String(256), nullable=True)
@@ -19,7 +19,6 @@ class Workspace(BaseModel, Base):
     reviews = relationship('Review',
                            backref='workspace',
                            cascade="all, delete-orphan")
-    appointments = relationship('appointments',
+    appointments = relationship('Appointment',
                            backref='workspace',
                            cascade="all, delete-orphan")
-

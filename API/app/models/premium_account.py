@@ -3,7 +3,7 @@ from datetime import datetime
 from app.models.user import BaseModel
 from app.utils.countries import ALL_COUNTRIES
 from sqlalchemy import Column, String, Date, Boolean, Enum, ForeignKey
-
+from sqlalchemy.orm import relationship
 
 class PremiumAccount(BaseModel, Base):
     """The PremiumAccount model."""
@@ -21,3 +21,6 @@ class PremiumAccount(BaseModel, Base):
     )
     auto_renewal = Column(Boolean, default=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+    workspaces = relationship('Workspace',
+                           backref='premium_account',
+                           cascade="all, delete-orphan")
