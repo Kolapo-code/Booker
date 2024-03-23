@@ -108,7 +108,7 @@ def get_profile(request):
         )
     if session.user.premium_account:
          data["workspaces"] = list(map(lambda x: x.to_dict() ,
-                                       session.user.premium_account[0].workspaces))
+                                       session.user.premium_account.workspaces))
     return data
 
 

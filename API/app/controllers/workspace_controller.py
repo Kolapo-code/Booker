@@ -26,7 +26,7 @@ def get_workspace(id):
     workspace = list(workspace_list.values())[0]
     data = workspace.to_dict()
     if user.premium_account and\
-        user.premium_account[0].id == workspace.premium_account_id:
+        user.premium_account.id == workspace.premium_account_id:
         data["appointments"] = list(map(lambda x: x.to_dict(), workspace.appointments))
     return data
 
@@ -42,7 +42,7 @@ def make_workspace():
     user = auth.get_user_by_session_id(request)
     if user is None or not user.premium_account:
         abort(403, "no access please upgrade your account")
-    if user.premium_account[0].workspaces:
+    if user.premium_account.workspaces:
         abort(403, "your are only allowed to create one workspace")
     requirements = {
         "title": (str, 60, 3),
@@ -61,7 +61,7 @@ def make_workspace():
             else x, data.items()))
     if error:
         abort(400, f'some field not set correctly : {", ".join(error)}')
-    data["premium_account_id"] = user.premium_account[0].id
+    data["premium_account_id"] = user.premium_account.id
     workspace = Workspace(**data)
     workspace.save()
     return workspace.id

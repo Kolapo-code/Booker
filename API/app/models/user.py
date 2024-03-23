@@ -24,10 +24,10 @@ class User(BaseModel, Base):
     valid = Column(Boolean, default=False)
 
     admin_account = relationship(
-        "AdminAccount", backref="user", cascade="all, delete-orphan"
+        "AdminAccount", uselist=False, backref="user", cascade="all, delete-orphan"
     )
     premium_account = relationship(
-        "PremiumAccount", backref="user", cascade="all, delete-orphan"
+        "PremiumAccount", uselist=False, backref="user", cascade="all, delete-orphan"
     )
     sessions = relationship("Session", backref="user", cascade="all, delete-orphan")
     appointments = relationship(
