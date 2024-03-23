@@ -5,7 +5,7 @@ from app.controllers.workspace_controller import (
     get_workspaces,
     get_workspace,
     make_workspace
-
+)
 
 
 @app_views.route("/workspaces", methods=["GET"])
