@@ -1,2 +1,3 @@
-#!/usr/bin/bash
-# UNDER CONSTRUCTION
+Python==3.10.12
+Flask==3.0.2
+SQLAlchemy==1.4.*

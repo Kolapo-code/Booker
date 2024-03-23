@@ -97,13 +97,18 @@ def get_profile(request):
     if not session_id or not auth.check_session(session_id):
         abort(403, "no session exists, please log in")
     session = auth.get_session(session_id)
-    data = dict(filter(lambda x: x[0] != "token", session.user.to_dict().items()))
-    if session.user.admin_account != []:
+    data = dict(filter(lambda x: x[0] != "token",
+                       session.user.to_dict().items()))
+    if session.user.admin_account:
         data["admin"] = True
-    if session.user.appointments != []:
+
+    if session.user.appointments:
         data["appointments"] = list(
             map(lambda x: x.to_dict(), session.user.appointments)
         )
+    if session.user.premium_account:
+         data["workspaces"] = list(map(lambda x: x.to_dict() ,
+                                       session.user.premium_account.workspaces))
     return data
 
 
