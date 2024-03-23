@@ -14,7 +14,7 @@ def all_workspaces():
     return jsonify({"data": workspaces_data}), 200
 
 
-@app_views.route("/workspaces/id", methods=["GET"])
+@app_views.route("/workspaces/<id>", methods=["GET"])
 def all_workspaces(id):
     """A route that gets the user's profile information"""
     workspace_data = get_workspace(id)
