@@ -100,8 +100,8 @@ def get_profile(request):
     data = dict(filter(lambda x: x[0] != "token", session.user.to_dict().items()))
     if session.user.admin_account != []:
         data["admin"] = True
-    if session.user.appointment != []:
-        data["appointments"] = list(map(lambda x: x.to_dict() , session.user.appointment))
+    if session.user.appointments != []:
+        data["appointments"] = list(map(lambda x: x.to_dict() , session.user.appointments))
     return data
 
 
