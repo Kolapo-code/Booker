@@ -210,7 +210,6 @@ def upgrade_to_premium():
     else:
         premium_account["subscription_end_date"] = datetime.now() + timedelta(days=365)
     premium_instance = PremiumAccount()
-    premium_account["subscription_status"] = "Pending"
     for key, val in premium_account.items():
         setattr(premium_instance, key, val)
     premium_instance.save()

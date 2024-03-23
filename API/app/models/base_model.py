@@ -1,12 +1,12 @@
-from sqlalchemy import Column, String, DATETIME
-from datetime import datetime
 from uuid import uuid4
+from datetime import datetime
+from sqlalchemy import Column, String, DATETIME
 
 
 class BaseModel:
     """The BaseModel class."""
 
-    id = Column(String(60), primary_key=True)
+    id = Column(String(60), primary_key=True, default=str(uuid4))
     created_at = Column(DATETIME, default=datetime.now)
     updated_at = Column(DATETIME, default=datetime.now)
 

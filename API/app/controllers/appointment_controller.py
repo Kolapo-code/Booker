@@ -8,8 +8,7 @@ def get_appointments():
     user_by_session = auth.get_user_by_session_id(request)
     if not user_by_session:
         abort(403, "No session exists, try to log in.")
-    admin = storage.get(cls="AdminAccount", user_id=user_by_session.id)
-    if admin == {}:
+    if not user_by_session.admin_account:
         appointments = storage.get(cls="Appointment", user_id=user_by_session.id)
         if appointments == []:
             abort(404, "You have not done any appointments.")
@@ -20,16 +19,15 @@ def get_appointments():
 
 def get_appointment(appointment_id):
     """A function that gets the appointment with the given id."""
-    user_by_session = auth.get_user_by_session_id(request)
-    if not user_by_session:
+    user = auth.get_user_by_session_id(request)
+    if not user:
         abort(403, "No session exists, try to log in.")
-    admin = storage.get(cls="AdminAccount", user_id=user_by_session.id)
     appointment = storage.get(cls="Appointment", id=appointment_id)
     if not appointment:
         abort(404, "Appointment couldn't be found.")
     appointment_key = f"Appointment.{appointment_id}"
     appointment_instance = appointment.get(appointment_key)
-    if appointment_instance.user_id != user_by_session.id and admin == {}:
+    if appointment_instance.user_id != user.id and not user.admin_account:
         abort(403, "Not allowed to access the appointement.")
     if not appointment_instance:
         abort(404, "Appointment instance not found in dictionary")
@@ -38,8 +36,8 @@ def get_appointment(appointment_id):
 
 def put_appointment(appointment_id, data):
     """A function that updates the appointment with the given id."""
-    user_by_session = auth.get_user_by_session_id(request)
-    if not user_by_session:
+    user = auth.get_user_by_session_id(request)
+    if not user:
         abort(403, "No session exists, try to log in.")
     appointment = storage.get(cls="Appointment", id=appointment_id)
     if not appointment:
@@ -48,11 +46,10 @@ def put_appointment(appointment_id, data):
     appointment_instance = appointment.get(appointment_key)
     if not appointment_instance:
         abort(404, "Appointment instance not found in dictionary")
-    admin = storage.get(cls="AdminAccount", user_id=user_by_session.id)
-    if appointment_instance.user_id != user_by_session.id and admin == {}:
+    if appointment_instance.user_id != user.id and not user.admin_account:
         abort(403, "Not allowed to update the appointement.")
     administration = False
-    if admin != {}:
+    if user.admin_account:
         administration = True
     if not data:
         abort(403, "No update data was given.")
