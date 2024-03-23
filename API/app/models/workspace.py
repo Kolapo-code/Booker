@@ -6,7 +6,8 @@ from sqlalchemy import Column, String, DATETIME, Integer, Boolean, Enum, Foreign
 
 
 class Workspace(BaseModel, Base):
-    """The Appointement model"""
+    """The Workspace model"""
+
     __tablename__ = "workspaces"
     title = Column(String(60))
     feild = Column(String(60))
@@ -15,11 +16,10 @@ class Workspace(BaseModel, Base):
     schedules = Column(String(256), nullable=True)
     location = Column(String(256), nullable=True)
     contact = Column(String(256), nullable=True)
-    premium_account_id = Column(String(60), ForeignKey("premium_account.id"), nullable=False)
-    reviews = relationship('Review',
-                           backref='workspace',
-                           cascade="all, delete-orphan")
-    appointments = relationship('appointments',
-                           backref='workspace',
-                           cascade="all, delete-orphan")
-
+    premium_account_id = Column(
+        String(60), ForeignKey("premium_account.id"), nullable=False
+    )
+    reviews = relationship("Review", backref="workspace", cascade="all, delete-orphan")
+    appointments = relationship(
+        "Appointment", backref="workspace", cascade="all, delete-orphan"
+    )

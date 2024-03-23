@@ -101,7 +101,9 @@ def get_profile(request):
     if session.user.admin_account != []:
         data["admin"] = True
     if session.user.appointments != []:
-        data["appointments"] = list(map(lambda x: x.to_dict() , session.user.appointments))
+        data["appointments"] = list(
+            map(lambda x: x.to_dict(), session.user.appointments)
+        )
     return data
 
 
@@ -190,8 +192,8 @@ def upgrade_to_premium():
             abort(403, f"{key} no existent in the upgrade form.")
         if key in ["field", "location", "biography"] and val is None:
             abort(403, f"{key} must have a value.")
-        if key == "subscription_plan" and val not in ["Montly", "Yearly"]:
-            abort(403, f"{key} must be eather [Montly] or [Yearly].")
+        if key == "subscription_plan" and val not in ["Monthly", "Yearly"]:
+            abort(403, f"{key} must be eather [Monthly] or [Yearly].")
         if key == "auto_renewal" and not (val == False or val == True):
             abort(403, f"{key} must be eather [True] or [False].")
         # FIND A WAY TO APPLY SOME CRITERIA ON THE LOCATION FIELD.
@@ -202,10 +204,11 @@ def upgrade_to_premium():
                 abort(403, f"{key} must be at most 300 characters.")
         premium_account[key] = val
     premium_account["user_id"] = user.id
-    if data.get("subscription_plan") == "Montly":
+    if data.get("subscription_plan") == "Monthly":
         premium_account["subscription_end_date"] = datetime.now() + timedelta(days=30)
     else:
         premium_account["subscription_end_date"] = datetime.now() + timedelta(days=365)
+    premium_account["subscription_status"] = "Pending"
     premium_instance = PremiumAccount()
     for key, val in premium_account.items():
         setattr(premium_instance, key, val)

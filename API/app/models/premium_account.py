@@ -14,7 +14,7 @@ class PremiumAccount(BaseModel, Base):
     biography = Column(String(300), nullable=False)
     subscription_start_date = Column(Date, default=datetime.now)
     subscription_end_date = Column(Date)
-    subscription_plan = Column(Enum("Montly", "Yearly"))
+    subscription_plan = Column(Enum("Monthly", "Yearly"))
     subscription_status = Column(
         Enum("Pending", "Active", "Suspended", default="Pending"),
         nullable=False,

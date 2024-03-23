@@ -14,4 +14,4 @@ class Appointment(BaseModel, Base):
     attended = Column(Boolean, default=False)
     verify = Column(Boolean, default=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
-    workspace_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+    workspace_id = Column(String(60), ForeignKey("workspaces.id"), nullable=False)
