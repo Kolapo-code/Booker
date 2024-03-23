@@ -9,7 +9,7 @@ def post_admin(user_id):
     user_by_session = auth.get_user_by_session_id(request)
     if not user_by_session:
         abort(403, "No session exists, try to log in.")
-    if user_by_session.admin_account == []:
+    if not user_by_session.admin_account:
         abort(403, "Not allowed to setup a new admin.")
     admin = AdminAccount(user_id=user_id)
     admin.save()

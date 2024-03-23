@@ -9,7 +9,7 @@ def sign_up():
     """A route that handles the signup."""
     sesson_id = auth.get_session_id(request)
     if sesson_id is not None and auth.check_session(sesson_id):
-        abort(403)
+        abort(403, "please log out first")
     data = request.get_json()
     user_id = post_user(data)
     return jsonify({"status": "created", "data": {"user_id": user_id}}), 201
@@ -31,7 +31,7 @@ def validation(token):
 def reset_password():
     sesson_id = auth.get_session_id(request)
     if sesson_id is not None and auth.check_session(sesson_id):
-        abort(403)
+        abort(403, 'forbidden')
     email = request.get_json().get('email')
     create_temp_password(email)
     return jsonify({"status": "OK", "message": "check your email for the temporary password"}), 201
