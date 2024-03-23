@@ -5,6 +5,7 @@ from app.controllers.user_controller import (
     get_profile_by_id,
     update_profile,
     delete_user,
+    upgrade_to_premium,
 )
 
 
@@ -34,3 +35,10 @@ def delete_account():
     """A route that deletes the user's account."""
     delete_user()
     return jsonify({"message": "account has been deleted"}), 200
+
+
+@app_views.route("/account/upgrade", methods=["POST"])
+def upgrade_account():
+    """A route that upgrades the user's account."""
+    upgrade_to_premium()
+    return jsonify({"message": "Account has been upgraded to premium."}), 200

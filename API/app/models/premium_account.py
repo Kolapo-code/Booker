@@ -12,11 +12,11 @@ class PremiumAccount(BaseModel, Base):
     __tablename__ = "premium_account"
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     field = Column(String(100), nullable=False)  # General field of activity.
-    location = Column(Enum(*ALL_COUNTRIES, name="countries"), nullable=True)
+    location = Column(String(100), nullable=True)
     biography = Column(String(300), nullable=False)
     subscription_start_date = Column(Date)
     subscription_end_date = Column(Date)
-    subscription_plan = Column(String(300))
+    subscription_plan = Column(Enum("Montly", "Yearly"))
     subscription_status = Column(
         Enum("Pending", "Active", "Suspended", name="subscription_status"),
         nullable=False,

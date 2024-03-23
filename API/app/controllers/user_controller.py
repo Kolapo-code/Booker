@@ -1,14 +1,14 @@
-from app.models.user import User
 from app.models.temporary_password import TemporaryPassword
-from datetime import datetime
-from flask import abort, request
-from uuid import uuid4
-from app import auth, storage
-import re
-import base64
-from app.utils.helper import verify_email
 from app.utils.helper_ import send_password, generate_password
-
+from app.models.premium_account import PremiumAccount
+from app.utils.helper import verify_email
+from datetime import datetime, timedelta
+from flask import abort, request
+from app.models.user import User
+from app import auth, storage
+from uuid import uuid4
+import base64
+import re
 
 
 def post_user(data):
@@ -101,7 +101,9 @@ def get_profile(request):
     if session.user.admin_account != []:
         data["admin"] = True
     if session.user.appointment != []:
-        data["appointments"] = list(map(lambda x: x.to_dict() , session.user.appointment))
+        data["appointments"] = list(
+            map(lambda x: x.to_dict(), session.user.appointment)
+        )
     return data
 
 
@@ -154,6 +156,7 @@ def delete_user():
     storage.delete(session.user)
     storage.save()
 
+
 def create_temp_password(email):
     if email is None:
         abort(400)
@@ -164,6 +167,50 @@ def create_temp_password(email):
             description="The provided email doesn't exists",
         )
     password = generate_password()
-    tmp = TemporaryPassword(user_id=user.id, password=base64.b64encode(password.encode("utf-8")))
+    tmp = TemporaryPassword(
+        user_id=user.id, password=base64.b64encode(password.encode("utf-8"))
+    )
     tmp.save()
     send_password(user.first_name, user.email, password)
+
+
+def upgrade_to_premium():
+    """A function that upgrades the account to premium."""
+    user = auth.get_user_by_session_id(request)
+    if not user:
+        abort(403, "no session exists, please log in")
+    data = request.get_json()
+    premium_account = {
+        "field": "",
+        "location": "",
+        "biography": "",
+        "subscription_plan": "",
+        "auto_renewal": "",
+    }
+    for key, val in data.items():
+        if key not in premium_account.keys():
+            abort(403, f"{key} no existent in the upgrade form.")
+        if key in ["field", "location", "biography"] and val is None:
+            abort(403, f"{key} must have a value.")
+        if key == "subscription_plan" and val not in ["Montly", "Yearly"]:
+            abort(403, f"{key} must be eather [Montly] or [Yearly].")
+        if key == "auto_renewal" and not (val == False or val == True):
+            abort(403, f"{key} must be eather [True] or [False].")
+        # FIND A WAY TO APPLY SOME CRITERIA ON THE LOCATION FIELD.
+        if key == "biography":
+            if len(val) < 150:
+                abort(403, f"{key} must be at least 150 characters.")
+            if len(val) > 300:
+                abort(403, f"{key} must be at most 300 characters.")
+        premium_account[key] = val
+    premium_account["user_id"] = user.id
+    premium_account["subscription_start_date"] = datetime.now()
+    if data.get("subscription_plan") == "Montly":
+        premium_account["subscription_end_date"] = datetime.now() + timedelta(days=30)
+    else:
+        premium_account["subscription_end_date"] = datetime.now() + timedelta(days=365)
+    premium_instance = PremiumAccount()
+    premium_account["subscription_status"] = "Pending"
+    for key, val in premium_account.items():
+        setattr(premium_instance, key, val)
+    premium_instance.save()
