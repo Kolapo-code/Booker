@@ -26,7 +26,8 @@ def profile(id):
 def manage_profile():
     """A route that updates the user's profile information"""
     user_data = update_profile()
-    return jsonify({"data": user_data}), 200
+    return jsonify({"message": "profile has been updated successfully",
+                    "data": user_data}), 200
 
 
 @app_views.route("/account", methods=["DELETE"])
