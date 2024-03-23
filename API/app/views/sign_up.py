@@ -12,7 +12,7 @@ def sign_up():
         abort(403)
     data = request.get_json()
     user_id = post_user(data)
-    return jsonify({"status": "created", "user_id": user_id}), 201
+    return jsonify({"status": "created", "data": {"user_id": user_id}}), 201
 
 
 @app_views.route("/validation/<token>", methods=["PUT"])
@@ -24,7 +24,7 @@ def validation(token):
     if users is None:
         abort(403, description="No user was found.")
     put_validation(users)
-    return jsonify({"status": "OK"}), 200
+    return jsonify({"status": "OK", "message": "account has been validated"}), 200
 
 
 @app_views.route("/reset_password", methods=["POST"])

@@ -44,8 +44,6 @@ def put_appointment(appointment_id, data):
         abort(404, "Appointment couldn't be found.")
     appointment_key = f"Appointment.{appointment_id}"
     appointment_instance = appointment.get(appointment_key)
-    if not appointment_instance:
-        abort(404, "Appointment instance not found in dictionary")
     if appointment_instance.user_id != user.id and not user.admin_account:
         abort(403, "Not allowed to update the appointement.")
     administration = False

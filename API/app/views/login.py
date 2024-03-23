@@ -8,7 +8,7 @@ def login():
     """A route that handles the login."""
     data = request.get_json()
     session_id = verify_login(data)
-    responce = make_response({"email": data["email"], "message": "logged in"})
+    responce = make_response({"message": "logged in", "data": {"email": data["email"]}})
     responce.set_cookie("session_id", session_id)
     return responce
 
