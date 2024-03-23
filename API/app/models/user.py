@@ -12,10 +12,10 @@ class User(BaseModel, Base):
     """The User model"""
 
     __tablename__ = "users"
+    __password = Column(String(128))
     first_name = Column(String(60))
     last_name = Column(String(60))
     email = Column(String(128))
-    __password = Column(String(128))
     picture = Column(String(256), nullable=True)
     birth_date = Column(Date, nullable=False)
     location = Column(Enum(*ALL_COUNTRIES), nullable=True)

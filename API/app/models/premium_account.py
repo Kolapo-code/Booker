@@ -1,24 +1,23 @@
 from app.models import Base
+from datetime import datetime
 from app.models.user import BaseModel
 from app.utils.countries import ALL_COUNTRIES
 from sqlalchemy import Column, String, Date, Boolean, Enum, ForeignKey
-from sqlalchemy.orm import relationship
-from uuid import uuid4
 
 
 class PremiumAccount(BaseModel, Base):
     """The PremiumAccount model."""
 
     __tablename__ = "premium_account"
-    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
-    field = Column(String(100), nullable=False)  # General field of activity.
-    location = Column(Enum(*ALL_COUNTRIES, name="countries"), nullable=True)
+    field = Column(String(100), nullable=False)
+    location = Column(String(100), nullable=True)
     biography = Column(String(300), nullable=False)
-    subscription_start_date = Column(Date)
+    subscription_start_date = Column(Date, default=datetime.now)
     subscription_end_date = Column(Date)
-    subscription_plan = Column(String(300))
+    subscription_plan = Column(Enum("Montly", "Yearly"))
     subscription_status = Column(
-        Enum("Pending", "Active", "Suspended", name="subscription_status"),
+        Enum("Pending", "Active", "Suspended", default="Pending"),
         nullable=False,
     )
     auto_renewal = Column(Boolean, default=False)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)

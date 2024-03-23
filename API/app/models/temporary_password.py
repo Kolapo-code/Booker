@@ -6,12 +6,14 @@ import base64
 from datetime import datetime, timedelta
 from app.utils.helper import hash_to_sha256
 
+
 class TemporaryPassword(BaseModel, Base):
     """The temporary model"""
-    __tablename__ = 'temporary_passwords'
-    expiry_time = Column(Integer, default=600)
+
+    __tablename__ = "temporary_passwords"
     __password = Column(String(128))
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+    expiry_time = Column(Integer, default=600)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
 
     def __init__(self, **kwargs) -> None:
         filtered = dict(filter(lambda x: x[0] != "password", kwargs.items()))

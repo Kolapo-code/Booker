@@ -8,10 +8,12 @@ def get_appointments():
     user_by_session = auth.get_user_by_session_id(request)
     if not user_by_session:
         abort(403, "No session exists, try to log in.")
-    admin = storage.get(cls="AdminAccount", user_id=user_by_session.id)
-    if admin == {}:
-        abort(403, "Not allowed to access appointements")
-    appointments = storage.get(cls="Appointment")
+    if not user_by_session.admin_account:
+        appointments = storage.get(cls="Appointment", user_id=user_by_session.id)
+        if appointments == []:
+            abort(404, "You have not done any appointments.")
+    else:
+        appointments = storage.get(cls="Appointment")
     return appointments
 
 
