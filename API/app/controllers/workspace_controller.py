@@ -15,11 +15,11 @@ def get_user_workspace_object(id):
     if user is None or not user.premium_account:
         abort(403, "no access please upgrade your account")
     if not user.premium_account.workspaces:
-        abort(403, "your have no workspace")
+        abort(403, "you have no workspace")
     workspaces = list(filter(lambda x: x.id == id, user.premium_account.workspaces))
     if not workspaces:
         abort(403, "no workspace exists with this id")
-    workspace = list(workspaces.values())[0]
+    workspace = workspaces[0]
     return workspace
 
 
@@ -196,6 +196,8 @@ def cancel_workspace_appointment(id, appointment_id):
     workspace appointment by its id.
     """
     appointment = get_appointment_obj(id, appointment_id)
+    if not appointment.to_be_canceled:
+        abort(403, "this appoinment")
     appointment.status = "Canceled"
     appointment.save()
     return appointment.to_dict()

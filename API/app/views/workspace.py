@@ -83,7 +83,7 @@ def attended_appointment(id, appointment_id):
 
 
 @app_views.route("/workspaces/<id>/appointments/<appointment_id>/cancel", methods=["PUT"])
-def cancel_appointment(id, appointment_id):
+def cancel_appointment_by_workspace(id, appointment_id):
     """A route that cancels a workspace appointments by the id."""
     appointment_data = cancel_workspace_appointment(id, appointment_id)
     return jsonify({
