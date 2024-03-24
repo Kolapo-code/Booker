@@ -10,6 +10,6 @@ class Appointment(BaseModel, Base):
     __tablename__ = "appointments"
     date = Column(DATETIME, default=datetime.now)
     range = Column(Integer)
-    status = Column(Enum("Pending", "Verified", "Canceled", "Attended", "Expired"), default="Pending")
+    status = Column(Enum("Pending", "Verified", "Canceled", "Attended"), default="Pending")
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     workspace_id = Column(String(60), ForeignKey("workspaces.id"), nullable=False)
