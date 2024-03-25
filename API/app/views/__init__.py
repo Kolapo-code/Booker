@@ -9,3 +9,4 @@ from app.views.login import *
 from app.views.profile import *
 from app.views.appointement import *
 from app.views.workspace import *
+from app.views.review import *
