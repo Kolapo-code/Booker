@@ -10,6 +10,6 @@ class Review(BaseModel, Base):
 
     __tablename__ = "reviews"
     title = Column(String(60))
-    content = Column(String(500))
+    content = Column(String(1500))
     reviewer_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     workspace_id = Column(String(60), ForeignKey("workspaces.id"), nullable=False)

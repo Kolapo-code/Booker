@@ -53,6 +53,7 @@ def get_workspace(id):
     workspace = list(workspaces.values())[0]
     data = dict(filter(lambda x: x[0] != 'premium_account_id', workspace.to_dict().items()))
     data["user_id"] = workspace.premium_account.user_id
+    data["reviews"] = list(map(lambda x: x.to_dict(), workspace.reviews))
     if user.premium_account and\
         user.premium_account.id == workspace.premium_account_id:
         data["appointments"] = list(map(lambda x: x.to_dict(), workspace.appointments))
