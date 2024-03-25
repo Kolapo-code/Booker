@@ -41,6 +41,7 @@ def update_review(id):
     review = list(filter(lambda x: x.id == id, user.reviews))
     if not review:
         abort(404, "Review couldn't be found.")
+    review = review[0]
     requirements = {
         "title": (str, 60, 3),
         "content": (str, 1500, 10),
@@ -67,7 +68,7 @@ def delete_review(id):
     review = list(filter(lambda x: x.id == id, user.reviews))
     if not review:
         abort(404, "Review couldn't be found.")
-    storage.delete(review)
+    storage.delete(review[0])
     storage.save()
 
 
@@ -82,8 +83,8 @@ def like_review(id):
         abort(404, "Review couldn't be found.")
     review = list(review.values())[0]
     if user not in review.liked_users:
-        if user in review.desliked_users:
-            review.desliked_users.remove(user)
+        if user in review.disliked_users:
+            review.disliked_users.remove(user)
         review.liked_users.append(user)
         review.save()
     return len(review.liked_users)
