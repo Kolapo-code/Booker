@@ -9,6 +9,9 @@ from app.controllers.administration_controller import (
     delete_user,
     get_appointments,
     get_appointment,
+    get_reclaims,
+    get_reclaim,
+    resolve_reclaim,
 )
 
 """ User Administration """
@@ -85,3 +88,35 @@ def admin_appointment(id):
     """A route that the admin can use to get the appintment by id."""
     appointment = get_appointment(id)
     return jsonify({"data": appointment}), 200
+
+
+""" Reclaims Administration """
+
+
+@app_views.route("/admin/reclaim", methods=["GET"])
+def admin_reclaims():
+    """A route that the admin can use to get all the reclaims."""
+    reclaims = get_reclaims()
+    return jsonify({"data": reclaims}), 200
+
+
+@app_views.route("/admin/reclaim/<id>", methods=["GET"])
+def admin_reclaim(id):
+    """A route that the admin can use to get a reclaim by the id."""
+    reclaim = get_reclaim(id)
+    return jsonify({"data": reclaim}), 200
+
+
+@app_views.route("/admin/reclaim/<id>/resolved", methods=["PUT"])
+def admin_resolve_reclaim(reclaim_id):
+    """A route that the admin can use to mark a reclaim as resolved."""
+    reclaim = resolve_reclaim(reclaim_id)
+    return (
+        jsonify(
+            {
+                "message": f"The reclaim with the id={reclaim_id} is resolved",
+                "data": reclaim,
+            }
+        ),
+        200,
+    )
