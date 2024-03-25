@@ -12,10 +12,10 @@ def get_users():
     if not user:
         abort(403, "No session exists, try to log in.")
     if not user.admin_account:
-        abort(403, "Not allowed to have access.")
+        abort(401, "Not allowed to have access.")
     users = storage.get(cls="User")
     if not users:
-        abort(403, "No users found.")
+        abort(404, "No users found.")
     return users
 
 
@@ -25,10 +25,10 @@ def ban_unban_user(user_id, order):
     if not user:
         abort(403, "No session exists, try to log in.")
     if not user.admin_account:
-        abort(403, "Not allowed to have access.")
+        abort(401, "Not allowed to have access.")
     user = storage.get(cls="User", id=user_id)
     if not user:
-        abort(403, "No user found.")
+        abort(404, "No user found.")
     user = list(user.values())[0]
     if order:
         user.ban = True
@@ -44,7 +44,7 @@ def post_admin(user_id):
     if not user:
         abort(403, "No session exists, try to log in.")
     if not user.admin_account:
-        abort(403, "Not allowed to have access.")
+        abort(401, "Not allowed to have access.")
     admin = AdminAccount(user_id=user_id)
     admin.save()
     if not admin:
@@ -58,7 +58,7 @@ def get_admins():
     if not user:
         abort(403, "No session exists, try to log in.")
     if not user.admin_account:
-        abort(403, "Not allowed to have access.")
+        abort(401, "Not allowed to have access.")
     users = storage.get(cls="User")
     data = list(
         map(
@@ -82,7 +82,7 @@ def get_premiums():
     if not user:
         abort(403, "No session exists, try to log in.")
     if not user.admin_account:
-        abort(403, "Not allowed to have access.")
+        abort(401, "Not allowed to have access.")
     users = storage.get(cls="User")
     data = list(
         map(
@@ -108,7 +108,7 @@ def delete_user(user_id):
     if not user:
         abort(403, "No session exists, try to log in.")
     if not user.admin_account:
-        abort(403, "Not allowed to have access.")
+        abort(401, "Not allowed to have access.")
     user = storage.get(cls="User", id=user_id)
     storage.delete(user)
     storage.save()
@@ -123,7 +123,7 @@ def get_appointments():
     if not user:
         abort(403, "No session exists, try to log in.")
     if not user.admin_account:
-        abort(403, "Not allowed to have access.")
+        abort(401, "Not allowed to have access.")
     appointments = storage.get(cls="Appointment")
     data = list(map(lambda appointment: appointment.to_dict(), appointments.values()))
     return data
@@ -135,7 +135,7 @@ def get_appointment(id):
     if not user:
         abort(403, "No session exists, try to log in.")
     if not user.admin_account:
-        abort(403, "Not allowed to have access.")
+        abort(401, "Not allowed to have access.")
     appointment = storage.get(cls="Appointment", id=id)
     data = list(appointment.values())[0].to_dict()
     return data

@@ -1,5 +1,5 @@
 from app.models.temporary_password import TemporaryPassword
-from app.utils.helper_ import send_password, generate_password
+from app.utils.helper import send_password, generate_password
 from app.models.premium_account import PremiumAccount
 from app.utils.helper import verify_email
 from datetime import datetime, timedelta
@@ -66,7 +66,7 @@ def verify_login(data):
     if session_id is not None and auth.check_session(session_id):
         abort(403, "user already logged in")
     if "email" not in data or "password" not in data:
-        abort(400)
+        abort(400, "Not enough data was given, missing email or password.")
     email = data["email"]
     password = data["password"]
     user = auth.check_email(email)
@@ -119,8 +119,8 @@ def get_profile_by_id(id):
         abort(403, "no session exists, please log in")
     user = storage.session.query(User).filter_by(id=id).first()
     if user:
-        return dict(filter(lambda x: x[0] != "token", user.to_dict().items()))
-    abort(403, "no user exists with this id")
+        return dict(filter(lambda x: x[0] not in ["token", "email", "birth_date"], user.to_dict().items()))
+    abort(404, "no user exists with this id")
 
 
 def update_profile():
@@ -131,13 +131,14 @@ def update_profile():
     data = request.get_json()
     session = auth.get_session(session_id)
     user = session.user
-    allowed = ["birth_date", "email", "first_name", "last_name", "location", "picture"]
+    allowed = ["birth_date", "email", "first_name", "last_name", "location", "picture", "password"]
     for key, val in data.items():
         if key in allowed:
             if key == "birth_date":
-                if not isinstance(val, list) or len(val) != 3:
-                    abort(403, "Birthdate should be in this format [Y, M, D]")
-                setattr(user, key, datetime(*val))
+                try:
+                    setattr(user, key, datetime.strptime(val, "%Y-%m-%d"))
+                except ValueError:
+                    abort(400, "Date string is not in the correct format %Y-%m-%d.")
                 continue
             if key == "email":
                 if not isinstance(val, str) or not re.search(
@@ -149,7 +150,7 @@ def update_profile():
                 continue
             setattr(user, key, val)
         else:
-            abort(403, f"{key} is not recognized")
+            abort(400, f"{key} is not recognized")
     user.save()
     return dict(filter(lambda x: x[0] != "token", session.user.to_dict().items()))
 
@@ -196,19 +197,19 @@ def upgrade_to_premium():
     }
     for key, val in data.items():
         if key not in premium_account.keys():
-            abort(403, f"{key} no existent in the upgrade form.")
+            abort(400, f"{key} is not recognized.")
         if key in ["field", "location", "biography"] and val is None:
-            abort(403, f"{key} must have a value.")
+            abort(400, f"{key} must have a value.")
         if key == "subscription_plan" and val not in ["Monthly", "Yearly"]:
-            abort(403, f"{key} must be eather [Monthly] or [Yearly].")
+            abort(400, f"{key} must be eather [Monthly] or [Yearly].")
         if key == "auto_renewal" and not (val == False or val == True):
-            abort(403, f"{key} must be eather [True] or [False].")
+            abort(400, f"{key} must be eather [True] or [False].")
         # FIND A WAY TO APPLY SOME CRITERIA ON THE LOCATION FIELD.
         if key == "biography":
             if len(val) < 150:
-                abort(403, f"{key} must be at least 150 characters.")
+                abort(400, f"{key} must be at least 150 characters.")
             if len(val) > 300:
-                abort(403, f"{key} must be at most 300 characters.")
+                abort(400, f"{key} must be at most 300 characters.")
         premium_account[key] = val
     premium_account["user_id"] = user.id
     if data.get("subscription_plan") == "Monthly":

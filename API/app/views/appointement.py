@@ -13,25 +13,24 @@ from flask import jsonify
 def appointments():
     """A route that can be used to get all the appointments."""
     appointments = get_appointments()
-    return jsonify({"Appointments": appointments}), 200
+    return jsonify({"data": appointments}), 200
 
 
 @app_views.route("/appointments/<id>", methods=["GET"])
 def appointment(id):
     """A route that can be used to get the appintment by id."""
     appointment = get_appointment(id)
-    return jsonify({"Appointment": appointment}), 200
+    return jsonify({"data": appointment}), 200
 
 
-@app_views.route("/appointments/<id>", methods=["POST"])
-def create_appointment(id):
+@app_views.route("/appointments/<workspace_id>", methods=["POST"])
+def create_appointment(workspace_id):
     """A route that can be used to create an appointment."""
-    print("here")
     data = request.get_json()
-    appointment = post_appointment(id, data)
+    appointment = post_appointment(workspace_id, data)
     return (
-        jsonify({"message": "Appointment created successfully", "data": appointment}),
-        200,
+        jsonify({"message": "Appointment created successfully", "data": {"appointment_id": appointment}}),
+        201,
     )
 
 

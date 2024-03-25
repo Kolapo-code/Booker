@@ -42,4 +42,4 @@ def delete_account():
 def upgrade_account():
     """A route that upgrades the user's account."""
     upgrade_to_premium()
-    return jsonify({"message": "Account has been upgraded to premium."}), 200
+    return jsonify({"message": "Account has been upgraded to premium."}), 201
