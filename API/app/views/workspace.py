@@ -49,7 +49,7 @@ def create_workspaces():
     workspace_id = make_workspace()
     return jsonify({
         "message": "workspace has been created successfuly",
-        "data": {"workspace_id": workspace_id}
+        "data": {"Workspace_id": workspace_id}
         }), 201
 
 @app_views.route("/workspaces/<id>", methods=["PUT"])
@@ -57,7 +57,7 @@ def modify_workspaces(id):
     """A route that create a workspace"""
     updated_data = update_workspace(id)
     return jsonify({
-        "message": "workspace has been updated successfuly",
+        "message": "Workspace has been updated successfuly",
         "data": updated_data
         }), 200
 
@@ -67,7 +67,7 @@ def verify_appointment(id, appointment_id):
     """A route that verifies a workspace appointments by the id."""
     appointment_data = verify_workspace_appointment(id, appointment_id)
     return jsonify({
-        "message": "appointment has been verified successfuly",
+        "message": "Appointment has been verified successfuly",
         "data": appointment_data
         }), 200
 
@@ -77,7 +77,7 @@ def attended_appointment(id, appointment_id):
     """A route that attends a workspace appointments by the id."""
     appointment_data = attended_workspace_appointment(id, appointment_id)
     return jsonify({
-        "message": "appointment has been made attended successfuly",
+        "message": "Appointment has been made attended successfuly",
         "data": appointment_data
         }), 200
 
@@ -87,7 +87,7 @@ def cancel_appointment_by_workspace(id, appointment_id):
     """A route that cancels a workspace appointments by the id."""
     appointment_data = cancel_workspace_appointment(id, appointment_id)
     return jsonify({
-        "message": "appointment has been canceled successfuly",
+        "message": "Appointment has been canceled successfuly",
         "data": appointment_data
         }), 200
 
@@ -97,6 +97,6 @@ def remove_workspace(id):
     """A route that deletes a workspace appointments by the id."""
     delete_workspace(id)
     return jsonify({
-        "message": "appointment has been deleted successfuly",
+        "message": "Workspace has been deleted successfuly",
         "data": []
         }), 200
