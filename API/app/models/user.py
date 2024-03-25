@@ -6,6 +6,7 @@ from app.models.base_model import BaseModel
 from sqlalchemy import Column, String
 from app.utils.helper import hash_to_sha256
 import base64
+from app.models.review import likes_table, dislikes_table
 
 
 class User(BaseModel, Base):
@@ -22,6 +23,13 @@ class User(BaseModel, Base):
     ban = Column(Boolean, default=False)
     token = Column(String(60), nullable=True)
     valid = Column(Boolean, default=False)
+
+    reviews = relationship(
+        "Review", backref="user", cascade="all, delete-orphan"
+    )
+
+    liked_reviews = relationship("Review", secondary=likes_table, back_populates="liked_users")
+    disliked_reviews = relationship("Review", secondary=dislikes_table, back_populates="disliked_users")
 
     admin_account = relationship(
         "AdminAccount", uselist=False, backref="user", cascade="all, delete-orphan"

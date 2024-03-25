@@ -53,7 +53,13 @@ def get_workspace(id):
     workspace = list(workspaces.values())[0]
     data = dict(filter(lambda x: x[0] != 'premium_account_id', workspace.to_dict().items()))
     data["user_id"] = workspace.premium_account.user_id
-    data["reviews"] = list(map(lambda x: x.to_dict(), workspace.reviews))
+    data["reviews"] = list(
+        map(
+            lambda x: dict(x.to_dict(), **{"likes": len(x.liked_users),
+                                           "dislikes": len(x.disliked_users)}),
+            workspace.reviews
+            )
+        )
     if user.premium_account and\
         user.premium_account.id == workspace.premium_account_id:
         data["appointments"] = list(map(lambda x: x.to_dict(), workspace.appointments))
@@ -84,6 +90,8 @@ def make_workspace():
     }
     data = request.get_json()
     error = []
+    if len(data.keys()) != len(requirements.keys()):
+        abort(400, 'bad request')
     list(map(lambda x: error.append(x[0])\
         if x[0] not in requirements or not isinstance(x[1], requirements[x[0]][0]) or\
             not (requirements[x[0]][2] <= len(x[1]) < requirements[x[0]][1])\
