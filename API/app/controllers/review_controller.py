@@ -86,7 +86,9 @@ def like_review(id):
         if user in review.disliked_users:
             review.disliked_users.remove(user)
         review.liked_users.append(user)
-        review.save()
+    else:
+        review.liked_users.remove(user)
+    review.save()
     return len(review.liked_users)
 
 
@@ -103,5 +105,7 @@ def dislike_review(id):
         if user in review.liked_users:
             review.liked_users.remove(user)
         review.disliked_users.append(user)
-        review.save()
+    else:
+        review.disliked_users.remove(user)
+    review.save()
     return len(review.disliked_users)
