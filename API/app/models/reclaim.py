@@ -13,6 +13,6 @@ class Reclaim(BaseModel, Base):
     __tablename__ = "reclaims"
     subject = Column(String(200), nullable=False)
     description = Column(String(2000), nullable=False)
-    status = Column(Enum("Pending", "Resolved"))
+    status = Column(Enum("Pending", "Resolved"), default="Pending")
     reclaimed_id = Column(String(60), nullable=False)
     reclaimer_id = Column(String(60), ForeignKey("users.id"), nullable=False)

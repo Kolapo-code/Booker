@@ -10,3 +10,4 @@ from app.views.profile import *
 from app.views.appointement import *
 from app.views.workspace import *
 from app.views.review import *
+from app.views.reclaim import *
