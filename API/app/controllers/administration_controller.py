@@ -2,6 +2,7 @@ from flask import request, abort
 from app import auth
 from app import storage
 from app.models.admin_account import AdminAccount
+from app.models.reclaim import Reclaim
 
 
 """ VERIFYING ADMINISTRATION RIGHTS"""
@@ -128,34 +129,40 @@ def get_appointment(id):
 def get_reclaims():
     """A function that gets the all reclaims."""
     verify_administration()
-    reclaims = storage.get(cls="Reclaims")
-    data = list(map(lambda reclaim: reclaim.to_dict(), reclaims.values()))
+    reclaims = storage.get(cls="Reclaim")
+    data = (
+        list(map(lambda reclaim: reclaim.to_dict(), reclaims.values()))
+        if reclaims
+        else {}
+    )
     return data
 
 
 def get_reclaim(reclaim_id):
     """A function that gets a reclaim by the id."""
     verify_administration()
-    reclaim = storage.get(cls="Reclaims", id=reclaim_id)
+    reclaim = storage.get(cls="Reclaim", id=reclaim_id)
+    if not reclaim:
+        abort(400, "No reclaim with the given id.")
     data = list(reclaim.values())[0].to_dict()
     return data
 
 
-def get_reclaim(reclaim_id):
-    """A function that gets a reclaim by the id."""
-    verify_administration()
-    reclaim = storage.get(cls="Reclaims", id=reclaim_id)
-    data = list(reclaim.values())[0].to_dict()
-    return data
-
-
-def resolve_reclaim(reclaim_id):
+def resolve_reclaim(id):
     """A function that sets a reclaim as resolved."""
     verify_administration()
-    reclaim = storage.get(cls="Reclaims", id=reclaim_id)
-    # update the reclaim
+    reclaim = storage.session.query(Reclaim).filter_by(id=id).first()
+    if not reclaim:
+        abort(400, "No reclaim with the given id.")
     reclaim.status = "Resolved"
-    reclaim.save()
-    # Since its now resolved we shall send an email saying the problem has been resolved.
-    data = list(reclaim.values())[0].to_dict()
-    return data
+    storage.save()
+
+
+def remove_reclaim(id):
+    """A function that removes a reclaim by id."""
+    verify_administration()
+    reclaim = storage.session.query(Reclaim).filter_by(id=id).first()
+    if not reclaim:
+        abort(400, "No reclaim with the given id.")
+    storage.delete(reclaim)
+    storage.save()

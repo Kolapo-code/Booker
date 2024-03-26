@@ -24,12 +24,14 @@ class User(BaseModel, Base):
     token = Column(String(60), nullable=True)
     valid = Column(Boolean, default=False)
 
-    reviews = relationship(
-        "Review", backref="user", cascade="all, delete-orphan"
-    )
+    reviews = relationship("Review", backref="user", cascade="all, delete-orphan")
 
-    liked_reviews = relationship("Review", secondary=likes_table, back_populates="liked_users")
-    disliked_reviews = relationship("Review", secondary=dislikes_table, back_populates="disliked_users")
+    liked_reviews = relationship(
+        "Review", secondary=likes_table, back_populates="liked_users"
+    )
+    disliked_reviews = relationship(
+        "Review", secondary=dislikes_table, back_populates="disliked_users"
+    )
 
     admin_account = relationship(
         "AdminAccount", uselist=False, backref="user", cascade="all, delete-orphan"
@@ -44,6 +46,7 @@ class User(BaseModel, Base):
     temporaries = relationship(
         "TemporaryPassword", backref="user", cascade="all, delete-orphan"
     )
+    reclaimes = relationship("Reclaim", backref="user", cascade="all, delete-orphan")
 
     def __init__(self, **kwargs) -> None:
         """A method that intializes attributes."""
