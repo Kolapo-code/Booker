@@ -17,6 +17,6 @@ def login():
 def logout():
     """A route that handles the logout."""
     verify_logout(request)
-    responce = make_response({"message": "logged out"}, 201)
+    responce = make_response({"message": "logged out"}, 200)
     responce.set_cookie("session_id", "", expires=0)
     return responce
