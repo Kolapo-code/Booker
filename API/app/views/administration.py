@@ -12,6 +12,7 @@ from app.controllers.administration_controller import (
     get_reclaims,
     get_reclaim,
     resolve_reclaim,
+    remove_reclaim,
 )
 
 """ User Administration """
@@ -108,14 +109,28 @@ def admin_reclaim(id):
 
 
 @app_views.route("/admin/reclaim/<id>/resolved", methods=["PUT"])
-def admin_resolve_reclaim(reclaim_id):
+def admin_resolve_reclaim(id):
     """A route that the admin can use to mark a reclaim as resolved."""
-    reclaim = resolve_reclaim(reclaim_id)
+    reclaim = resolve_reclaim(id)
     return (
         jsonify(
             {
-                "message": f"The reclaim with the id={reclaim_id} is resolved",
+                "message": f"The reclaim with the id={id} is resolved",
                 "data": reclaim,
+            }
+        ),
+        200,
+    )
+
+
+@app_views.route("/admin/reclaim/<id>/delete", methods=["DELETE"])
+def admin_delete_reclaim(id):
+    """A route that the admin can use to remove a reclaim."""
+    remove_reclaim(id)
+    return (
+        jsonify(
+            {
+                "message": f"The reclaim with the id={id} has been removed.",
             }
         ),
         200,
