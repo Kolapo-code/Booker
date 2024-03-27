@@ -195,7 +195,7 @@ def upgrade_to_premium():
         "location": "",
         "biography": "",
         "subscription_plan": "",
-        "auto_renewal": "",
+        "auto_renewal": None,
     }
     for key, val in data.items():
         if key not in premium_account.keys():
