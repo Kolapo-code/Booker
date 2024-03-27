@@ -31,6 +31,30 @@
         {
             "name": "Appointment",
             "description": "Manage appointments"
+        },
+        {
+            "name": "workspaces",
+            "description": "Everything about workspaces",
+            "externalDocs": {
+                "description": "",
+                "url": ""
+            }
+        },
+        {
+            "name": "reviews",
+            "description": "Everything about reviews",
+            "externalDocs": {
+                "description": "",
+                "url": ""
+            }
+        },
+        {
+            "name": "reclaims",
+            "description": "Everything about reclaims",
+            "externalDocs": {
+                "description": "",
+                "url": ""
+            }
         }
     ],
     "schemes": [
@@ -604,6 +628,557 @@
                     }
                 }
             }
+        },
+        "/reclaims": {
+            "get": {
+                "tags": [
+                    "reclaims"
+                ],
+                "summary": "Get all the reclaimes that you have made.",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "reclaims"
+                ],
+                "summary": "Make a reclaim targetting a specific user.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "propreties": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "subject": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "reclaimed_id": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/reviews{workspace_id}": {
+            "post": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Make a review in a specific workspace.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "workspace_id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    }
+                ],
+                "propreties": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "content": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/reviews/{id}": {
+            "put": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Update a review done in a specific workspace.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the review.",
+                        "required": true
+                    }
+                ],
+                "propreties": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "content": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Make a review in a specific workspace.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the review.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/reviews/{id}/like": {
+            "post": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Like a review.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the review.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/reviews/{id}/dislike": {
+            "post": {
+                "tags": [
+                    "reviews"
+                ],
+                "summary": "Dislike a review.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the review.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces": {
+            "get": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Get all the workspaces available.",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Creates a new workspace for a premium user.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "propreties": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "field": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "picture": {
+                                "type": "string"
+                            },
+                            "schedules": {
+                                "type": "string"
+                            },
+                            "location": {
+                                "type": "string"
+                            },
+                            "contact": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}": {
+            "get": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Get a workspace by the given id.",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Updates the information of the workspace.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    }
+                ],
+                "propreties": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "field": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "picture": {
+                                "type": "string"
+                            },
+                            "schedules": {
+                                "type": "string"
+                            },
+                            "location": {
+                                "type": "string"
+                            },
+                            "contact": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Deletes the workspace with the given id.",
+                "description": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}/appointments": {
+            "get": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Get all appointments done in a workspace.",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}/appointments/{appointment_id}": {
+            "get": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Gets a specific appointment in the workspace.",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "name": "appointment_id",
+                        "in": "path",
+                        "description": "The id of the appointment.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/<id>/appointments/<appointment_id>/verify": {
+            "put": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Verifies an appointment.",
+                "description": "The appointment is verified by the owner of the workspace.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "name": "appointment_id",
+                        "in": "path",
+                        "description": "The id of the appointment.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/<id>/appointments/<appointment_id>/attended": {
+            "put": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "Marks an appointment as attended.",
+                "description": "The appointment is marked by the owner of the workspace.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "name": "appointment_id",
+                        "in": "path",
+                        "description": "The id of the appointment.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/<id>/appointments/<appointment_id>/cancel": {
+            "put": {
+                "tags": [
+                    "workspaces"
+                ],
+                "summary": "cancels an appointment for a user.",
+                "description": "The appointment is canceled by the owner of the workspace.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "name": "appointment_id",
+                        "in": "path",
+                        "description": "The id of the appointment.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -662,6 +1237,57 @@
                     "type": "string"
                 },
                 "auto_renewal": {
+                    "type": "string"
+                }
+            }
+        },
+        "Workspace": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "field": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "picture": {
+                    "type": "string"
+                },
+                "schedules": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "contact": {
+                    "type": "string"
+                }
+            }
+        },
+        "Reclaim": {
+            "type": "object",
+            "properties": {
+                "subject": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "reclaimed_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "Review": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "content": {
                     "type": "string"
                 }
             }
