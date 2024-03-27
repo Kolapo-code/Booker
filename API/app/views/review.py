@@ -8,10 +8,10 @@ from app.controllers.review_controller import (
     delete_review
     )
 
-@app_views.route("/workspaces/<id>/reviews", methods=["POST"])
-def make_workspace_review(id):
+@app_views.route("/reviews/<workspace_id>", methods=["POST"])
+def make_workspace_review(workspace_id):
     """A route that makes a review."""
-    review_id = post_review(id)
+    review_id = post_review(workspace_id)
     return jsonify({"data": {"reveiw_id": review_id}}), 201
 
 
