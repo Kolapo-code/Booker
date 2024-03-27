@@ -20,21 +20,23 @@ def post_user(data):
         "password",
         "birth_date",
         "location",
+        "picture",
     ]
     user_data = {}
     for key in data_list:
         if key not in data:
             abort(400, description=f"{key} does not exits in the given data")
         if key == "birth_date":
-            if not isinstance(data[key], list) or len(data[key]) != 3:
-                abort(403, "Birthdate should be in this format [Y, M, D]")
-            user_data[key] = datetime(*data[key])
+            try:
+                user_data[key] = datetime.strptime(data[key], "%Y-%m-%d")
+            except Exception:
+                abort(400, "Date string is not in the correct format %Y-%m-%d.")
             continue
         if key == "email":
             if not isinstance(data[key], str) or not re.search(
                 "^[\w_\-.0-9]+@\w+\.\w+$", data[key]
             ):
-                abort(400, description=f"{data[key]} is not valid")
+                abort(400, description=f"{data[key]} is not valid email")
         if key == "password":
             user_data[key] = base64.b64encode(data[key].encode("utf-8"))
             continue
