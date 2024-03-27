@@ -11,6 +11,8 @@ def get_reclaim():
     if not user:
         abort(403, "No session exists, try to log in.")
     reclaims = storage.get(cls="Reclaim", reclaimer_id=user.id)
+    if not reclaims:
+        return {}
     reclaims = list(reclaims.values())[0].to_dict()
     return reclaims
 

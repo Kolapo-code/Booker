@@ -6,17 +6,17 @@ from app.controllers.reclaim_controller import (
 )
 
 
-@app_views.route("/reclaim", methods=["GET"])
+@app_views.route("/reclaims", methods=["GET"])
 def reclaims():
     """A route that lists all the reclaims done by the user."""
     data = get_reclaim()
     return (
         jsonify({"data": data}),
-        202,
+        200,
     )
 
 
-@app_views.route("/reclaim", methods=["POST"])
+@app_views.route("/reclaims", methods=["POST"])
 def make_reclaim():
     """A route that a user can use to make a reclaim."""
     data = request.get_json()

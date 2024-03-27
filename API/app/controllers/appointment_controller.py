@@ -50,7 +50,7 @@ def post_appointment(workspace_id, data):
         if key == "date":
             try:
                 appointment_data["date"] = datetime.strptime(val, "%Y-%m-%d")
-            except ValueError:
+            except (ValueError, TypeError):
                 abort(400, "Date string is not in the correct format %Y-%m-%d.")
         appointment_data[key] = val
     appointment_data["user_id"] = user.id
