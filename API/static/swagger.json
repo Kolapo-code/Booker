@@ -657,7 +657,7 @@
                 "produces": [
                     "application/json"
                 ],
-                "propreties": [
+                "parameters": [
                     {
                         "in": "body",
                         "name": "body",
@@ -682,7 +682,7 @@
                 }
             }
         },
-        "/reviews{workspace_id}": {
+        "/reviews/{workspace_id}": {
             "post": {
                 "tags": [
                     "reviews"
@@ -701,9 +701,7 @@
                         "in": "path",
                         "description": "The id of the workspace.",
                         "required": true
-                    }
-                ],
-                "propreties": [
+                    },
                     {
                         "in": "body",
                         "name": "body",
@@ -744,9 +742,7 @@
                         "in": "path",
                         "description": "The id of the review.",
                         "required": true
-                    }
-                ],
-                "propreties": [
+                    },
                     {
                         "in": "body",
                         "name": "body",
@@ -878,7 +874,7 @@
                 "produces": [
                     "application/json"
                 ],
-                "propreties": [
+                "parameters": [
                     {
                         "in": "body",
                         "name": "body",
@@ -957,9 +953,7 @@
                         "in": "path",
                         "description": "The id of the workspace.",
                         "required": true
-                    }
-                ],
-                "propreties": [
+                    },
                     {
                         "in": "body",
                         "name": "body",
@@ -1078,7 +1072,7 @@
                 }
             }
         },
-        "/workspaces/<id>/appointments/<appointment_id>/verify": {
+        "/workspaces/{id}/appointments/{appointment_id}/verify": {
             "put": {
                 "tags": [
                     "workspaces"
@@ -1112,7 +1106,7 @@
                 }
             }
         },
-        "/workspaces/<id>/appointments/<appointment_id>/attended": {
+        "/workspaces/{id}/appointments/{appointment_id}/attended": {
             "put": {
                 "tags": [
                     "workspaces"
@@ -1146,7 +1140,7 @@
                 }
             }
         },
-        "/workspaces/<id>/appointments/<appointment_id>/cancel": {
+        "/workspaces/{id}/appointments/{appointment_id}/cancel": {
             "put": {
                 "tags": [
                     "workspaces"
