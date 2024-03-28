@@ -126,3 +126,7 @@ def velidate_fields(fields, data):
             error_str += " and " if error_str else ""
             error_str += f"{', '.join(data_keys- fields_keys)} do not exist"
     return error_str
+
+# def check_schedules(schedules):
+#     """A function that checks the schedule data before it is set up."""
+#     for key, val in schedules['days']:
