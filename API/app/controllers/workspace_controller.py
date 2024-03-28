@@ -30,7 +30,7 @@ def get_workspaces():
     data = list(
         map(
             lambda x: dict(
-                filter(lambda d: d[0] != "premium_account_id", x.to_dict().items())
+                filter(lambda d: d[0] not in ["premium_account_id", "schedules"], x.to_dict().items())
             ),
             workspaces.values(),
         )
@@ -49,9 +49,10 @@ def get_workspace(id):
         abort(404, "no workspace exists with this id")
     workspace = list(workspaces.values())[0]
     data = dict(
-        filter(lambda x: x[0] != "premium_account_id", workspace.to_dict().items())
+        filter(lambda x: x[0] not in ["premium_account_id", "schedules"], workspace.to_dict().items())
     )
     data["user_id"] = workspace.premium_account.user_id
+    data["schedules"] = json.loads(workspace.schedules)
     data["reviews"] = list(
         map(
             lambda x: dict(x.to_dict(), **{"likes": len(x.liked_users),
@@ -169,9 +170,10 @@ def update_workspace(id):
         setattr(workspace, key, val)
     workspace.save()
     updated_data = dict(
-        filter(lambda x: x[0] != "premium_account_id", workspace.to_dict().items())
+        filter(lambda x: x[0] not in ["premium_account_id", "schedules"], workspace.to_dict().items())
     )
     updated_data["user_id"] = workspace.premium_account.user_id
+    updated_data["schedules"] = json.loads(workspace.schedules)
     return updated_data
 
 

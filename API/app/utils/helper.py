@@ -23,7 +23,7 @@ def verify_email(user_name, user_email, verification_link):
     <body>
         <center><h3>Welcome to Booker🎉, {recipient_name}!</h3></center>
         <p>We are so pleased to have you with us.
-        Click <a href="{verification_link}">here</a> to verify your account.</p>
+        Click {verification_link} to verify your account.</p>
         <img src="cid:image" alt="Happy">
         <p>Please keep in touch and reach out to us for any help needed.</p>
         <p>Feel at home and checkout the available workspaces.</p>

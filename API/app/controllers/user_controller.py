@@ -50,7 +50,7 @@ def post_user(data):
     user_data["token"] = token
     user = User(**user_data)
     user.save()
-    verify_email(user.first_name, user.email, f"Booker.com/validation/{token}")
+    verify_email(user.first_name, user.email, f"http://127.0.0.1:5000/api/validation/{token}")
     return user.id
 
 
