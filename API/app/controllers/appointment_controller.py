@@ -38,7 +38,7 @@ def post_appointment(workspace_id, data):
     workspace = storage.get(cls="Workspace", id=workspace_id)
     if not workspace:
         abort(404, "Workspace couldn't be found.")
-    workspace = list(workspace.value())[0]
+    workspace = list(workspace.values())[0]
     if not data:
         abort(400, "No update appointment data was given.")
     appointment_data = {

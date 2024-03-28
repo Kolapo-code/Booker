@@ -867,7 +867,7 @@
                     "workspaces"
                 ],
                 "summary": "Creates a new workspace for a premium user.",
-                "description": "",
+                "description": "schedules, appointment_per_hour are feilds are optional",
                 "consumes": [
                     "application/json"
                 ],
@@ -892,14 +892,60 @@
                             "picture": {
                                 "type": "string"
                             },
-                            "schedules": {
-                                "type": "string"
-                            },
                             "location": {
                                 "type": "string"
                             },
                             "contact": {
                                 "type": "string"
+                            },
+                            "appointment_per_hour": {
+                                "type": "integer"
+                            },
+                            "schedules": {
+                                "type": "object",
+                                "format": "optionale",
+                                "properties": {
+                                    "days": {
+                                        "type": "object",
+                                        "format": "required",
+                                        "properties": {
+                                            "manday": {
+                                                "type": "object",
+                                                "format": "optionale",
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "format": "%H:%M"
+                                                    },
+                                                    "break": {
+                                                        "type": "object",
+                                                        "format": "optionale",
+                                                        "properties": {
+                                                            "from": {
+                                                                "type": "string",
+                                                                "format": "%H:%M"
+                                                            },
+                                                            "to": {
+                                                                "type": "string",
+                                                                "format": "%H:%M"
+                                                            }
+                                                        }
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "format": "%H:%M"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "location": {
+                                    "type": "string"
+                                },
+                                "contact": {
+                                    "type": "string"
+                                }
                             }
                         }
                     }
@@ -1228,7 +1274,7 @@
                     "type": "string"
                 },
                 "auto_renewal": {
-                    "type": "string"
+                    "type": "boolean"
                 }
             }
         },

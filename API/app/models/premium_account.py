@@ -1,7 +1,6 @@
 from app.models import Base
 from datetime import datetime
 from app.models.user import BaseModel
-from app.utils.countries import ALL_COUNTRIES
 from sqlalchemy import Column, String, Date, Boolean, Enum, ForeignKey
 from sqlalchemy.orm import relationship
 
