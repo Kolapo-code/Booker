@@ -42,17 +42,14 @@ def post_appointment(workspace_id, data):
         abort(400, "No update appointment data was given.")
     appointment_data = {
         "date": "",
-        "range": None,
     }
-    for key, val in data.items():
-        if key not in appointment_data.keys():
-            abort(400, f"{key} is not recognized as an attribute in the appointment.")
-        if key == "date":
-            try:
-                appointment_data["date"] = datetime.strptime(val, "%Y-%m-%d")
-            except (ValueError, TypeError):
-                abort(400, "Date string is not in the correct format %Y-%m-%d.")
-        appointment_data[key] = val
+    if data.keys() != appointment_data.keys():
+            abort(400, f"the data is not recognized as attributes in the appointment.")
+    try:
+        appointment_data["date"] = datetime.strptime(data["date"], "%Y-%m-%d %H:%M")
+    except (ValueError, TypeError):
+        abort(400, "Date string is not in the correct format %Y-%m-%d %H:%M.")
+    appointment_data["date"] = data["date"]
     appointment_data["user_id"] = user.id
     appointment_data["workspace_id"] = workspace_id
     appointment = Appointment(**appointment_data)
@@ -82,7 +79,6 @@ def put_appointment(appointment_id, data):
         abort(400, "No update data was given.")
     keys = [
         "date",
-        "range",
         "status",
     ]
     for key, val in data.items():
@@ -92,6 +88,11 @@ def put_appointment(appointment_id, data):
             abort(400, f"Incorrect value for {key}.")
         if key == "status" and val in ["Verified", "Attended"]:
             abort(401, "You are not allowed to modify the field.")
+        if key == "date":
+            try:
+                setattr(appointment_instance, key, datetime.strptime(val, "%Y-%m-%d %H:%M"))
+            except (ValueError, TypeError):
+                abort(400, "Date string is not in the correct format %Y-%m-%d %H:%M.")
         setattr(appointment_instance, key, val)
     appointment_instance.save()
     return appointment_instance.to_dict()
