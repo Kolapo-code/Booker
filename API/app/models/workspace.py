@@ -43,6 +43,8 @@ class Workspace(BaseModel, Base):
 
     def available_date(self, date):
         schedules = json.loads(self.schedules)
+        if "days" in schedules:
+            schedules = schedules["days"]
         day = date.strftime("%A").lower()
         hour = date.strftime("%H:%M")
         if day not in schedules or schedules[day] == {}:
