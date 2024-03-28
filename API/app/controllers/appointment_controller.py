@@ -38,18 +38,25 @@ def post_appointment(workspace_id, data):
     workspace = storage.get(cls="Workspace", id=workspace_id)
     if not workspace:
         abort(404, "Workspace couldn't be found.")
+    workspace = list(workspace.value())[0]
     if not data:
         abort(400, "No update appointment data was given.")
     appointment_data = {
         "date": "",
     }
     if data.keys() != appointment_data.keys():
-            abort(400, f"the data is not recognized as attributes in the appointment.")
+        abort(400, f"the data is not recognized as attributes in the appointment.")
     try:
         appointment_data["date"] = datetime.strptime(data["date"], "%Y-%m-%d %H:%M")
     except (ValueError, TypeError):
         abort(400, "Date string is not in the correct format %Y-%m-%d %H:%M.")
-    appointment_data["date"] = data["date"]
+
+    if not workspace.available_date(appointment_data["date"]):
+        abort(403, f"the date provided is not available")
+
+    if appointment_data["date"] in workspace.busy_hours():
+        abort(403, f"the date provided is reserved")
+
     appointment_data["user_id"] = user.id
     appointment_data["workspace_id"] = workspace_id
     appointment = Appointment(**appointment_data)
