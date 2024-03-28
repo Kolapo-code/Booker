@@ -129,50 +129,43 @@ def velidate_fields(fields, data):
     return error_str
 
 
-def check_schedules(schedules):
+def check_schedules(schedules_dict):
     """A function that checks the validity of the schedule dictionary."""
-    schedule_dict = {
-        "days": {
-            "manday": {},
-            "tuesday": {},
-            "wednesday": {},
-            "thursday": {},
-            "friday": {},
-            "saturday": {},
-            "sunday": {},
-        }
-    }
+    from app.utils.schedules import schedules
 
-    if set(schedule_dict.keys()) != {"days"}:
+    if set(schedules.keys()) != {"days"}:
         return "Make sure you set up the key [days]."
 
-    days_set = set(schedule_dict["days"].keys())
-    data_set = set(schedules["days"].keys())
+    days_set = set(schedules["days"].keys())
+    data_set = set(schedules_dict["days"].keys())
     error_string = ""
-
     if days_set != data_set:
-        extra = days_set - data_set
-        missing = data_set - days_set
+        missing = days_set - data_set
+        extra = data_set - days_set
         if missing:
             error_string += f"Make sure you add {', '.join(missing)} to the days"
         error_string += " and " if error_string else ""
         if extra:
             error_string += f"remove {', '.join(extra)} from the days"
-    if error_string:
+    if error_string != "":
         return error_string
 
     for day, time in schedules["days"].items():
-        for item in list(time.keys()):
-            if item not in ["from", "to", "break"]:
-                return "The data keys in each day should be one of the following: [from], [to], [break]"
-            try:
-                if item in ["from", "to"]:
-                    schedule_dict['days'][day][item] = datetime.strptime(time[item], "%H:%M").time()
-                else:
-                    schedule_dict['days'][day]["break"] = {
-                        "from": datetime.strptime(time["break"]["from"], "%H:%M").time(),
-                        "to": datetime.strptime(time["break"]["to"], "%H:%M").time()
-                    }
-            except(ValueError,TypeError):
-                return "the keys were set incorrectly, follow the format : %H:%M."
-    return schedule_dict
+        if time.keys():
+            for item in list(time.keys()):
+                if item not in ["from", "to", "break"]:
+                    return "The data keys in each day should be one of the following: [from], [to], [break]"
+                try:
+                    if item in ["from", "to"]:
+                        # schedules_dict['days'][day][item] = datetime.strptime(time[item], "%H:%M").time()
+                        schedules_dict["days"][day][item] = time[item]
+                    else:
+                        schedules_dict["days"][day]["break"] = {
+                            # "from": datetime.strptime(time["break"]["from"], "%H:%M").time(),
+                            # "to": datetime.strptime(time["break"]["to"], "%H:%M").time()
+                            "from": time["break"]["from"],
+                            "to": time["break"]["to"],
+                        }
+                except (ValueError, TypeError):
+                    return "the keys were set incorrectly, follow the format : %H:%M."
+    return schedules_dict

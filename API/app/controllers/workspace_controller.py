@@ -4,6 +4,7 @@ from app.models.workspace import Workspace
 from app.utils.helper import check_schedules
 import json
 
+
 def get_user_workspace_object(id):
     """gets a workspace object by the given id only if owned by the user"""
     session_id = auth.get_session_id(request)
@@ -29,9 +30,11 @@ def get_workspaces():
     workspaces = storage.get("Workspace")
     data = list(
         map(
-            lambda x: dict(
-                filter(lambda d: d[0] not in ["premium_account_id", "schedules"], x.to_dict().items())
-            ),
+            lambda x: {
+                k: json.loads(v) if k == "schedules" else v
+                for k, v in x.to_dict().items()
+                if k != "premium_account_id"
+            },
             workspaces.values(),
         )
     )
@@ -48,18 +51,22 @@ def get_workspace(id):
     if not workspaces:
         abort(404, "no workspace exists with this id")
     workspace = list(workspaces.values())[0]
-    data = dict(
-        filter(lambda x: x[0] not in ["premium_account_id", "schedules"], workspace.to_dict().items())
-    )
+    data = {
+        k: json.loads(v) if k == "schedules" else v
+        for k, v in workspace.to_dict().items()
+        if k != "premium_account_id"
+    }
     data["user_id"] = workspace.premium_account.user_id
     data["schedules"] = json.loads(workspace.schedules)
     data["reviews"] = list(
         map(
-            lambda x: dict(x.to_dict(), **{"likes": len(x.liked_users),
-                                           "dislikes": len(x.disliked_users)}),
-            workspace.reviews
-            )
+            lambda x: dict(
+                x.to_dict(),
+                **{"likes": len(x.liked_users), "dislikes": len(x.disliked_users)},
+            ),
+            workspace.reviews,
         )
+    )
     if user.premium_account and user.premium_account.id == workspace.premium_account_id:
         data["appointments"] = list(map(lambda x: x.to_dict(), workspace.appointments))
     return data
@@ -93,8 +100,8 @@ def make_workspace():
             schedules = data["schedules"]
         del data["schedules"]
         schedules_dict = check_schedules(schedules)
-        if schedules_dict != {}:
-            abort(400, schedules_dict)
+        if not isinstance(schedules_dict, dict):
+            error.append(schedules_dict)
 
     if "appointment_per_hour" in data:
         if not isinstance(data["appointment_per_hour"], int):
@@ -104,11 +111,19 @@ def make_workspace():
         del data["appointment_per_hour"]
 
     if len(data.keys()) != len(requirements.keys()):
-        abort(400, 'bad request')
-    list(map(lambda x: error.append(x[0])\
-        if x[0] not in requirements or not isinstance(x[1], requirements[x[0]][0]) or\
-            not (requirements[x[0]][2] <= len(x[1]) < requirements[x[0]][1])\
-            else x, data.items()))
+        abort(400, "bad request")
+    list(
+        map(
+            lambda x: (
+                error.append(x[0])
+                if x[0] not in requirements
+                or not isinstance(x[1], requirements[x[0]][0])
+                or not (requirements[x[0]][2] <= len(x[1]) < requirements[x[0]][1])
+                else x
+            ),
+            data.items(),
+        )
+    )
     if error:
         abort(400, f'some field not set correctly : {", ".join(error)}')
     data["premium_account_id"] = user.premium_account.id
@@ -136,12 +151,17 @@ def update_workspace(id):
     data = request.get_json()
     schedules, appointment_per_hour = None, None
     error = []
+
     if "schedules" in data:
         if not isinstance(data["schedules"], dict):
             error.append("schedules")
         if data["schedules"]:
             schedules = data["schedules"]
         del data["schedules"]
+        schedules_dict = check_schedules(schedules)
+        if not isinstance(schedules_dict, dict):
+            error.append(schedules_dict)
+
     if "appointment_per_hour" in data:
         if not isinstance(data["appointment_per_hour"], dict):
             error.append("appointment_per_hour")
@@ -170,7 +190,10 @@ def update_workspace(id):
         setattr(workspace, key, val)
     workspace.save()
     updated_data = dict(
-        filter(lambda x: x[0] not in ["premium_account_id", "schedules"], workspace.to_dict().items())
+        filter(
+            lambda x: x[0] not in ["premium_account_id", "schedules"],
+            workspace.to_dict().items(),
+        )
     )
     updated_data["user_id"] = workspace.premium_account.user_id
     updated_data["schedules"] = json.loads(workspace.schedules)
