@@ -82,7 +82,7 @@ def make_workspace():
         "contact": (str, 256, 5),
     }
     data = request.get_json()
-    schedules = None
+    schedules, appointment_per_hour = None, None
     error = []
     if "schedules" in data:
         if not isinstance(data["schedules"], dict):
@@ -90,6 +90,13 @@ def make_workspace():
         if data["schedules"]:
             schedules = data["schedules"]
         del data["schedules"]
+
+    if "appointment_per_hour" in data:
+        if not isinstance(data["appointment_per_hour"], int):
+            error.append("appointment_per_hour")
+        if data["appointment_per_hour"]:
+            appointment_per_hour = data["appointment_per_hour"]
+        del data["appointment_per_hour"]
 
     if len(data.keys()) != len(requirements.keys()):
         abort(400, 'bad request')
@@ -102,6 +109,8 @@ def make_workspace():
     data["premium_account_id"] = user.premium_account.id
     if schedules:
         data["schedules"] = json.dumps(schedules)
+    if appointment_per_hour:
+        data["appointment_per_hour"] = appointment_per_hour
     workspace = Workspace(**data)
     workspace.save()
     return workspace.id
@@ -115,13 +124,25 @@ def update_workspace(id):
         "field": (str, 60, 3),
         "description": (str, 500, 150),
         "picture": (str, 256, 0),
-        "schedules": (str, 256, 0),
         "location": (str, 256, 30),
         "contact": (str, 256, 5),
     }
     """getting data from the request"""
     data = request.get_json()
+    schedules, appointment_per_hour = None, None
     error = []
+    if "schedules" in data:
+        if not isinstance(data["schedules"], dict):
+            error.append("schedules")
+        if data["schedules"]:
+            schedules = data["schedules"]
+        del data["schedules"]
+    if "appointment_per_hour" in data:
+        if not isinstance(data["appointment_per_hour"], dict):
+            error.append("appointment_per_hour")
+        if data["appointment_per_hour"]:
+            appointment_per_hour = data["appointment_per_hour"]
+        del data["appointment_per_hour"]
     list(
         map(
             lambda x: (
@@ -136,6 +157,10 @@ def update_workspace(id):
     )
     if error:
         abort(400, f'some field not set correctly : {", ".join(error)}')
+    if schedules:
+        data["schedules"] = json.dumps(schedules)
+    if appointment_per_hour:
+        data["appointment_per_hour"] = appointment_per_hour
     for key, val in data.items():
         setattr(workspace, key, val)
     workspace.save()
