@@ -13,6 +13,7 @@ from app.models.appointment import Appointment
 from app.models.temporary_password import TemporaryPassword
 from app.models.review import Review
 from app.models.reclaim import Reclaim
+import json
 
 
 class DBConfig:
@@ -40,3 +41,51 @@ classes = {
 }
 
 EXPIRY = 3600 * 24
+
+schedules = {
+        'days':
+            {
+                'manday':
+                    {
+                        'from': '08:00',
+                        'to': '18:00'
+                    },
+                'tuesday':
+                    {
+                        'from': '08:00',
+                        'to': '18:00'
+                    },
+                'wednesday':
+                    {
+                        'from': '08:00',
+                        'to': '18:00'
+                    },
+                'thursday':
+                    {
+                        'from': '08:00',
+                        'to': '18:00'
+                    },
+                'friday':
+                    {
+                        'from': '08:00',
+                        'break':
+                            {
+                                'from': '12:00',
+                                'to': '14:00'
+                            },
+                        'to': '18:00'
+                    },
+                'saturday':
+                    {
+                        'from': '08:00',
+                        'to': '12:00'
+                    },
+                'sunday':
+                    {
+                        'from': '00:00',
+                        'to': '00:00'
+                    }
+                }
+            }
+
+SCHEDULES = json.dumps(schedules)

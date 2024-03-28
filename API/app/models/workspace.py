@@ -3,6 +3,7 @@ from app.models.base_model import BaseModel
 from datetime import datetime
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, DATETIME, Integer, Boolean, Enum, ForeignKey
+from app.config import SCHEDULES
 
 
 class Workspace(BaseModel, Base):
@@ -13,7 +14,7 @@ class Workspace(BaseModel, Base):
     field = Column(String(60), nullable=False)
     description = Column(String(500), nullable=True)
     picture = Column(String(256), nullable=True)
-    schedules = Column(String(256), nullable=True)
+    schedules = Column(String(256), default=SCHEDULES)
     location = Column(String(256), nullable=True)
     contact = Column(String(256), nullable=True)
 
