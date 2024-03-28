@@ -54,7 +54,7 @@ def post_appointment(workspace_id, data):
     if not workspace.available_date(appointment_data["date"]):
         abort(403, f"the date provided is not available")
 
-    if appointment_data["date"] in workspace.busy_hours():
+    if str(appointment_data["date"])[:-6] in workspace.busy_hours():
         abort(403, f"the date provided is reserved")
 
     appointment_data["user_id"] = user.id

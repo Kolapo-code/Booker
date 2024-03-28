@@ -30,11 +30,12 @@ class Workspace(BaseModel, Base):
 
     def busy_hours(self):
         frequency_hours = {}
-        busy_list = list(filter(lambda x:  isinstance(x, datetime), list(
+        busy_list = list(filter(lambda x:  isinstance(x, str), list(
             map(
-                lambda x: x.date if ( str(x.date) not in frequency_hours and frequency_hours.update({str(x.date): 0})) or\
-                    frequency_hours[str(x.date)] == self.appointment_per_hour - 1 else\
-                        frequency_hours.update({str(x.date): frequency_hours[str(x.date)] + 1}),
+                lambda x: str(x.date)[:-6] if ( str(x.date)[:-6] not in frequency_hours and\
+                    frequency_hours.update({str(x.date)[:-6]: 0})) or\
+                    frequency_hours[str(x.date)[:-6]] == self.appointment_per_hour - 1 else\
+                        frequency_hours.update({str(x.date)[:-6]: frequency_hours[str(x.date)[:-6]] + 1}),
                         self.appointments
             )
         )))
@@ -42,6 +43,8 @@ class Workspace(BaseModel, Base):
 
     def available_date(self, date):
         schedules = json.loads(self.schedules)
+        if "days" in schedules:
+            schedules = schedules["days"]
         day = date.strftime("%A").lower()
         hour = date.strftime("%H:%M")
         if day not in schedules or schedules[day] == {}:

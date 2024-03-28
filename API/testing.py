@@ -48,21 +48,25 @@ appointments = [{"date": datetime.strptime("2024-4-3 10:00", "%Y-%m-%d %H:%M")},
                 {"date": datetime.strptime("2024-4-2 11:00", "%Y-%m-%d %H:%M")},
                 {"date": datetime.strptime("2024-4-7 12:00", "%Y-%m-%d %H:%M")},
                 {"date": datetime.strptime("2024-4-5 10:00", "%Y-%m-%d %H:%M")},
-                {"date": datetime.strptime("2024-4-5 10:00", "%Y-%m-%d %H:%M")},
-                {"date": datetime.strptime("2024-4-4 10:00", "%Y-%m-%d %H:%M")},]
+                {"date": datetime.strptime("2024-4-5 10:30", "%Y-%m-%d %H:%M")},
+                {"date": datetime.strptime("2024-4-3 10:50", "%Y-%m-%d %H:%M")},]
 
 def busy_hours():
         frequency_hours = {}
-        busy_list = list(filter(lambda x: isinstance(x, datetime), list(
+        def pars(d):
+            return str(d)[:-6]
+
+        busy_list = list(filter(lambda x: isinstance(x, str), list(
             map(
-                lambda x: x['date'] if ( str(x['date']) not in frequency_hours and frequency_hours.update({str(x['date']): 0})) or\
-                    frequency_hours[str(x['date'])] == appointment_per_hour - 1 else\
-                        frequency_hours.update({str(x['date']): frequency_hours[str(x['date'])] + 1}),
+                lambda x: pars(x['date']) if ( pars(x['date']) not in frequency_hours and frequency_hours.update({pars(x['date']): 0})) or\
+                    frequency_hours[pars(x['date'])] == appointment_per_hour - 1 else\
+                        frequency_hours.update({pars(x['date']): frequency_hours[pars(x['date'])] + 1}),
                         appointments
             )
         )))
         print(frequency_hours)
         return busy_list
+
 
 print(datetime.strptime("2024-4-4 10:00", "%Y-%m-%d %H:%M").strftime("%H:%M").lower())
 from datetime import datetime
@@ -124,3 +128,7 @@ for day, time in schedules["days"].items():
             print("the keys were set incorrectly, follow the format : %H:%M.")
 
 print(schedule_dict)
+
+
+print(busy_hours())
+# print("10:00"[:-3])
