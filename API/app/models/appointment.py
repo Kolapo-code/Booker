@@ -9,7 +9,6 @@ class Appointment(BaseModel, Base):
 
     __tablename__ = "appointments"
     date = Column(DATETIME, default=datetime.now)
-    range = Column(Integer)
     status = Column(Enum("Pending", "Canceled", "Verified", "Attended"), default="Pending")
     to_be_canceled = Column(Boolean, default=False)
     expired = Column(Boolean, default=False)
