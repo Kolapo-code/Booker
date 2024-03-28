@@ -1,6 +1,7 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from datetime import datetime
 import random
 import string
 import os
@@ -127,6 +128,51 @@ def velidate_fields(fields, data):
             error_str += f"{', '.join(data_keys- fields_keys)} do not exist"
     return error_str
 
-# def check_schedules(schedules):
-#     """A function that checks the schedule data before it is set up."""
-#     for key, val in schedules['days']:
+
+def check_schedules(schedules):
+    """A function that checks the validity of the schedule dictionary."""
+    schedule_dict = {
+        "days": {
+            "manday": {},
+            "tuesday": {},
+            "wednesday": {},
+            "thursday": {},
+            "friday": {},
+            "saturday": {},
+            "sunday": {},
+        }
+    }
+
+    if set(schedule_dict.keys()) != {"days"}:
+        return "Make sure you set up the key [days]."
+
+    days_set = set(schedule_dict["days"].keys())
+    data_set = set(schedules["days"].keys())
+    error_string = ""
+
+    if days_set != data_set:
+        extra = days_set - data_set
+        missing = data_set - days_set
+        if missing:
+            error_string += f"Make sure you add {', '.join(missing)} to the days"
+        error_string += " and " if error_string else ""
+        if extra:
+            error_string += f"remove {', '.join(extra)} from the days"
+    if error_string:
+        return error_string
+
+    for day, time in schedules["days"].items():
+        for item in list(time.keys()):
+            if item not in ["from", "to", "break"]:
+                return "The data keys in each day should be one of the following: [from], [to], [break]"
+            try:
+                if item in ["from", "to"]:
+                    schedule_dict['days'][day][item] = datetime.strptime(time[item], "%H:%M").time()
+                else:
+                    schedule_dict['days'][day]["break"] = {
+                        "from": datetime.strptime(time["break"]["from"], "%H:%M").time(),
+                        "to": datetime.strptime(time["break"]["to"], "%H:%M").time()
+                    }
+            except(ValueError,TypeError):
+                return "the keys were set incorrectly, follow the format : %H:%M."
+    return schedule_dict

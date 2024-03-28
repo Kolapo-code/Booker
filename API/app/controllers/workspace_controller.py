@@ -1,6 +1,7 @@
 from flask import abort, request
 from app import auth, storage
 from app.models.workspace import Workspace
+from app.utils.helper import check_schedules
 import json
 
 def get_user_workspace_object(id):
@@ -90,6 +91,9 @@ def make_workspace():
         if data["schedules"]:
             schedules = data["schedules"]
         del data["schedules"]
+        schedules_dict = check_schedules(schedules)
+        if schedules_dict != {}:
+            abort(400, schedules_dict)
 
     if len(data.keys()) != len(requirements.keys()):
         abort(400, 'bad request')

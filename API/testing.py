@@ -1,46 +1,46 @@
 from datetime import datetime
-# fields = {
-#     "title": (str, 60, 3),
-#     "feild": (str, 60, 3),
-#     "description": (str, 500, 150),
-#     "picture": (str, 256, 0),
-#     "schedules": (str, 256, 0),
-#     "location": (str, 256, 30),
-#     "contact": (str, 256, 5),
-# }
-# data = {
-#     "feild": "devolopment",
-#     "schedules": "00:00 to 06:00 AM",
-#     "title": "Api Builder",
-#     "picture": "",
-#     "location": "Massa, Chtouka ait baha, Souss Massa",
-#     "contact": "",
-#     "description": "Drive consistency in naming Publish private and public schemas Share and learn from a centralized repository",
-# }
+fields = {
+    "title": (str, 60, 3),
+    "feild": (str, 60, 3),
+    "description": (str, 500, 150),
+    "picture": (str, 256, 0),
+    "schedules": (str, 256, 0),
+    "location": (str, 256, 30),
+    "contact": (str, 256, 5),
+}
+data = {
+    "feild": "devolopment",
+    "schedules": "00:00 to 06:00 AM",
+    "title": "Api Builder",
+    "picture": "",
+    "location": "Massa, Chtouka ait baha, Souss Massa",
+    "contact": "",
+    "description": "Drive consistency in naming Publish private and public schemas Share and learn from a centralized repository",
+}
 
-# error = []
-# list(map(lambda x: error.append(x[0])\
-#     if x[0] not in requirements or not isinstance(x[1], requirements[x[0]][0]) or\
-#         not (requirements[x[0]][2] <= len(x[1]) < requirements[x[0]][1])\
-#         else x, data.items()))
-# if error:
-#     print(f'some field not set correctly : {", ".join(error)}')
+error = []
+list(map(lambda x: error.append(x[0])\
+    if x[0] not in requirements or not isinstance(x[1], requirements[x[0]][0]) or\
+        not (requirements[x[0]][2] <= len(x[1]) < requirements[x[0]][1])\
+        else x, data.items()))
+if error:
+    print(f'some field not set correctly : {", ".join(error)}')
 
-# fields_keys = set(fields.keys())
-# data_keys = set(data.keys())
-# print(fields_keys)
-# print(data_keys)
-# error_str = ""
-# if fields_keys != data_keys:
-#     print("hello")
-#     if fields_keys - data_keys:
-#         error_str += f"{' '.join(fields_keys- data_keys)} missing"
-#     if data_keys - fields_keys:
-#         error_str += " and " if error_str else ""
-#         error_str += f"{' '.join(data_keys- fields_keys)} do not exist"
-#     print(error_str)
-#     exit()
-# print("all good")
+fields_keys = set(fields.keys())
+data_keys = set(data.keys())
+print(fields_keys)
+print(data_keys)
+error_str = ""
+if fields_keys != data_keys:
+    print("hello")
+    if fields_keys - data_keys:
+        error_str += f"{' '.join(fields_keys- data_keys)} missing"
+    if data_keys - fields_keys:
+        error_str += " and " if error_str else ""
+        error_str += f"{' '.join(data_keys- fields_keys)} do not exist"
+    print(error_str)
+    exit()
+print("all good")
 
 appointment_per_hour = 2
 appointments = [{"date": datetime.strptime("2024-4-3 10:00", "%Y-%m-%d %H:%M")},
@@ -65,8 +65,7 @@ def busy_hours():
         return busy_list
 
 print(datetime.strptime("2024-4-4 10:00", "%Y-%m-%d %H:%M").strftime("%H:%M").lower())
-
-import datetime
+from datetime import datetime
 
 schedules = {
     "days": {
@@ -108,19 +107,20 @@ if days_set != data_set:
     error_string += " and " if error_string else ""
     if extra:
         error_string += f"remove {', '.join(extra)} from the days"
-print(error_string)
 
-for day in schedules["days"].keys():
-    print(schedules['days'][day].keys() )
-    if set(schedules['days'][day].keys()) not in ["from", "to", "break"]:
-        print("The data keys in each day should be one of the following: [from], [to], [break]")
-    try:
-        if schedules['days'][day]["from"]:
-            schedule_dict['days'][day]["from"] = datetime.strptime(schedules['days'][day]["from"])
-        if schedules['days'][day]["to"]:
-            schedule_dict['days'][day]["to"] = datetime.strptime(schedules['days'][day]["to"])
-        if schedules['days'][day]["break"]:
-            schedule_dict['days'][day]["break"] = datetime.strptime(schedules['days'][day]["break"])
-    except(ValueError,TypeError):
-        print("the keys were set incorrectly, follow the format : %H:%M.")
+for day, time in schedules["days"].items():
+    for item in list(time.keys()):
+        if item not in ["from", "to", "break"]:
+            print("The data keys in each day should be one of the following: [from], [to], [break]")
+        try:
+            if item in ["from", "to"]:
+                schedule_dict['days'][day][item] = datetime.strptime(time[item], "%H:%M").time()
+            else:
+                schedule_dict['days'][day]["break"] = {
+                    "from": datetime.strptime(time["break"]["from"], "%H:%M").time(),
+                    "to": datetime.strptime(time["break"]["to"], "%H:%M").time()
+                }
+        except(ValueError,TypeError):
+            print("the keys were set incorrectly, follow the format : %H:%M.")
+
 print(schedule_dict)
