@@ -1,7 +1,7 @@
 from flask import abort, request
 from app import auth, storage
 from app.models.workspace import Workspace
-
+import json
 
 def get_user_workspace_object(id):
     """gets a workspace object by the given id only if owned by the user"""
@@ -78,12 +78,19 @@ def make_workspace():
         "field": (str, 60, 3),
         "description": (str, 500, 150),
         "picture": (str, 256, 0),
-        "schedules": (str, 256, 0),
         "location": (str, 256, 30),
         "contact": (str, 256, 5),
     }
     data = request.get_json()
+    schedules = None
     error = []
+    if "schedules" in data:
+        if not isinstance(data["schedules"], dict):
+            error.append("schedules")
+        if data["schedules"]:
+            schedules = data["schedules"]
+        del data["schedules"]
+
     if len(data.keys()) != len(requirements.keys()):
         abort(400, 'bad request')
     list(map(lambda x: error.append(x[0])\
@@ -93,6 +100,8 @@ def make_workspace():
     if error:
         abort(400, f'some field not set correctly : {", ".join(error)}')
     data["premium_account_id"] = user.premium_account.id
+    if schedules:
+        data["schedules"] = json.dumps(schedules)
     workspace = Workspace(**data)
     workspace.save()
     return workspace.id
