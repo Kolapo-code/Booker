@@ -1,3 +1,4 @@
+from datetime import datetime
 # fields = {
 #     "title": (str, 60, 3),
 #     "feild": (str, 60, 3),
@@ -40,6 +41,30 @@
 #     print(error_str)
 #     exit()
 # print("all good")
+
+appointment_per_hour = 2
+appointments = [{"date": datetime.strptime("2024-4-3 10:00", "%Y-%m-%d %H:%M")},
+                {"date": datetime.strptime("2024-4-3 10:00", "%Y-%m-%d %H:%M")},
+                {"date": datetime.strptime("2024-4-2 11:00", "%Y-%m-%d %H:%M")},
+                {"date": datetime.strptime("2024-4-7 12:00", "%Y-%m-%d %H:%M")},
+                {"date": datetime.strptime("2024-4-5 10:00", "%Y-%m-%d %H:%M")},
+                {"date": datetime.strptime("2024-4-5 10:00", "%Y-%m-%d %H:%M")},
+                {"date": datetime.strptime("2024-4-4 10:00", "%Y-%m-%d %H:%M")},]
+
+def busy_hours():
+        frequency_hours = {}
+        busy_list = list(filter(lambda x: isinstance(x, datetime), list(
+            map(
+                lambda x: x['date'] if ( str(x['date']) not in frequency_hours and frequency_hours.update({str(x['date']): 0})) or\
+                    frequency_hours[str(x['date'])] == appointment_per_hour - 1 else\
+                        frequency_hours.update({str(x['date']): frequency_hours[str(x['date'])] + 1}),
+                        appointments
+            )
+        )))
+        print(frequency_hours)
+        return busy_list
+
+print(datetime.strptime("2024-4-4 10:00", "%Y-%m-%d %H:%M").strftime("%H:%M").lower())
 
 import datetime
 

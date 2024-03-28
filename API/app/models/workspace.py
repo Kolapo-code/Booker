@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, DATETIME, Integer, Boolean, Enum, ForeignKey
 from app.config import SCHEDULES
+import json
 
 
 class Workspace(BaseModel, Base):
@@ -17,6 +18,7 @@ class Workspace(BaseModel, Base):
     schedules = Column(String(256), default=SCHEDULES)
     location = Column(String(256), nullable=True)
     contact = Column(String(256), nullable=True)
+    appointment_per_hour = Column(Integer, default=1)
 
     premium_account_id = Column(
         String(60), ForeignKey("premium_accounts.id"), nullable=False
@@ -25,3 +27,37 @@ class Workspace(BaseModel, Base):
     appointments = relationship(
         "Appointment", backref="workspace", cascade="all, delete-orphan"
     )
+
+    def busy_hours(self):
+        frequency_hours = {}
+        busy_list = list(filter(lambda x:  isinstance(x, datetime), list(
+            map(
+                lambda x: x.date if ( str(x.date) not in frequency_hours and frequency_hours.update({str(x.date): 0})) or\
+                    frequency_hours[str(x.date)] == self.appointment_per_hour - 1 else\
+                        frequency_hours.update({str(x.date): frequency_hours[str(x.date)] + 1}),
+                        self.appointments
+            )
+        )))
+        return busy_list
+
+    def available_date(self, date):
+        schedules = json.loads(self.schedules)
+        day = date.strftime("%A").lower()
+        hour = date.strftime("%H:%M")
+        if day not in schedules or schedules[day] == {}:
+            return False
+        hour = datetime.strptime(hour, "%H:%M")
+        try:
+            start = datetime.strptime(schedules[day]["from"], "%H:%M")
+            end = datetime.strptime(schedules[day]["to"], "%H:%M")
+            if 'break' in schedules[day] and schedules[day]['break']:
+                break_start = datetime.strptime(schedules[day]['break']["from"], "%H:%M")
+                break_end = datetime.strptime(schedules[day]['break']["to"], "%H:%M")
+                if start <= hour <= break_start or break_end <= hour <= end:
+                    return True
+            else:
+                if start <= hour <= end:
+                    return True
+        except Exception:
+            return False
+        return False
