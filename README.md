@@ -49,7 +49,7 @@ Booker provides booking services for users, and workspaces for different industr
 
 ## Technical specifications
 
-![Technical specifications](./Ressources/technologies_infrastructure.png)
+![Technical specifications](./Resources/technologies_infrastructure.png)
 
 ## Features
 
@@ -144,8 +144,10 @@ Run the api
 python3 -m run
 ```
 
-<center>
+<!-- <center>
 	<iframe width="200" height="300"
 	src="https://www.youtube.com/watch?v=eqWzKyfpXv0" frameborder="0" allowfullscreen>
 	</iframe>
-</center>
+</center> -->
+
+[![Watch the video](https://img.youtube.com/vi/eqWzKyfpXv0/maxresdefault.jpg)](https://www.youtube.com/watch?v=eqWzKyfpXv0)
