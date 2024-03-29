@@ -128,7 +128,7 @@ def make_workspace():
         abort(400, f'some field not set correctly : {", ".join(error)}')
     data["premium_account_id"] = user.premium_account.id
     if schedules:
-        data["schedules"] = json.dumps(schedules)
+        data["schedules"] = json.dumps(schedules_dict)
     if appointment_per_hour:
         data["appointment_per_hour"] = appointment_per_hour
     workspace = Workspace(**data)

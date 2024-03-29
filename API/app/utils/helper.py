@@ -133,39 +133,28 @@ def check_schedules(schedules_dict):
     """A function that checks the validity of the schedule dictionary."""
     from app.utils.schedules import schedules
 
-    if set(schedules.keys()) != {"days"}:
+    if set(schedules_dict.keys()) != {"days"}:
         return "Make sure you set up the key [days]."
 
-    days_set = set(schedules["days"].keys())
-    data_set = set(schedules_dict["days"].keys())
-    error_string = ""
-    if days_set != data_set:
-        missing = days_set - data_set
-        extra = data_set - days_set
-        if missing:
-            error_string += f"Make sure you add {', '.join(missing)} to the days"
-        error_string += " and " if error_string else ""
-        if extra:
-            error_string += f"remove {', '.join(extra)} from the days"
-    if error_string != "":
-        return error_string
-
-    for day, time in schedules["days"].items():
+    for day, time in schedules_dict["days"].items():
+        if not day or day not in schedules["days"].keys():
+            return "Make sure you set up the days correctly."
         if time.keys():
             for item in list(time.keys()):
                 if item not in ["from", "to", "break"]:
                     return "The data keys in each day should be one of the following: [from], [to], [break]"
                 try:
+                    datetime.strptime(time[item], "%H:%M").time()
+                except (ValueError, TypeError):
+                    return "Make sure you set up the times correctly."
+                try:
                     if item in ["from", "to"]:
-                        # schedules_dict['days'][day][item] = datetime.strptime(time[item], "%H:%M").time()
-                        schedules_dict["days"][day][item] = time[item]
+                        schedules["days"][day][item] = time[item]
                     else:
-                        schedules_dict["days"][day]["break"] = {
-                            # "from": datetime.strptime(time["break"]["from"], "%H:%M").time(),
-                            # "to": datetime.strptime(time["break"]["to"], "%H:%M").time()
+                        schedules["days"][day]["break"] = {
                             "from": time["break"]["from"],
                             "to": time["break"]["to"],
                         }
                 except (ValueError, TypeError):
                     return "the keys were set incorrectly, follow the format : %H:%M."
-    return schedules_dict
+    return schedules
