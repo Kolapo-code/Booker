@@ -147,6 +147,3 @@ python3 -m run
 ```
 
 https://github.com/jinDeHao/Booker/assets/70861727/f274584c-3b7a-476e-b285-a0bfd2d5968e
-
-
-

@@ -32,28 +32,16 @@
             "description": "Handles appointments managment. Creation, update, and canceling an appointment."
         },
         {
-            "name": "workspaces",
-            "description": "Handles workspaces managment. Where a workspace can be set.",
-            "externalDocs": {
-                "description": "",
-                "url": ""
-            }
+            "name": "Workspace",
+            "description": "Handles workspaces managment. Where a workspace can be set."
         },
         {
-            "name": "reviews",
-            "description": "Handles users reviews in a specific workspace. Including likes, dislikes, and comments.",
-            "externalDocs": {
-                "description": "",
-                "url": ""
-            }
+            "name": "Review",
+            "description": "Handles users reviews in a specific workspace. Including likes, dislikes, and comments."
         },
         {
-            "name": "reclaims",
-            "description": "Handles users reclaims that can be resolved by the administration.",
-            "externalDocs": {
-                "description": "",
-                "url": ""
-            }
+            "name": "Reclaim",
+            "description": "Handles users reclaims that can be resolved by the administration."
         }
     ],
     "schemes": [
@@ -631,7 +619,7 @@
         "/reclaims": {
             "get": {
                 "tags": [
-                    "Reclaims"
+                    "Reclaim"
                 ],
                 "summary": "Get reclaim",
                 "description": "An end point that gets all the reclaims done by the user.",
@@ -646,7 +634,7 @@
             },
             "post": {
                 "tags": [
-                    "Reclaims"
+                    "Reclaim"
                 ],
                 "summary": "Create reclaim",
                 "description": "An end point that creates a reclaim for the user.",
@@ -684,7 +672,7 @@
         "/reviews/{workspace_id}": {
             "post": {
                 "tags": [
-                    "Reviews"
+                    "Review"
                 ],
                 "summary": "Make review",
                 "description": "An end point that creates a review on a specific workspace.",
@@ -725,7 +713,7 @@
         "/reviews/{id}": {
             "put": {
                 "tags": [
-                    "Reviews"
+                    "Review"
                 ],
                 "summary": "Update review",
                 "description": "An end point that updates a review by the identifier.",
@@ -764,7 +752,7 @@
             },
             "delete": {
                 "tags": [
-                    "Reviews"
+                    "Review"
                 ],
                 "summary": "Delete review",
                 "description": "An end point that deletes a review by the identifier.",
@@ -792,7 +780,7 @@
         "/reviews/{id}/like": {
             "post": {
                 "tags": [
-                    "Reviews"
+                    "Review"
                 ],
                 "summary": "Like review",
                 "description": "An end point that adds a like to a review by the identifier.",
@@ -820,7 +808,7 @@
         "/reviews/{id}/dislike": {
             "post": {
                 "tags": [
-                    "Reviews"
+                    "Review"
                 ],
                 "summary": "Dislike review",
                 "description": "An end point that adds a dislike to a review by the identifier.",
@@ -848,7 +836,7 @@
         "/workspaces": {
             "get": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Get workspace",
                 "description": "An end point that gets all the workspaces available.",
@@ -863,7 +851,7 @@
             },
             "post": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Create workspace",
                 "description": "An end point that creates a workspaces for a premium account.",
@@ -908,7 +896,7 @@
                                         "type": "object",
                                         "format": "required",
                                         "properties": {
-                                            "manday": {
+                                            "monday": {
                                                 "type": "object",
                                                 "format": "optionale",
                                                 "properties": {
@@ -959,7 +947,7 @@
         "/workspaces/{id}": {
             "get": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Get workspace",
                 "description": "An end point that gets a workspaces by the identifier.",
@@ -982,7 +970,7 @@
             },
             "put": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Update workspace",
                 "description": "An end point that updates a workspaces by the identifier.",
@@ -1036,7 +1024,7 @@
             },
             "delete": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Delete workspace",
                 "description": "An end point that deletes a workspaces by the identifier.",
@@ -1064,7 +1052,7 @@
         "/workspaces/{id}/appointments": {
             "get": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Get workspace appointments",
                 "description": "An end point that gets all the appointments of a workspace by the identifier.",
@@ -1089,7 +1077,7 @@
         "/workspaces/{id}/appointments/{appointment_id}": {
             "get": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Get workspace appointments",
                 "description": "An end point that gets a single appointment of a workspace by the identifier.",
@@ -1120,7 +1108,7 @@
         "/workspaces/{id}/appointments/{appointment_id}/verify": {
             "put": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Verifie workspace appointment",
                 "description": "An end point that verifies the workspace's appointment with the identifier.",
@@ -1154,7 +1142,7 @@
         "/workspaces/{id}/appointments/{appointment_id}/attended": {
             "put": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Mark workspace appointment attended",
                 "description": "An end point that marks the workspace's appointment with the identifier as attended.",
@@ -1188,7 +1176,7 @@
         "/workspaces/{id}/appointments/{appointment_id}/cancel": {
             "put": {
                 "tags": [
-                    "Workspaces"
+                    "Workspace"
                 ],
                 "summary": "Mark workspace appointment canceled",
                 "description": "An end point that marks the workspace's appointment with the identifier as canceled.",

@@ -57,7 +57,6 @@ def get_workspace(id):
         if k != "premium_account_id"
     }
     data["user_id"] = workspace.premium_account.user_id
-    data["schedules"] = json.loads(workspace.schedules)
     data["reviews"] = list(
         map(
             lambda x: dict(
