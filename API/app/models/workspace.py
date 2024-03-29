@@ -15,7 +15,7 @@ class Workspace(BaseModel, Base):
     field = Column(String(60), nullable=False)
     description = Column(String(500), nullable=True)
     picture = Column(String(256), nullable=True)
-    schedules = Column(String(1000), default=SCHEDULES)
+    schedules = Column(String(2000), default=SCHEDULES)
     location = Column(String(256), nullable=True)
     contact = Column(String(256), nullable=True)
     appointment_per_hour = Column(Integer, default=1)

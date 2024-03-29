@@ -1,10 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a REST-Full API called Booker, it provides booking services and the ablity to own workspaces and make appointments.",
+        "description": "A REST-Full API called that provides booking services. It gives users the ablity to own workspaces where they can show case their business as well as make appointments to existing workspaces.",
         "version": "0.0.0",
         "title": "BOOKER API",
-        "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "email": "bookerapiteam@gmail.com"
         },
@@ -18,43 +17,31 @@
     "tags": [
         {
             "name": "Account",
-            "description": "Create, activate and manage account"
+            "description": "Handles the create, the activation, and management of an account."
         },
         {
             "name": "Session",
-            "description": "login and logout"
+            "description": "Handles the login, and logout."
         },
         {
             "name": "Profile",
-            "description": "Interact with users profile, manage your own profile"
+            "description": "Interactes with users profile, manages it."
         },
         {
             "name": "Appointment",
-            "description": "Manage appointments"
+            "description": "Handles appointments managment. Creation, update, and canceling an appointment."
         },
         {
-            "name": "workspaces",
-            "description": "Everything about workspaces",
-            "externalDocs": {
-                "description": "",
-                "url": ""
-            }
+            "name": "Workspace",
+            "description": "Handles workspaces managment. Where a workspace can be set."
         },
         {
-            "name": "reviews",
-            "description": "Everything about reviews",
-            "externalDocs": {
-                "description": "",
-                "url": ""
-            }
+            "name": "Review",
+            "description": "Handles users reviews in a specific workspace. Including likes, dislikes, and comments."
         },
         {
-            "name": "reclaims",
-            "description": "Everything about reclaims",
-            "externalDocs": {
-                "description": "",
-                "url": ""
-            }
+            "name": "Reclaim",
+            "description": "Handles users reclaims that can be resolved by the administration."
         }
     ],
     "schemes": [
@@ -66,8 +53,8 @@
                 "tags": [
                     "Account"
                 ],
-                "summary": "create account",
-                "description": "the end point that registers a user",
+                "summary": "Create account",
+                "description": "An end point that registers a new user",
                 "consumes": [
                     "application/json"
                 ],
@@ -87,7 +74,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -113,8 +100,8 @@
                 "tags": [
                     "Account"
                 ],
-                "summary": "validate account",
-                "description": "the end point that verify a user by the his token",
+                "summary": "Validate account",
+                "description": "An end point that verifies a user using a token that was send by email.",
                 "consumes": [
                     "application/json"
                 ],
@@ -132,7 +119,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -150,8 +137,8 @@
                 "tags": [
                     "Account"
                 ],
-                "summary": "forget password",
-                "description": "the end point that send a temprary",
+                "summary": "Forget password",
+                "description": "An end point that send a temprary password in case the user has fogoten the password and requested one.",
                 "consumes": [
                     "application/json"
                 ],
@@ -160,7 +147,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -178,8 +165,8 @@
                 "tags": [
                     "Session"
                 ],
-                "summary": "create session",
-                "description": "the end point that creates session for a user",
+                "summary": "Create session",
+                "description": "An end point that creates a session for a user.",
                 "consumes": [
                     "application/json"
                 ],
@@ -204,7 +191,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -230,8 +217,8 @@
                 "tags": [
                     "Session"
                 ],
-                "summary": "delete session",
-                "description": "the end point that logs out the user",
+                "summary": "Delete session",
+                "description": "An end point that deletes the user's session.",
                 "consumes": [
                     "application/json"
                 ],
@@ -240,7 +227,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -258,8 +245,8 @@
                 "tags": [
                     "Account"
                 ],
-                "summary": "delete account",
-                "description": "the end point that removes user account",
+                "summary": "Delete account",
+                "description": "An end point that removes a user's account permanently.",
                 "consumes": [
                     "application/json"
                 ],
@@ -268,7 +255,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -286,8 +273,8 @@
                 "tags": [
                     "Account"
                 ],
-                "summary": "upgrade account",
-                "description": "the end point that upgrades user to premium account",
+                "summary": "Upgrade account",
+                "description": "An end point that upgrades a user from being reqular to having a premium account.",
                 "consumes": [
                     "application/json"
                 ],
@@ -307,7 +294,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -325,8 +312,8 @@
                 "tags": [
                     "Profile"
                 ],
-                "summary": "get user data",
-                "description": "the end point that gets user profile",
+                "summary": "Get profile",
+                "description": "An end point that gets the user's profile",
                 "consumes": [
                     "application/json"
                 ],
@@ -335,7 +322,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -351,8 +338,8 @@
                 "tags": [
                     "Profile"
                 ],
-                "summary": "updates user data",
-                "description": "the end point that updates user profile",
+                "summary": "Update profile",
+                "description": "An end point that updates the user's profile",
                 "consumes": [
                     "application/json"
                 ],
@@ -371,7 +358,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -392,8 +379,8 @@
                 "tags": [
                     "Profile"
                 ],
-                "summary": "get user data by user id",
-                "description": "the end point that gets user profile by id",
+                "summary": "Get profile by identifier",
+                "description": "An end point that gets the user's profile by the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -429,8 +416,8 @@
                 "tags": [
                     "Appointment"
                 ],
-                "summary": "get user appointments",
-                "description": "the end point that gets all appointments made by the user",
+                "summary": "Get Appointments",
+                "description": "An end point that gets all appointments created by the user.",
                 "consumes": [
                     "application/json"
                 ],
@@ -439,7 +426,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -457,8 +444,8 @@
                 "tags": [
                     "Appointment"
                 ],
-                "summary": "get user appointment by it id",
-                "description": "the end point that gets a single appointment made by the user by appointment id",
+                "summary": "Get Appointments by identifier",
+                "description": "An end point that gets a single appointment created by the user by the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -476,7 +463,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -492,8 +479,8 @@
                 "tags": [
                     "Appointment"
                 ],
-                "summary": "updates appointment data",
-                "description": "the end point that updates user appointment",
+                "summary": "Update appointment",
+                "description": "An end point that updates the user's appointment with the specified identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -519,7 +506,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -540,8 +527,8 @@
                 "tags": [
                     "Appointment"
                 ],
-                "summary": "cancels appointment data",
-                "description": "the end point that cancels user appointment with given id",
+                "summary": "Cancel appointment by identifier",
+                "description": "An end point that cancels the user's appointment with given identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -559,7 +546,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -580,8 +567,8 @@
                 "tags": [
                     "Appointment"
                 ],
-                "summary": "make appointment",
-                "description": "the end point that makes an appointment to an workspace",
+                "summary": "Create appointment",
+                "description": "An end point that creates an appointment for a specific workspace.",
                 "consumes": [
                     "application/json"
                 ],
@@ -608,7 +595,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation",
+                        "description": "Successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -632,25 +619,25 @@
         "/reclaims": {
             "get": {
                 "tags": [
-                    "reclaims"
+                    "Reclaim"
                 ],
-                "summary": "Get all the reclaimes that you have made.",
-                "description": "",
+                "summary": "Get reclaim",
+                "description": "An end point that gets all the reclaims done by the user.",
                 "produces": [
                     "application/json"
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             },
             "post": {
                 "tags": [
-                    "reclaims"
+                    "Reclaim"
                 ],
-                "summary": "Make a reclaim targetting a specific user.",
-                "description": "",
+                "summary": "Create reclaim",
+                "description": "An end point that creates a reclaim for the user.",
                 "consumes": [
                     "application/json"
                 ],
@@ -677,7 +664,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -685,10 +672,10 @@
         "/reviews/{workspace_id}": {
             "post": {
                 "tags": [
-                    "reviews"
+                    "Review"
                 ],
-                "summary": "Make a review in a specific workspace.",
-                "description": "",
+                "summary": "Make review",
+                "description": "An end point that creates a review on a specific workspace.",
                 "consumes": [
                     "application/json"
                 ],
@@ -718,7 +705,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -726,10 +713,10 @@
         "/reviews/{id}": {
             "put": {
                 "tags": [
-                    "reviews"
+                    "Review"
                 ],
-                "summary": "Update a review done in a specific workspace.",
-                "description": "",
+                "summary": "Update review",
+                "description": "An end point that updates a review by the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -759,16 +746,16 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             },
             "delete": {
                 "tags": [
-                    "reviews"
+                    "Review"
                 ],
-                "summary": "Make a review in a specific workspace.",
-                "description": "",
+                "summary": "Delete review",
+                "description": "An end point that deletes a review by the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -785,7 +772,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -793,10 +780,10 @@
         "/reviews/{id}/like": {
             "post": {
                 "tags": [
-                    "reviews"
+                    "Review"
                 ],
-                "summary": "Like a review.",
-                "description": "",
+                "summary": "Like review",
+                "description": "An end point that adds a like to a review by the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -813,7 +800,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -821,10 +808,10 @@
         "/reviews/{id}/dislike": {
             "post": {
                 "tags": [
-                    "reviews"
+                    "Review"
                 ],
-                "summary": "Dislike a review.",
-                "description": "",
+                "summary": "Dislike review",
+                "description": "An end point that adds a dislike to a review by the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -841,7 +828,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -849,25 +836,25 @@
         "/workspaces": {
             "get": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Get all the workspaces available.",
-                "description": "",
+                "summary": "Get workspace",
+                "description": "An end point that gets all the workspaces available.",
                 "produces": [
                     "application/json"
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             },
             "post": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Creates a new workspace for a premium user.",
-                "description": "schedules, appointment_per_hour are feilds are optional",
+                "summary": "Create workspace",
+                "description": "An end point that creates a workspaces for a premium account.",
                 "consumes": [
                     "application/json"
                 ],
@@ -909,7 +896,7 @@
                                         "type": "object",
                                         "format": "required",
                                         "properties": {
-                                            "manday": {
+                                            "monday": {
                                                 "type": "object",
                                                 "format": "optionale",
                                                 "properties": {
@@ -952,7 +939,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -960,10 +947,10 @@
         "/workspaces/{id}": {
             "get": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Get a workspace by the given id.",
-                "description": "",
+                "summary": "Get workspace",
+                "description": "An end point that gets a workspaces by the identifier.",
                 "produces": [
                     "application/json"
                 ],
@@ -977,16 +964,16 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             },
             "put": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Updates the information of the workspace.",
-                "description": "",
+                "summary": "Update workspace",
+                "description": "An end point that updates a workspaces by the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -1031,16 +1018,16 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             },
             "delete": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Deletes the workspace with the given id.",
-                "description": "",
+                "summary": "Delete workspace",
+                "description": "An end point that deletes a workspaces by the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -1057,7 +1044,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -1065,10 +1052,10 @@
         "/workspaces/{id}/appointments": {
             "get": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Get all appointments done in a workspace.",
-                "description": "",
+                "summary": "Get workspace appointments",
+                "description": "An end point that gets all the appointments of a workspace by the identifier.",
                 "produces": [
                     "application/json"
                 ],
@@ -1082,7 +1069,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -1090,10 +1077,10 @@
         "/workspaces/{id}/appointments/{appointment_id}": {
             "get": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Gets a specific appointment in the workspace.",
-                "description": "",
+                "summary": "Get workspace appointments",
+                "description": "An end point that gets a single appointment of a workspace by the identifier.",
                 "produces": [
                     "application/json"
                 ],
@@ -1113,7 +1100,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -1121,10 +1108,10 @@
         "/workspaces/{id}/appointments/{appointment_id}/verify": {
             "put": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Verifies an appointment.",
-                "description": "The appointment is verified by the owner of the workspace.",
+                "summary": "Verifie workspace appointment",
+                "description": "An end point that verifies the workspace's appointment with the identifier.",
                 "consumes": [
                     "application/json"
                 ],
@@ -1147,7 +1134,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -1155,10 +1142,10 @@
         "/workspaces/{id}/appointments/{appointment_id}/attended": {
             "put": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "Marks an appointment as attended.",
-                "description": "The appointment is marked by the owner of the workspace.",
+                "summary": "Mark workspace appointment attended",
+                "description": "An end point that marks the workspace's appointment with the identifier as attended.",
                 "consumes": [
                     "application/json"
                 ],
@@ -1181,7 +1168,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
@@ -1189,10 +1176,10 @@
         "/workspaces/{id}/appointments/{appointment_id}/cancel": {
             "put": {
                 "tags": [
-                    "workspaces"
+                    "Workspace"
                 ],
-                "summary": "cancels an appointment for a user.",
-                "description": "The appointment is canceled by the owner of the workspace.",
+                "summary": "Mark workspace appointment canceled",
+                "description": "An end point that marks the workspace's appointment with the identifier as canceled.",
                 "consumes": [
                     "application/json"
                 ],
@@ -1215,7 +1202,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "successful operation"
+                        "description": "Successful operation"
                     }
                 }
             }
