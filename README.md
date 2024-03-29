@@ -90,12 +90,6 @@ https://github.com/jinDeHao/Booker/assets/70861727/cfc5d3f0-e458-494f-a6ab-263fa
 
 You can access the UML folder check out the diagrams separately and go through each.
 
-<center>
-	<iframe width="200" height="300"
-	src="https://www.youtube.com/shorts/Xez3T_irVOU" frameborder="0" allowfullscreen>
-	</iframe>
-</center>
-
 With UML we were able to create different diagrams each fitted for a purpose starting with the `Use case diagram`.
 
 #### Use case diagram
@@ -123,7 +117,7 @@ Uploading km_20240326_720p_30f_20240326_072446.mp4…
 ## Issues
 We did face some issues, we had to update the class diagram, It was a learning curve for us. We learned a lot about how to do things the right way.
 
-Uploading km_20240327_720p_30f_20240328_000642.mp4…
+https://github.com/jinDeHao/Booker/assets/70861727/08db38cc-3d54-43a4-86ee-35101b04d87c
 
 ## Cloning and setup
 To test what we have created try to follow this guide:
