@@ -1,10 +1,7 @@
 # BOOKER API
 
-<center>
-	<iframe width="200" height="300"
-	src="https://www.youtube.com/watch?v=M0W2zlDE-Hw" frameborder="0" allowfullscreen>
-	</iframe>
-</center>
+
+https://github.com/jinDeHao/Booker/assets/70861727/377e923d-5bc4-438e-b8b1-c4e12afb5068
 
 ## TABLE OF CONTENT
 - [Booker explained](#booker-explained)
@@ -88,6 +85,8 @@ Booker provides booking services for users, and workspaces for different industr
 
 ## Modeling and conception
 We have chosed to use the UML (unified modeling language) since it is known for its fitted nature to the oriented object programming. It helped us alot to include this step, and in fact was crucial.
+
+https://github.com/jinDeHao/Booker/assets/70861727/cfc5d3f0-e458-494f-a6ab-263fadfd7eea
 
 You can access the UML folder and check out the diagrams saperatly and go trough each.
 
