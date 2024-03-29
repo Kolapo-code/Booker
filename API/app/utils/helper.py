@@ -145,9 +145,6 @@ def check_schedules(schedules_dict):
                     return "The data keys in each day should be one of the following: [from], [to], [break]"
                 try:
                     datetime.strptime(time[item], "%H:%M").time()
-                except (ValueError, TypeError):
-                    return "Make sure you set up the times correctly."
-                try:
                     if item in ["from", "to"]:
                         schedules["days"][day][item] = time[item]
                     else:
@@ -156,5 +153,5 @@ def check_schedules(schedules_dict):
                             "to": time["break"]["to"],
                         }
                 except (ValueError, TypeError):
-                    return "the keys were set incorrectly, follow the format : %H:%M."
+                    return "Make sure you set up the times correctly : %H:%M."
     return schedules
