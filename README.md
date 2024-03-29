@@ -1,11 +1,10 @@
 # BOOKER API
 
 <center>
-	<video width="420" height="240" controls>
-		<source src="./Resources/meme_project.mp4" type="video/mp4">
-	</video>
+	<iframe width="200" height="300"
+	src="https://www.youtube.com/watch?v=M0W2zlDE-Hw" frameborder="0" allowfullscreen>
+	</iframe>
 </center>
-
 
 ## TABLE OF CONTENT
 - [Booker explained](#booker-explained)
@@ -15,6 +14,7 @@
 - [Features](#features)
 - [Technical specifications](#technical-specifications)
 - [Modeling and conception](#modeling-and-conception)
+- [Development](#development)
 - [Clonning and setup](#clonning-and-setup)
 
 ## Booker explained
@@ -92,9 +92,9 @@ We have chosed to use the UML (unified modeling language) since it is known for 
 You can access the UML folder and check out the diagrams saperatly and go trough each.
 
 <center>
-	<video width="200" height="300" controls>
-		<source src="./Resources/meme_uml.mp4" type="video/mp4">
-	</video>
+	<iframe width="200" height="300"
+	src="https://www.youtube.com/shorts/Xez3T_irVOU" frameborder="0" allowfullscreen>
+	</iframe>
 </center>
 
 With UML we were able to create different diagrams each fitted for a purpose starting with the `Use case diagram`.
@@ -107,6 +107,15 @@ With UML we were able to create different diagrams each fitted for a purpose sta
 
 ![UML Use case diagram](./UML/Class_diagram/Png/Class_diagram_v4.png)
 
+#### Sequence diagram
+One example of the use case diagram would be post and get appointment.
+
+![UML Use case diagram](./UML/Sequence_diagram/Png/Post_Get_appointment.png)
+
+## Development
+We created end points for every feature. And we have used Swagger to show case every one of them.
+
+![Swagger](./Resources/swagger.jpg)
 
 ## Clonning and setup
 In order to test what we have created try to follow this guide:
@@ -134,3 +143,9 @@ Run the api
 ```bash
 python3 -m run
 ```
+
+<center>
+	<iframe width="200" height="300"
+	src="https://www.youtube.com/watch?v=eqWzKyfpXv0" frameborder="0" allowfullscreen>
+	</iframe>
+</center>
