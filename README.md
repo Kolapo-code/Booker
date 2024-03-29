@@ -1,4 +1,12 @@
 # BOOKER API
+
+<center>
+	<video width="420" height="240" controls>
+		<source src="./Resources/meme_project.mp4" type="video/mp4">
+	</video>
+</center>
+
+
 ## TABLE OF CONTENT
 - [Booker explained](#booker-explained)
 - [Inspiration](#booker-explained)
@@ -81,16 +89,24 @@ Booker provides booking services for users, and workspaces for different industr
 ## Modeling and conception
 We have chosed to use the UML (unified modeling language) since it is known for its fitted nature to the oriented object programming. It helped us alot to include this step, and in fact was crucial.
 
-<video width="250" height="480" controls>
-  <source src="./Resources/meme_uml.mp4" type="video/mp4">
-</video>
+You can access the UML folder and check out the diagrams saperatly and go trough each.
 
+<center>
+	<video width="200" height="300" controls>
+		<source src="./Resources/meme_uml.mp4" type="video/mp4">
+	</video>
+</center>
 
 With UML we were able to create different diagrams each fitted for a purpose starting with the `Use case diagram`.
 
+#### Use case diagram
+
 ![UML Use case diagram](./UML/Case_diagram/Png/Booker_diagram_v2.png)
 
-You can access the UML folder and check out the diagrams saperatly and go trough each.
+#### Class diagram
+
+![UML Use case diagram](./UML/Class_diagram/Png/Class_diagram_v4.png)
+
 
 ## Clonning and setup
 In order to test what we have created try to follow this guide:
