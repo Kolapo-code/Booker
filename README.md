@@ -24,7 +24,7 @@ This is a typical situation for getting an appointment, thus my partner and I de
 
 Booker is a restful API, that provides booking services and allows industries to create working spaces where their clients can book appointments remotely.
 
-Booker is amazing because it gives great developers around the world the chance to create an interface based on what they think fits their client's needs. The developers can take our API and use it for their purposes. The goal was to have an API with simple endpoints that handle different tasks done by the regular user that can create appointment, and the workspace owner where the appointments are done, as well as the administration that handles all the managment.
+Booker is amazing because it gives great developers the chance to create an interface based on what they think fits their client's needs. The developers can take our API and use it for their purposes. The goal was to have an API with simple endpoints that handle different tasks done by the regular user that can create appointments, and the workspace owner where the appointments are done, and the administration that handles all the management.
 
 We see Booker as more than just a Restful API; we see it as the future, as it can be used in amazing inventions, and that’s the plan.
 
@@ -52,43 +52,43 @@ Booker provides booking services for users, and workspaces for different industr
 
 - Authentication
 	- Signing up
-	- Loging in
+	- Log in
 	- Login out
-- Account managment
+- Account management
 	- Account validation
 	- Account upgrade
 	- Account deletion
-- Profile managment
+- Profile management
 	- Showing profile
 	- Updating profile
-- Appointment managment
+- Appointment management
 	- Creating appointments
 	- Listing appointments
 	- Canceling appointments
-- Workspace managment
+- Workspace management
 	- Creating workspace
 	- Updating workspace
 	- Deleting workspace
 	- Listing workspaces
 	- Filtering workspaces
-- Reviews managment
+- Reviews management
 	- Creating review
 	- Updating review
 	- Liking review
 	- Disliking review
 	- Deleting review
-- Reclaims managment
+- Reclaims management
 	- Sending reclaim
 	- Listing reclaims
 - Administration
 	- The administration is available for a couple of features so far, and it is under construction.
 
 ## Modeling and conception
-We have chosed to use the UML (unified modeling language) since it is known for its fitted nature to the oriented object programming. It helped us alot to include this step, and in fact was crucial.
+We have chosen to use the UML (unified modeling language) since it is known for its fitted nature to oriented object programming. It helped us a lot to include this step, and was crucial.
 
 https://github.com/jinDeHao/Booker/assets/70861727/cfc5d3f0-e458-494f-a6ab-263fadfd7eea
 
-You can access the UML folder and check out the diagrams saperatly and go trough each.
+You can access the UML folder check out the diagrams separately and go through each.
 
 <center>
 	<iframe width="200" height="300"
@@ -112,14 +112,23 @@ One example of the use case diagram would be post and get appointment.
 ![UML Use case diagram](./UML/Sequence_diagram/Png/Post_Get_appointment.png)
 
 ## Development
-We created end points for every feature. And we have used Swagger to show case every one of them.
+We created endpoints for every feature. And we have used Swagger to showcase every one of them.
 
 ![Swagger](./Resources/swagger.jpg)
 
-## Clonning and setup
-In order to test what we have created try to follow this guide:
+Of course, we had to review each other's code, and here's what Omar made.
 
-Clonning the repository
+Uploading km_20240326_720p_30f_20240326_072446.mp4…
+
+## Issues
+We did face some issues, we had to update the class diagram, It was a learning curve for us. We learned a lot about how to do things the right way.
+
+Uploading km_20240327_720p_30f_20240328_000642.mp4…
+
+## Cloning and setup
+To test what we have created try to follow this guide:
+
+Cloning the repository
 ```bash
 git clone
 ```
@@ -128,7 +137,7 @@ Navigate to the project
 cd /Booker/API/app
 ```
 
-Install the required dependancies
+Install the required dependencies
 ```bash
 ./requirements.sh
 ```
@@ -138,15 +147,12 @@ Create the database and the user
 ./config.sh
 ```
 
-Run the api
+Run the API
 ```bash
 python3 -m run
 ```
 
-<!-- <center>
-	<iframe width="200" height="300"
-	src="https://www.youtube.com/watch?v=eqWzKyfpXv0" frameborder="0" allowfullscreen>
-	</iframe>
-</center> -->
+https://github.com/jinDeHao/Booker/assets/70861727/f274584c-3b7a-476e-b285-a0bfd2d5968e
 
-[![Watch the video](https://img.youtube.com/vi/eqWzKyfpXv0/maxresdefault.jpg)](https://www.youtube.com/watch?v=eqWzKyfpXv0)
+
+
