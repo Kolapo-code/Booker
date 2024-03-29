@@ -1,6 +1,7 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from datetime import datetime
 import random
 import string
 import os
@@ -22,7 +23,7 @@ def verify_email(user_name, user_email, verification_link):
     <body>
         <center><h3>Welcome to Booker🎉, {recipient_name}!</h3></center>
         <p>We are so pleased to have you with us.
-        Click <a href="{verification_link}">here</a> to verify your account.</p>
+        Click {verification_link} to verify your account.</p>
         <img src="cid:image" alt="Happy">
         <p>Please keep in touch and reach out to us for any help needed.</p>
         <p>Feel at home and checkout the available workspaces.</p>
@@ -126,3 +127,31 @@ def velidate_fields(fields, data):
             error_str += " and " if error_str else ""
             error_str += f"{', '.join(data_keys- fields_keys)} do not exist"
     return error_str
+
+
+def check_schedules(schedules_dict):
+    """A function that checks the validity of the schedule dictionary."""
+    from app.utils.schedules import schedules
+
+    if set(schedules_dict.keys()) != {"days"}:
+        return "Make sure you set up the key [days]."
+
+    for day, time in schedules_dict["days"].items():
+        if not day or day not in schedules["days"].keys():
+            return "Make sure you set up the days correctly."
+        if time.keys():
+            for item in list(time.keys()):
+                if item not in ["from", "to", "break"]:
+                    return "The data keys in each day should be one of the following: [from], [to], [break]"
+                try:
+                    datetime.strptime(time[item], "%H:%M").time()
+                    if item in ["from", "to"]:
+                        schedules["days"][day][item] = time[item]
+                    else:
+                        schedules["days"][day]["break"] = {
+                            "from": time["break"]["from"],
+                            "to": time["break"]["to"],
+                        }
+                except (ValueError, TypeError):
+                    return "Make sure you set up the times correctly : %H:%M."
+    return schedules

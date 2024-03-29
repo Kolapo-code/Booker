@@ -13,6 +13,7 @@ from app.models.appointment import Appointment
 from app.models.temporary_password import TemporaryPassword
 from app.models.review import Review
 from app.models.reclaim import Reclaim
+import json
 
 
 class DBConfig:

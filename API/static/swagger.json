@@ -1,0 +1,1320 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "A REST-Full API called that provides booking services. It gives users the ablity to own workspaces where they can show case their business as well as make appointments to existing workspaces.",
+        "version": "0.0.0",
+        "title": "BOOKER API",
+        "contact": {
+            "email": "bookerapiteam@gmail.com"
+        },
+        "license": {
+            "name": "",
+            "url": ""
+        }
+    },
+    "host": "",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "Account",
+            "description": "Handles the create, the activation, and management of an account."
+        },
+        {
+            "name": "Session",
+            "description": "Handles the login, and logout."
+        },
+        {
+            "name": "Profile",
+            "description": "Interactes with users profile, manages it."
+        },
+        {
+            "name": "Appointment",
+            "description": "Handles appointments managment. Creation, update, and canceling an appointment."
+        },
+        {
+            "name": "Workspace",
+            "description": "Handles workspaces managment. Where a workspace can be set."
+        },
+        {
+            "name": "Review",
+            "description": "Handles users reviews in a specific workspace. Including likes, dislikes, and comments."
+        },
+        {
+            "name": "Reclaim",
+            "description": "Handles users reclaims that can be resolved by the administration."
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/sign_up": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Create account",
+                "description": "An end point that registers a new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/validation/{token}": {
+            "put": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Validate account",
+                "description": "An end point that verifies a user using a token that was send by email.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "description": "validation token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reset_password": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Forget password",
+                "description": "An end point that send a temprary password in case the user has fogoten the password and requested one.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Session"
+                ],
+                "summary": "Create session",
+                "description": "An end point that creates a session for a user.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "properties": {
+                            "email": {
+                                "type": "string"
+                            },
+                            "password": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "email": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "delete": {
+                "tags": [
+                    "Session"
+                ],
+                "summary": "Delete session",
+                "description": "An end point that deletes the user's session.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/account": {
+            "delete": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Delete account",
+                "description": "An end point that removes a user's account permanently.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/account/upgrade": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Upgrade account",
+                "description": "An end point that upgrades a user from being reqular to having a premium account.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PremiumAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get profile",
+                "description": "An end point that gets the user's profile",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update profile",
+                "description": "An end point that updates the user's profile",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/profile/{id}": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get profile by identifier",
+                "description": "An end point that gets the user's profile by the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments": {
+            "get": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Get Appointments",
+                "description": "An end point that gets all appointments created by the user.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments/{id}": {
+            "get": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Get Appointments by identifier",
+                "description": "An end point that gets a single appointment created by the user by the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "appointment id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Update appointment",
+                "description": "An end point that updates the user's appointment with the specified identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "appointment id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Appointment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments/{id}/cancel": {
+            "put": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Cancel appointment by identifier",
+                "description": "An end point that cancels the user's appointment with given identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "appointment id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appointments/{workspace_id}": {
+            "post": {
+                "tags": [
+                    "Appointment"
+                ],
+                "summary": "Create appointment",
+                "description": "An end point that creates an appointment for a specific workspace.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "workspace_id",
+                        "in": "path",
+                        "description": "workspace id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Appointment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "appointment_id": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reclaims": {
+            "get": {
+                "tags": [
+                    "Reclaim"
+                ],
+                "summary": "Get reclaim",
+                "description": "An end point that gets all the reclaims done by the user.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Reclaim"
+                ],
+                "summary": "Create reclaim",
+                "description": "An end point that creates a reclaim for the user.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "subject": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "reclaimed_id": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/reviews/{workspace_id}": {
+            "post": {
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Make review",
+                "description": "An end point that creates a review on a specific workspace.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "workspace_id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "content": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/reviews/{id}": {
+            "put": {
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Update review",
+                "description": "An end point that updates a review by the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the review.",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "content": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Delete review",
+                "description": "An end point that deletes a review by the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the review.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/reviews/{id}/like": {
+            "post": {
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Like review",
+                "description": "An end point that adds a like to a review by the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the review.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/reviews/{id}/dislike": {
+            "post": {
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Dislike review",
+                "description": "An end point that adds a dislike to a review by the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the review.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces": {
+            "get": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Get workspace",
+                "description": "An end point that gets all the workspaces available.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Create workspace",
+                "description": "An end point that creates a workspaces for a premium account.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "field": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "picture": {
+                                "type": "string"
+                            },
+                            "location": {
+                                "type": "string"
+                            },
+                            "contact": {
+                                "type": "string"
+                            },
+                            "appointment_per_hour": {
+                                "type": "integer"
+                            },
+                            "schedules": {
+                                "type": "object",
+                                "format": "optionale",
+                                "properties": {
+                                    "days": {
+                                        "type": "object",
+                                        "format": "required",
+                                        "properties": {
+                                            "monday": {
+                                                "type": "object",
+                                                "format": "optionale",
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "string",
+                                                        "format": "%H:%M"
+                                                    },
+                                                    "break": {
+                                                        "type": "object",
+                                                        "format": "optionale",
+                                                        "properties": {
+                                                            "from": {
+                                                                "type": "string",
+                                                                "format": "%H:%M"
+                                                            },
+                                                            "to": {
+                                                                "type": "string",
+                                                                "format": "%H:%M"
+                                                            }
+                                                        }
+                                                    },
+                                                    "to": {
+                                                        "type": "string",
+                                                        "format": "%H:%M"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "location": {
+                                    "type": "string"
+                                },
+                                "contact": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}": {
+            "get": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Get workspace",
+                "description": "An end point that gets a workspaces by the identifier.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Update workspace",
+                "description": "An end point that updates a workspaces by the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "field": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "picture": {
+                                "type": "string"
+                            },
+                            "schedules": {
+                                "type": "string"
+                            },
+                            "location": {
+                                "type": "string"
+                            },
+                            "contact": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Delete workspace",
+                "description": "An end point that deletes a workspaces by the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}/appointments": {
+            "get": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Get workspace appointments",
+                "description": "An end point that gets all the appointments of a workspace by the identifier.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}/appointments/{appointment_id}": {
+            "get": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Get workspace appointments",
+                "description": "An end point that gets a single appointment of a workspace by the identifier.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "name": "appointment_id",
+                        "in": "path",
+                        "description": "The id of the appointment.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}/appointments/{appointment_id}/verify": {
+            "put": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Verifie workspace appointment",
+                "description": "An end point that verifies the workspace's appointment with the identifier.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "name": "appointment_id",
+                        "in": "path",
+                        "description": "The id of the appointment.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}/appointments/{appointment_id}/attended": {
+            "put": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Mark workspace appointment attended",
+                "description": "An end point that marks the workspace's appointment with the identifier as attended.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "name": "appointment_id",
+                        "in": "path",
+                        "description": "The id of the appointment.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/workspaces/{id}/appointments/{appointment_id}/cancel": {
+            "put": {
+                "tags": [
+                    "Workspace"
+                ],
+                "summary": "Mark workspace appointment canceled",
+                "description": "An end point that marks the workspace's appointment with the identifier as canceled.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the workspace.",
+                        "required": true
+                    },
+                    {
+                        "name": "appointment_id",
+                        "in": "path",
+                        "description": "The id of the appointment.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "birth_date": {
+                    "type": "string",
+                    "format": "%Y-%m-%d"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "picture": {
+                    "type": "string"
+                }
+            }
+        },
+        "Appointment": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "%Y-%m-%d"
+                }
+            }
+        },
+        "PremiumAccount": {
+            "type": "object",
+            "properties": {
+                "field": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "biography": {
+                    "type": "string"
+                },
+                "subscription_plan": {
+                    "type": "string"
+                },
+                "auto_renewal": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Workspace": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "field": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "picture": {
+                    "type": "string"
+                },
+                "schedules": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "contact": {
+                    "type": "string"
+                }
+            }
+        },
+        "Reclaim": {
+            "type": "object",
+            "properties": {
+                "subject": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "reclaimed_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "Review": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

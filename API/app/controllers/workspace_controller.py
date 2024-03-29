@@ -1,6 +1,8 @@
 from flask import abort, request
 from app import auth, storage
 from app.models.workspace import Workspace
+from app.utils.helper import check_schedules
+import json
 
 
 def get_user_workspace_object(id):
@@ -28,9 +30,11 @@ def get_workspaces():
     workspaces = storage.get("Workspace")
     data = list(
         map(
-            lambda x: dict(
-                filter(lambda d: d[0] != "premium_account_id", x.to_dict().items())
-            ),
+            lambda x: {
+                k: json.loads(v) if k == "schedules" else v
+                for k, v in x.to_dict().items()
+                if k != "premium_account_id"
+            },
             workspaces.values(),
         )
     )
@@ -47,17 +51,21 @@ def get_workspace(id):
     if not workspaces:
         abort(404, "no workspace exists with this id")
     workspace = list(workspaces.values())[0]
-    data = dict(
-        filter(lambda x: x[0] != "premium_account_id", workspace.to_dict().items())
-    )
+    data = {
+        k: json.loads(v) if k == "schedules" else v
+        for k, v in workspace.to_dict().items()
+        if k != "premium_account_id"
+    }
     data["user_id"] = workspace.premium_account.user_id
     data["reviews"] = list(
         map(
-            lambda x: dict(x.to_dict(), **{"likes": len(x.liked_users),
-                                           "dislikes": len(x.disliked_users)}),
-            workspace.reviews
-            )
+            lambda x: dict(
+                x.to_dict(),
+                **{"likes": len(x.liked_users), "dislikes": len(x.disliked_users)},
+            ),
+            workspace.reviews,
         )
+    )
     if user.premium_account and user.premium_account.id == workspace.premium_account_id:
         data["appointments"] = list(map(lambda x: x.to_dict(), workspace.appointments))
     return data
@@ -78,41 +86,31 @@ def make_workspace():
         "field": (str, 60, 3),
         "description": (str, 500, 150),
         "picture": (str, 256, 0),
-        "schedules": (str, 256, 0),
         "location": (str, 256, 30),
         "contact": (str, 256, 5),
     }
     data = request.get_json()
+    schedules, appointment_per_hour = None, None
     error = []
+    if "schedules" in data:
+        if not isinstance(data["schedules"], dict):
+            error.append("schedules")
+        if data["schedules"]:
+            schedules = data["schedules"]
+        del data["schedules"]
+        schedules_dict = check_schedules(schedules)
+        if not isinstance(schedules_dict, dict):
+            error.append(schedules_dict)
+
+    if "appointment_per_hour" in data:
+        if not isinstance(data["appointment_per_hour"], int):
+            error.append("appointment_per_hour")
+        if data["appointment_per_hour"]:
+            appointment_per_hour = data["appointment_per_hour"]
+        del data["appointment_per_hour"]
+
     if len(data.keys()) != len(requirements.keys()):
-        abort(400, 'bad request')
-    list(map(lambda x: error.append(x[0])\
-        if x[0] not in requirements or not isinstance(x[1], requirements[x[0]][0]) or\
-            not (requirements[x[0]][2] <= len(x[1]) < requirements[x[0]][1])\
-            else x, data.items()))
-    if error:
-        abort(400, f'some field not set correctly : {", ".join(error)}')
-    data["premium_account_id"] = user.premium_account.id
-    workspace = Workspace(**data)
-    workspace.save()
-    return workspace.id
-
-
-def update_workspace(id):
-    """this function updates workspace by the data given in the request"""
-    workspace = get_user_workspace_object(id)
-    requirements = {
-        "title": (str, 60, 3),
-        "field": (str, 60, 3),
-        "description": (str, 500, 150),
-        "picture": (str, 256, 0),
-        "schedules": (str, 256, 0),
-        "location": (str, 256, 30),
-        "contact": (str, 256, 5),
-    }
-    """getting data from the request"""
-    data = request.get_json()
-    error = []
+        abort(400, "bad request")
     list(
         map(
             lambda x: (
@@ -127,13 +125,77 @@ def update_workspace(id):
     )
     if error:
         abort(400, f'some field not set correctly : {", ".join(error)}')
+    data["premium_account_id"] = user.premium_account.id
+    if schedules:
+        data["schedules"] = json.dumps(schedules_dict)
+    if appointment_per_hour:
+        data["appointment_per_hour"] = appointment_per_hour
+    workspace = Workspace(**data)
+    workspace.save()
+    return workspace.id
+
+
+def update_workspace(id):
+    """this function updates workspace by the data given in the request"""
+    workspace = get_user_workspace_object(id)
+    requirements = {
+        "title": (str, 60, 3),
+        "field": (str, 60, 3),
+        "description": (str, 500, 150),
+        "picture": (str, 256, 0),
+        "location": (str, 256, 30),
+        "contact": (str, 256, 5),
+    }
+    """getting data from the request"""
+    data = request.get_json()
+    schedules, appointment_per_hour = None, None
+    error = []
+
+    if "schedules" in data:
+        if not isinstance(data["schedules"], dict):
+            error.append("schedules")
+        if data["schedules"]:
+            schedules = data["schedules"]
+        del data["schedules"]
+        schedules_dict = check_schedules(schedules)
+        if not isinstance(schedules_dict, dict):
+            error.append(schedules_dict)
+
+    if "appointment_per_hour" in data:
+        if not isinstance(data["appointment_per_hour"], dict):
+            error.append("appointment_per_hour")
+        if data["appointment_per_hour"]:
+            appointment_per_hour = data["appointment_per_hour"]
+        del data["appointment_per_hour"]
+    list(
+        map(
+            lambda x: (
+                error.append(x[0])
+                if x[0] not in requirements
+                or not isinstance(x[1], requirements[x[0]][0])
+                or not (requirements[x[0]][2] <= len(x[1]) < requirements[x[0]][1])
+                else x
+            ),
+            data.items(),
+        )
+    )
+    if error:
+        abort(400, f'some field not set correctly : {", ".join(error)}')
+    if schedules:
+        data["schedules"] = json.dumps(schedules)
+    if appointment_per_hour:
+        data["appointment_per_hour"] = appointment_per_hour
     for key, val in data.items():
         setattr(workspace, key, val)
     workspace.save()
     updated_data = dict(
-        filter(lambda x: x[0] != "premium_account_id", workspace.to_dict().items())
+        filter(
+            lambda x: x[0] not in ["premium_account_id", "schedules"],
+            workspace.to_dict().items(),
+        )
     )
     updated_data["user_id"] = workspace.premium_account.user_id
+    updated_data["schedules"] = json.loads(workspace.schedules)
     return updated_data
 
 
