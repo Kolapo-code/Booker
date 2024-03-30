@@ -1,6 +1,7 @@
 from app.models.temporary_password import TemporaryPassword
 from app.utils.helper import send_password, generate_password
 from app.models.premium_account import PremiumAccount
+from app.utils.countries import ALL_COUNTRIES
 from app.utils.helper import verify_email
 from datetime import datetime, timedelta
 from flask import abort, request
@@ -26,6 +27,8 @@ def post_user(data):
     for key in data_list:
         if key not in data:
             abort(400, description=f"{key} does not exits in the given data")
+        if key in ["first_name", "last_name"] and len(key) > 60:
+            abort(400, f"the {key} is to long")
         if key == "birth_date":
             try:
                 user_data[key] = datetime.strptime(data[key], "%Y-%m-%d")
@@ -36,10 +39,18 @@ def post_user(data):
             if not isinstance(data[key], str) or not re.search(
                 "^[\w_\-.0-9]+@\w+\.\w+$", data[key]
             ):
-                abort(400, description=f"{data[key]} is not valid email")
+                abort(400, description=f"{data[key]} is not a valid email")
         if key == "password":
+            if not isinstance(data[key], str) or\
+                len(data[key]) < 7 or not re.search(
+                "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$", data[key]
+            ):
+                abort(400, description=f"{data[key]} is not a valid password")
             user_data[key] = base64.b64encode(data[key].encode("utf-8"))
             continue
+        if key == "location":
+            if data[key] not in ALL_COUNTRIES:
+                abort(400, description=f"{data[key]} is not a valid country")
         user_data[key] = data[key]
     if auth.check_email(user_data["email"]) is not None:
         abort(
@@ -207,6 +218,8 @@ def upgrade_to_premium():
         if key == "auto_renewal" and not (val == False or val == True):
             abort(400, f"{key} must be eather [True] or [False].")
         # FIND A WAY TO APPLY SOME CRITERIA ON THE LOCATION FIELD.
+        if key in ["field", "location"] and len(val) > 100:
+            abort(400, f"{key} must be at most 100 characters.")
         if key == "biography":
             if len(val) < 150:
                 abort(400, f"{key} must be at least 150 characters.")
