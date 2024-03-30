@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from app.models import Base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from app.utils.helper import set_dict
-
+import os
 
 class DBStorage:
     """The storage configuration class."""
@@ -12,7 +12,10 @@ class DBStorage:
     __session = None
 
     def __init__(self) -> None:
-        self.__engine = create_engine(DBConfig().url)
+        if os.getenv("db") == "online":
+            self.__engine = create_engine("mysql+mysqlconnector://sql11695270:kZPyyJXYAK@sql11.freesqldatabase.com:3306/sql11695270")
+        else:
+            self.__engine = create_engine(DBConfig().url)
 
     @property
     def session(self):
