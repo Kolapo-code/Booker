@@ -13,7 +13,7 @@ from app.models.appointment import Appointment
 from app.models.temporary_password import TemporaryPassword
 from app.models.review import Review
 from app.models.reclaim import Reclaim
-import json
+from app.models.payment import Payment
 
 
 class DBConfig:
@@ -38,6 +38,7 @@ classes = {
     "Workspace": Workspace,
     "Review": Review,
     "Reclaim": Reclaim,
+    "Payment": Payment,
 }
 
 EXPIRY = 3600 * 24
