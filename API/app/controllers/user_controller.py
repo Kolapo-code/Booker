@@ -45,7 +45,13 @@ def post_user(data):
                 len(data[key]) < 7 or not re.search(
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$", data[key]
             ):
-                abort(400, description=f"{data[key]} is not a valid password")
+                abort(400, description=f"{data[key]} is not a valid password:\n\
+\tContain at least one digit.\n\
+\tContain at least one lowercase letter.\n\
+\tContain at least one uppercase letter.\n\
+\tContain at least one special character.\n\
+\tNot contain any spaces.\n\
+\tHave a length between 8 and 16 characters.")
             user_data[key] = base64.b64encode(data[key].encode("utf-8"))
             continue
         if key == "location":
