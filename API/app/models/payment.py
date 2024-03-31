@@ -26,8 +26,8 @@ class Payment(BaseModel, Base):
 
     def generate_invoice(self, data, firstName, lastName, email):
         """A method that generates the payment history."""
-        subject = "Booker payment invoice."
         path = getenv("PWD")
+        subject = "Booker payment invoice."
         filename = f"{path}/app/templates/attachments/invoice.pdf"
         document = SimpleDocTemplate(filename, pagesize=letter)
         data_table = [["Payment date", "Card owner", "Payment amount"]]
@@ -44,7 +44,7 @@ class Payment(BaseModel, Base):
                 ]
             )
         )
-        header_text = f" BOOKER invoice for {firstName} {lastName}"
+        header_text = f"BOOKER invoice for {firstName} {lastName}"
         styles = getSampleStyleSheet()
         header_style = styles["Heading1"]
         header = Paragraph(header_text, header_style)
