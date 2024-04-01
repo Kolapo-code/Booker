@@ -72,6 +72,8 @@ def get_payment(id):
     payment = storage.get(
         cls="Payment", id=id, premium_account_id=user.premium_account.id
     )
+    if not payment:
+        abort(403, "There is no payment with the given id.")
     data = list(payment.values())[0].to_dict()
     return data
 
