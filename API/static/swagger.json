@@ -1368,9 +1368,6 @@
                 "field": {
                     "type": "string"
                 },
-                "location": {
-                    "type": "string"
-                },
                 "biography": {
                     "type": "string"
                 },
