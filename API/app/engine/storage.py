@@ -12,8 +12,12 @@ class DBStorage:
     __session = None
 
     def __init__(self) -> None:
-        if os.getenv("db") == "online":
-            self.__engine = create_engine("mysql+mysqlconnector://sql11695270:kZPyyJXYAK@sql11.freesqldatabase.com:3306/sql11695270")
+        if os.getenv("DB") == "REMOTE":
+            DB_NAME = os.getenv("DB_NAME")
+            USER_NAME = os.getenv("USER_NAME")
+            PASSWORD = os.getenv("PASSWORD")
+            HOST = os.getenv("HOST")
+            self.__engine = create_engine(f"mysql+mysqlconnector://{USER_NAME}:{PASSWORD}@{HOST}:3306/{DB_NAME}")
         else:
             self.__engine = create_engine(DBConfig().url)
 

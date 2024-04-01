@@ -55,8 +55,8 @@ def post_user(data):
             user_data[key] = base64.b64encode(data[key].encode("utf-8"))
             continue
         if key == "location":
-            if data[key] not in ALL_COUNTRIES:
-                abort(400, description=f"{data[key]} is not a valid country")
+            if len(data[key]) > 128:
+                abort(400, description=f"{key} is to long")
         user_data[key] = data[key]
     if auth.check_email(user_data["email"]) is not None:
         abort(
@@ -126,8 +126,10 @@ def get_profile(request):
             map(lambda x: x.to_dict(), session.user.appointments)
         )
     if session.user.premium_account:
-         data["workspaces"] = list(map(lambda x: x.to_dict() ,
+        data["workspaces"] = list(map(lambda x: x.to_dict(),
                                        session.user.premium_account.workspaces))
+        premium = session.user.premium_account.to_dict()
+        data["premium"] = dict(filter(lambda x: x[0] != "user_id", premium.items()))
     return data
 
 
@@ -138,7 +140,10 @@ def get_profile_by_id(id):
         abort(403, "no session exists, please log in")
     user = storage.session.query(User).filter_by(id=id).first()
     if user:
-        return dict(filter(lambda x: x[0] not in ["token", "email", "birth_date"], user.to_dict().items()))
+        data = dict(filter(lambda x: x[0] not in ["token", "email", "birth_date"], user.to_dict().items()))
+        if user.premium_account:
+            data['field'] = user.premium_account.field
+        return data
     abort(404, "no user exists with this id")
 
 
@@ -167,6 +172,8 @@ def update_profile():
             if key == "password":
                 setattr(user, key, base64.b64encode(val.encode("utf-8")))
                 continue
+            if key == "location" and len(data[key]) > 128:
+                abort(400, description=f"{key} is to long")
             setattr(user, key, val)
         else:
             abort(400, f"{key} is not recognized")
@@ -209,7 +216,6 @@ def upgrade_to_premium():
     data = request.get_json()
     premium_account = {
         "field": "",
-        "location": "",
         "biography": "",
         "subscription_plan": "",
         "auto_renewal": None,
@@ -217,14 +223,14 @@ def upgrade_to_premium():
     for key, val in data.items():
         if key not in premium_account.keys():
             abort(400, f"{key} is not recognized.")
-        if key in ["field", "location", "biography"] and val is None:
+        if key in ["field", "biography"] and val is None:
             abort(400, f"{key} must have a value.")
         if key == "subscription_plan" and val not in ["Monthly", "Yearly"]:
             abort(400, f"{key} must be eather [Monthly] or [Yearly].")
         if key == "auto_renewal" and not (val == False or val == True):
             abort(400, f"{key} must be eather [True] or [False].")
         # FIND A WAY TO APPLY SOME CRITERIA ON THE LOCATION FIELD.
-        if key in ["field", "location"] and len(val) > 100:
+        if key == "field" and len(val) > 100:
             abort(400, f"{key} must be at most 100 characters.")
         if key == "biography":
             if len(val) < 150:

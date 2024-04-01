@@ -9,7 +9,6 @@ class PremiumAccount(BaseModel, Base):
 
     __tablename__ = "premium_accounts"
     field = Column(String(100), nullable=False)
-    location = Column(String(100), nullable=True)
     biography = Column(String(300), nullable=False)
     subscription_start_date = Column(Date, default=datetime.now)
     subscription_end_date = Column(Date)
@@ -21,5 +20,8 @@ class PremiumAccount(BaseModel, Base):
     auto_renewal = Column(Boolean, default=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     workspaces = relationship('Workspace',
+                           backref='premium_account',
+                           cascade="all, delete-orphan")
+    payments = relationship('Payment',
                            backref='premium_account',
                            cascade="all, delete-orphan")

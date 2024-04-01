@@ -1,7 +1,7 @@
 from flask import request, abort
 from app import auth
 from app import storage
-from app.utils.helper import velidate_fields
+from app.utils.helper import validate_fields
 from app.models.reclaim import Reclaim
 
 
@@ -29,7 +29,7 @@ def post_reclaim(data):
         "description": [100, 2000],
         "reclaimed_id": "",
     }
-    error = velidate_fields(fields, data)
+    error = validate_fields(fields, data)
     if error:
         abort(400, error)
     if not all(isinstance(val, str) for val in data.values()):
