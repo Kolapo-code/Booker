@@ -19,7 +19,7 @@ class User(BaseModel, Base):
     email = Column(String(128))
     picture = Column(String(256), nullable=True)
     birth_date = Column(Date, nullable=False)
-    location = Column(Enum(*ALL_COUNTRIES), nullable=True)
+    location = Column(String(128), nullable=True)
     ban = Column(Boolean, default=False)
     token = Column(String(60), nullable=True)
     valid = Column(Boolean, default=False)
