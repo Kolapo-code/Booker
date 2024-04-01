@@ -40,11 +40,13 @@ def post_payment(data):
             abort(400, "Make sure the card_cvv is correct.")
         if key == "card_expiry_date":
             try:
-                date = datetime.strptime(val, "%Y-%m-%d").date()
+                date = datetime.strptime(val + "-01", "%Y-%m-%d").date()
+                print(date)
             except (TypeError, ValueError):
-                abort(400, "Date string is not in the correct format %Y-%m-%d.")
+                abort(400, "Date string is not in the correct format %Y-%m.")
             if date < date.today():
                 abort(400, "You card is expired.")
+    data["card_expiry_date"] = date
     data["premium_account_id"] = user.premium_account.id
     payment = Payment(**data)
     payment.save()
@@ -58,7 +60,16 @@ def get_payments():
     if not user.premium_account:
         abort(403, "You have to set the upgrade your account to do this procedure.")
     payments = storage.get(cls="Payment", premium_account_id=user.premium_account.id)
-    data = list(map(lambda payment: payment.to_dict(), payments.values()))
+    data = list(
+        map(
+            lambda payment: dict(
+                filter(
+                    lambda d: d[0] != "premium_account_id", payment.to_dict().items()
+                )
+            ),
+            payments.values(),
+        )
+    )
     return data
 
 
@@ -75,6 +86,7 @@ def get_payment(id):
     if not payment:
         abort(403, "There is no payment with the given id.")
     data = list(payment.values())[0].to_dict()
+    data.pop("premium_account_id")
     return data
 
 
