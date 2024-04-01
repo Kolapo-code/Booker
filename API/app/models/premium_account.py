@@ -22,3 +22,6 @@ class PremiumAccount(BaseModel, Base):
     workspaces = relationship('Workspace',
                            backref='premium_account',
                            cascade="all, delete-orphan")
+    payments = relationship('Payment',
+                           backref='premium_account',
+                           cascade="all, delete-orphan")

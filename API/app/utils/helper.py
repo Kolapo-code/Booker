@@ -1,5 +1,6 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 from datetime import datetime
 import random
@@ -114,7 +115,7 @@ def hash_to_sha256(string):
     return hashed_string
 
 
-def velidate_fields(fields, data):
+def validate_fields(fields, data):
     """A function that takes two dicts and compares them and returns the missing
     and the extra fields."""
     fields_keys = set(fields.keys())
@@ -155,3 +156,40 @@ def check_schedules(schedules_dict):
                 except (ValueError, TypeError):
                     return "Make sure you set up the times correctly : %H:%M."
     return schedules
+
+
+def send_attachment(user_name, user_email, file_name, subject):
+    """A function that sends attachments to users."""
+
+    sender_email = "bookerapiteam@gmail.com"
+    recipient_email = user_email
+    recipient_name = user_name
+
+    with open(file_name, "rb") as attachment:
+        attachment_content = attachment.read()
+
+    message_body = f"""<html>
+    <body>
+        <center><h3>Hello {recipient_name}!</h3></center>
+        <p>{subject}</p>
+        <p>Please keep in touch and reach out to us for any help needed.</p>
+        <p>Feel at home and checkout the available workspaces.</p>
+    </body>
+    </html>"""
+
+    message = MIMEMultipart("related")
+    message.attach(MIMEText(message_body, "html"))
+    attachment_part = MIMEApplication(attachment_content)
+    attachment_part.add_header(
+        "Content-Disposition", f"attachment; filename=invoice.pdf"
+    )
+    message.attach(attachment_part)
+
+    message["From"] = sender_email
+    message["To"] = recipient_email
+    message["Subject"] = subject
+
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
+        server.login("bookerapiteam@gmail.com", "wuzg nnvd eztu ygck")
+        server.sendmail(sender_email, recipient_email, message.as_string())
