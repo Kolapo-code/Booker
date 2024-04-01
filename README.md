@@ -114,7 +114,7 @@ We created endpoints for every feature. And we have used Swagger to showcase eve
 
 Of course, we had to review each other's code, and here's what Omar did.
 
-Uploading km_20240326_720p_30f_20240326_072446.mp4…
+https://github.com/jinDeHao/Booker/assets/70861727/7cf864dd-709e-4c1d-bd96-c3c9880a6351
 
 ## Issues
 We did face some issues, we had to update the class diagram, It was a learning curve for us. We learned a lot about how to do things the right way.
