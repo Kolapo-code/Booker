@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="uzlMBGcjstb1vBkUkQ1n" name="Page-1">
-        <mxGraphModel dx="13137" dy="2187" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+        <mxGraphModel dx="12289" dy="1994" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -97,9 +97,6 @@
                 </mxCell>
                 <mxCell id="67" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;+workspaes_id: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+user_id: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+date: datetime&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+attended: boolean&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+expired: boolean&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+verified: boolean&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Georgia;" parent="87" vertex="1">
                     <mxGeometry x="4.35138128312974" y="27.893851241341462" width="157" height="113" as="geometry"/>
-                </mxCell>
-                <mxCell id="68" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+cancel()&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Georgia;container=0;" parent="87" vertex="1">
-                    <mxGeometry x="4.350898876404244" y="150.53383808287313" width="76" height="29" as="geometry"/>
                 </mxCell>
                 <mxCell id="79" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;container=0;" parent="1" vertex="1">
                     <mxGeometry x="-11444" y="-1275" width="189" height="190" as="geometry"/>
