@@ -150,8 +150,8 @@ python3 -m run
 ```
 
 ## Conlusion
-We had so much fun while working on this project, each time we would refine and update what we have done. We have more to work on but this is the initial version of the API. We would be happy if developers used it to creat interfaces.
-By the way bellow is a meme about our collaboration, it was a fun battle.
+We had so much fun while working on this project, each time we would refine and update what we have done. We have more to work on but this is the initial version of the API. We would be happy if developers used it to create interfaces.
+By the way, below is a meme about our collaboration, it was a fun battle.
 
 https://github.com/jinDeHao/Booker/assets/70861727/f274584c-3b7a-476e-b285-a0bfd2d5968e
 
@@ -161,26 +161,26 @@ For any ideas or constructive criticism feel free to contact us in our socials.
 
 Asmaa HADAR
 
-<a target="_blank" href="https://twitter.com/HadarAsmaa">
+<a href="https://twitter.com/HadarAsmaa" target="_blank">
 	<img src="./resources/twitter.png" width="3%">
 </a>
-<a target="_blank" href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMvhfCPVDDXjfHmVbZpQHMsLXnwCwGkcMvsQSDCrpZQKKWqrPXqhtqDbZWvnTXNqfKCPMP">
+<a href="[https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMvhfCPVDDXjfHmVbZpQHMsLXnwCwGkcMvsQSDCrpZQKKWqrPXqhtqDbZWvnTXNqfKCPMP](https://mail.google.com/mail/u/0/?fs=1&to=asmaehadar32@gmail.com&tf=cm)" target="_blank">
 	<img src="./resources/gmail.png" width="3%">
 </a>
-<a target="_blank" href="https://www.linkedin.com/in/asmaa-hadar-928b121a3/">
+<a href="https://www.linkedin.com/in/asmaa-hadar-928b121a3/" target="_blank">
 	<img src="./resources/linkedin.png" width="3%">
 </a>
 
 
 Omar IDHMAID
 
-<a target="_blank" href="https://twitter.com/O_idhmaid">
+<a href="https://twitter.com/O_idhmaid" target="_blank">
 	<img src="./resources/twitter.png" width="3%">
 </a>
-<a target="_blank" href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMhmKpJQlpDmcbftBMHQmrfJzLhkzGfZwJsJTmRCMTlKMjfqCbzCbLsmsVLZPKRBlkXzDr">
+<a href="[https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMhmKpJQlpDmcbftBMHQmrfJzLhkzGfZwJsJTmRCMTlKMjfqCbzCbLsmsVLZPKRBlkXzDr](https://mail.google.com/mail/u/0/?fs=1&to=o.idhmaid@gmail.com&tf=cm)" target="_blank">
 	<img src="./resources/gmail.png" width="3%">
 </a>
-<a target="_blank" href="https://www.linkedin.com/in/omar-id-hmaid/">
+<a href="https://www.linkedin.com/in/omar-id-hmaid/" target="_blank">
 	<img src="./resources/linkedin.png" width="3%">
 </a>
 
