@@ -164,7 +164,7 @@ Asmaa HADAR
 <a href="https://twitter.com/HadarAsmaa">
 	<img src="./resources/twitter.png" width="3%">
 </a>
-<a href="[https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMvhfCPVDDXjfHmVbZpQHMsLXnwCwGkcMvsQSDCrpZQKKWqrPXqhtqDbZWvnTXNqfKCPMP](https://mail.google.com/mail/u/0/?fs=1&to=asmaehadar32@gmail.com&tf=cm)">
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=asmaehadar32@gmail.com">
 	<img src="./resources/gmail.png" width="3%">
 </a>
 <a href="https://www.linkedin.com/in/asmaa-hadar-928b121a3/">
@@ -177,7 +177,7 @@ Omar IDHMAID
 <a href="https://twitter.com/O_idhmaid">
 	<img src="./resources/twitter.png" width="3%">
 </a>
-<a href="[https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMhmKpJQlpDmcbftBMHQmrfJzLhkzGfZwJsJTmRCMTlKMjfqCbzCbLsmsVLZPKRBlkXzDr](https://mail.google.com/mail/u/0/?fs=1&to=o.idhmaid@gmail.com&tf=cm)">
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=o.idhmaid@gmail.com">
 	<img src="./resources/gmail.png" width="3%">
 </a>
 <a href="https://www.linkedin.com/in/omar-id-hmaid/">
