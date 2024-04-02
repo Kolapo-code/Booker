@@ -16,7 +16,7 @@ def verify_email(user_name, user_email, verification_link):
     recipient_email = user_email
     recipient_name = user_name
     subject = "Booker email verification."
-    img_filename = f"{path}/app/templates/pictures/giphy.gif"
+    img_filename = f"{path}/resources/giphy.gif"
 
     img_data = open(img_filename, "rb").read()
 
