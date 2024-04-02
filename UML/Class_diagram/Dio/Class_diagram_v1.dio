@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="uzlMBGcjstb1vBkUkQ1n" name="Page-1">
-        <mxGraphModel dx="12289" dy="1994" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+        <mxGraphModel dx="12023" dy="1994" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -99,7 +99,7 @@
                     <mxGeometry x="4.35138128312974" y="27.893851241341462" width="157" height="113" as="geometry"/>
                 </mxCell>
                 <mxCell id="79" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;container=0;" parent="1" vertex="1">
-                    <mxGeometry x="-11444" y="-1275" width="189" height="190" as="geometry"/>
+                    <mxGeometry x="-11444" y="-1275" width="189" height="203" as="geometry"/>
                 </mxCell>
                 <mxCell id="80" value="" style="endArrow=none;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;strokeColor=#000000;rounded=0;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -119,8 +119,8 @@
                 <mxCell id="83" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;+owner_id: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+feild: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+picture: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+title: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+description: string&lt;br&gt;+address: string&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Georgia;container=0;" parent="1" vertex="1">
                     <mxGeometry x="-11439.203761226387" y="-1244.0021898646341" width="141" height="113" as="geometry"/>
                 </mxCell>
-                <mxCell id="84" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;+get_planning()&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Georgia;container=0;" parent="1" vertex="1">
-                    <mxGeometry x="-11439.199101123597" y="-1122.0042971950477" width="120" height="29" as="geometry"/>
+                <mxCell id="84" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;+available_date()&lt;br&gt;+busy_hours()&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Georgia;container=0;" parent="1" vertex="1">
+                    <mxGeometry x="-11439.199101123597" y="-1126.0042971950477" width="128" height="46" as="geometry"/>
                 </mxCell>
                 <mxCell id="125" value="" style="group" parent="1" vertex="1" connectable="0">
                     <mxGeometry x="-11188.5" y="-1406" width="177" height="297.00194648775357" as="geometry"/>
@@ -247,7 +247,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="162" value="0..1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontFamily=Georgia;fontColor=#000000;" parent="1" vertex="1">
-                    <mxGeometry x="-11354" y="-1091" width="40" height="29" as="geometry"/>
+                    <mxGeometry x="-11354" y="-1075" width="40" height="29" as="geometry"/>
                 </mxCell>
                 <mxCell id="166" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;container=0;" parent="1" vertex="1">
                     <mxGeometry x="-11662" y="-1516.58" width="161.17" height="177.58" as="geometry"/>
