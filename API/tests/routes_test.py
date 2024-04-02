@@ -11,7 +11,7 @@ class TestFlaskApp(unittest.TestCase):
         self.app.testing = True
 
 
-    def test_sign_up(self):
+    def account_test(self):
         response = self.app.post('/api/sign_up', data={
                 "first_name": "omar",
                 "last_name": "id hmaid",
@@ -23,9 +23,10 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual('user created successfully', response.data.get('message'))
 
-    def user_exists(self):
+        """check user exists"""
         user = storage.session.query(User).filter_by(email="omaridhmaid@gmial.com").first()
         self.assertEqual(user.first_name, "omar")
+
 
 if __name__ == '__main__':
     unittest.main()
