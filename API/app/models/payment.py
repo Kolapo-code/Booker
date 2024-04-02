@@ -1,12 +1,11 @@
 from app.models import Base
 from app.models.user import BaseModel
 from sqlalchemy import Column, String, Boolean, ForeignKey, Integer, Date, Enum
-from app.utils.helper import send_attachment
-from os import getenv
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib import colors
+from io import BytesIO
 
 
 class Payment(BaseModel, Base):
@@ -24,12 +23,10 @@ class Payment(BaseModel, Base):
         String(60), ForeignKey("premium_accounts.id"), nullable=False
     )
 
-    def generate_invoice(self, data, firstName, lastName, email):
+    def generate_invoice(self, data, firstName, lastName):
         """A method that generates the payment history."""
-        path = getenv("PWD")
-        subject = "Booker payment invoice."
-        filename = f"{path}/app/templates/attachments/invoice.pdf"
-        document = SimpleDocTemplate(filename, pagesize=letter)
+        output = BytesIO()
+        document = SimpleDocTemplate(output, pagesize=letter)
         data_table = [["Payment date", "Card owner", "Payment amount"]]
         for item in data:
             data_table.append([item["created_at"], item["card_owner"], item["amount"]])
@@ -50,4 +47,6 @@ class Payment(BaseModel, Base):
         header = Paragraph(header_text, header_style)
         elements = [header, table]
         document.build(elements)
-        send_attachment(firstName, email, filename, subject)
+
+        output.seek(0)
+        return output.getvalue()
