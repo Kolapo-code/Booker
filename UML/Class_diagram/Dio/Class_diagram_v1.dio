@@ -167,33 +167,6 @@
                         <mxPoint x="-11090" y="-1127" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="142" value="" style="group" parent="1" vertex="1" connectable="0">
-                    <mxGeometry x="-11209" y="-1094" width="218" height="257" as="geometry"/>
-                </mxCell>
-                <mxCell id="115" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;container=0;" parent="142" vertex="1">
-                    <mxGeometry width="215.66372091778715" height="254.8395512831664" as="geometry"/>
-                </mxCell>
-                <mxCell id="116" value="" style="endArrow=none;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;strokeColor=#000000;rounded=0;" parent="142" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="0.002457271352818995" y="132.84557663333032" as="sourcePoint"/>
-                        <mxPoint x="215.66661591437855" y="132.84557663333032" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="117" value="" style="endArrow=none;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;strokeColor=#000000;rounded=0;" parent="142" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint y="37.08540239039577" as="sourcePoint"/>
-                        <mxPoint x="215.66415864302573" y="37.08540239039577" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="118" value="&lt;font color=&quot;#000000&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;PremiumAccount&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontFamily=Georgia;container=0;" parent="142" vertex="1">
-                    <mxGeometry x="31.99808868847117" y="4.161943319838056" width="145" height="29" as="geometry"/>
-                </mxCell>
-                <mxCell id="119" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;+Last_payment_date: datetime&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+next_payment_date: datetime&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+subscription_price: int&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+payment_method: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+Auto_renewal: boolean&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Georgia;container=0;" parent="142" vertex="1">
-                    <mxGeometry x="2.9962904696084722" y="37.79567740648414" width="215" height="96" as="geometry"/>
-                </mxCell>
-                <mxCell id="120" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;+create_workspace()&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+process_payment()&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+update_subscription()&lt;br&gt;+cancel_subscription()&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+renew_subscription()&lt;br&gt;+generate_invoice()&lt;/div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;+update_workspace()&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Georgia;container=0;" parent="142" vertex="1">
-                    <mxGeometry x="2.998230301056531" y="125.79224188800421" width="166" height="130" as="geometry"/>
-                </mxCell>
                 <mxCell id="147" value="" style="endArrow=none;html=1;strokeColor=#000000;fontFamily=Georgia;fontSize=14;fontColor=#000000;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;jumpSize=0;endFill=0;startArrow=diamond;startFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="132" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="-10992" y="-1033" as="sourcePoint"/>
@@ -575,6 +548,30 @@
                             <mxPoint x="-10809" y="-1213"/>
                         </Array>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="115" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;container=0;" parent="1" vertex="1">
+                    <mxGeometry x="-11209" y="-1094" width="215.66372091778715" height="254.8395512831664" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" value="" style="endArrow=none;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;strokeColor=#000000;rounded=0;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-11208.997542728646" y="-898.0044233666697" as="sourcePoint"/>
+                        <mxPoint x="-10993.333384085621" y="-898.0044233666697" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="-11103" y="-898"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="117" value="" style="endArrow=none;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;strokeColor=#000000;rounded=0;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-11209" y="-1056.9145976096042" as="sourcePoint"/>
+                        <mxPoint x="-10993.335841356975" y="-1056.9145976096042" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="118" value="&lt;font color=&quot;#000000&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;PremiumAccount&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontFamily=Georgia;container=0;" parent="1" vertex="1">
+                    <mxGeometry x="-11177.001911311529" y="-1089.838056680162" width="145" height="29" as="geometry"/>
+                </mxCell>
+                <mxCell id="119" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;+subscription_start&lt;/span&gt;&lt;span style=&quot;font-size: 14px; background-color: initial;&quot;&gt;: datetime&lt;/span&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+subscription_end: datetime&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+subscription_plan: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+subscription_status: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+auto_renewal: boolean&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;+field: string&lt;br&gt;+biography: string&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Georgia;container=0;" parent="1" vertex="1">
+                    <mxGeometry x="-11203.163709530392" y="-1070.0643225935157" width="204" height="163" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
