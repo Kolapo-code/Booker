@@ -162,25 +162,25 @@ For any ideas or constructive criticism feel free to contact us in our socials.
 Asmaa HADAR
 
 <a href="https://twitter.com/HadarAsmaa">
-	<img src="./resources/twitter.png" width="5%">
+	<img src="./resources/twitter.png" width="3%">
 </a>
 <a href="asmaehadar32@gmail.com">
-	<img src="./resources/gmail.png" width="5%">
+	<img src="./resources/gmail.png" width="3%">
 </a>
 <a href="https://www.linkedin.com/in/asmaa-hadar-928b121a3/">
-	<img src="./resources/linkedin.png" width="5%">
+	<img src="./resources/linkedin.png" width="3%">
 </a>
 
 
 Omar IDHMAID
 
 <a href="https://twitter.com/O_idhmaid">
-	<img src="./resources/twitter.png" width="5%">
+	<img src="./resources/twitter.png" width="3%">
 </a>
 <a href="o.idhmaid@gmail.com">
-	<img src="./resources/gmail.png" width="5%">
+	<img src="./resources/gmail.png" width="3%">
 </a>
 <a href="https://www.linkedin.com/in/omar-id-hmaid/">
-	<img src="./resources/linkedin.png" width="5%">
+	<img src="./resources/linkedin.png" width="3%">
 </a>
 
