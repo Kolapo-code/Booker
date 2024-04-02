@@ -161,26 +161,26 @@ For any ideas or constructive criticism feel free to contact us in our socials.
 
 Asmaa HADAR
 
-<a location="#" href="https://twitter.com/HadarAsmaa">
+<a target="_blank" href="https://twitter.com/HadarAsmaa">
 	<img src="./resources/twitter.png" width="3%">
 </a>
-<a location="#" href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMvhfCPVDDXjfHmVbZpQHMsLXnwCwGkcMvsQSDCrpZQKKWqrPXqhtqDbZWvnTXNqfKCPMP">
+<a target="_blank" href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMvhfCPVDDXjfHmVbZpQHMsLXnwCwGkcMvsQSDCrpZQKKWqrPXqhtqDbZWvnTXNqfKCPMP">
 	<img src="./resources/gmail.png" width="3%">
 </a>
-<a location="#" href="https://www.linkedin.com/in/asmaa-hadar-928b121a3/">
+<a target="_blank" href="https://www.linkedin.com/in/asmaa-hadar-928b121a3/">
 	<img src="./resources/linkedin.png" width="3%">
 </a>
 
 
 Omar IDHMAID
 
-<a location="#" href="https://twitter.com/O_idhmaid">
+<a target="_blank" href="https://twitter.com/O_idhmaid">
 	<img src="./resources/twitter.png" width="3%">
 </a>
-<a location="#" href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMhmKpJQlpDmcbftBMHQmrfJzLhkzGfZwJsJTmRCMTlKMjfqCbzCbLsmsVLZPKRBlkXzDr">
+<a target="_blank" href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSGMhmKpJQlpDmcbftBMHQmrfJzLhkzGfZwJsJTmRCMTlKMjfqCbzCbLsmsVLZPKRBlkXzDr">
 	<img src="./resources/gmail.png" width="3%">
 </a>
-<a location="#" href="https://www.linkedin.com/in/omar-id-hmaid/">
+<a target="_blank" href="https://www.linkedin.com/in/omar-id-hmaid/">
 	<img src="./resources/linkedin.png" width="3%">
 </a>
 
