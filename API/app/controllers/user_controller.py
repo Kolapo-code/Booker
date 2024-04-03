@@ -41,17 +41,24 @@ def post_user(data):
             ):
                 abort(400, description=f"{data[key]} is not a valid email")
         if key == "password":
-            if not isinstance(data[key], str) or\
-                len(data[key]) < 7 or not re.search(
-                "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$", data[key]
+            if (
+                not isinstance(data[key], str)
+                or len(data[key]) < 7
+                or not re.search(
+                    "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$",
+                    data[key],
+                )
             ):
-                abort(400, description=f"{data[key]} is not a valid password:\n\
+                abort(
+                    400,
+                    description=f"{data[key]} is not a valid password:\n\
 \tContain at least one digit.\n\
 \tContain at least one lowercase letter.\n\
 \tContain at least one uppercase letter.\n\
 \tContain at least one special character.\n\
 \tNot contain any spaces.\n\
-\tHave a length between 8 and 16 characters.")
+\tHave a length between 8 and 16 characters.",
+                )
             user_data[key] = base64.b64encode(data[key].encode("utf-8"))
             continue
         if key == "location":
@@ -67,7 +74,9 @@ def post_user(data):
     user_data["token"] = token
     user = User(**user_data)
     user.save()
-    verify_email(user.first_name, user.email, f"http://127.0.0.1:5000/api/validation/{token}")
+    verify_email(
+        user.first_name, user.email, f"http://127.0.0.1:5000/api/validation/{token}"
+    )
     return user.id
 
 
@@ -116,8 +125,7 @@ def get_profile(request):
     if not session_id or not auth.check_session(session_id):
         abort(403, "no session exists, please log in")
     session = auth.get_session(session_id)
-    data = dict(filter(lambda x: x[0] != "token",
-                       session.user.to_dict().items()))
+    data = dict(filter(lambda x: x[0] != "token", session.user.to_dict().items()))
     if session.user.admin_account:
         data["admin"] = True
 
@@ -138,9 +146,14 @@ def get_profile_by_id(id):
         abort(403, "no session exists, please log in")
     user = storage.session.query(User).filter_by(id=id).first()
     if user:
-        data = dict(filter(lambda x: x[0] not in ["token", "email", "birth_date"], user.to_dict().items()))
+        data = dict(
+            filter(
+                lambda x: x[0] not in ["token", "email", "birth_date"],
+                user.to_dict().items(),
+            )
+        )
         if user.premium_account:
-            data['field'] = user.premium_account.field
+            data["field"] = user.premium_account.field
         return data
     abort(404, "no user exists with this id")
 
@@ -153,7 +166,15 @@ def update_profile():
     data = request.get_json()
     session = auth.get_session(session_id)
     user = session.user
-    allowed = ["birth_date", "email", "first_name", "last_name", "location", "picture", "password"]
+    allowed = [
+        "birth_date",
+        "email",
+        "first_name",
+        "last_name",
+        "location",
+        "picture",
+        "password",
+    ]
     for key, val in data.items():
         if key in allowed:
             if key == "birth_date":

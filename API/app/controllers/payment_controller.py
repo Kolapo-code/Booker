@@ -93,6 +93,8 @@ def get_payment(id):
 def invoice_payment():
     """A function that gets the payments of the session user and creates an invoice
     and sends it to the user's email."""
+    from app.utils.helper import send_attachment
+
     user = auth.get_user_by_session_id(request)
     if not user:
         abort(403, "No session exists, try to log in.")
@@ -101,5 +103,7 @@ def invoice_payment():
     payments = storage.get(cls="Payment", premium_account_id=user.premium_account.id)
     data = list(map(lambda payment: payment.to_dict(), payments.values()))
     payment = Payment()
-    payment.generate_invoice(data, user.first_name, user.last_name, user.email)
+    subject = "Booker payment invoice."
+    invoice = payment.generate_invoice(data, user.first_name, user.last_name)
+    send_attachment(user.first_name, user.email, invoice, subject)
     return data
