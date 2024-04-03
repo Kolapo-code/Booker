@@ -1,7 +1,11 @@
 # BOOKER API
 
+<div align="center"><img src="./resources/bookerLogo.png"></div>
+
+<hr>
 
 https://github.com/jinDeHao/Booker/assets/70861727/377e923d-5bc4-438e-b8b1-c4e12afb5068
+
 
 ## TABLE OF CONTENT
 - [Booker explained](#booker-explained)
@@ -13,6 +17,8 @@ https://github.com/jinDeHao/Booker/assets/70861727/377e923d-5bc4-438e-b8b1-c4e12
 - [Modeling and conception](#modeling-and-conception)
 - [Development](#development)
 - [Clonning and setup](#clonning-and-setup)
+- [Conclusion](#conlusion)
+- [Contact](#contact)
 
 ## Booker explained
 
@@ -46,7 +52,7 @@ Booker provides booking services for users, and workspaces for different industr
 
 ## Technical specifications
 
-![Technical specifications](./Resources/technologies_infrastructure.png)
+![Technical specifications](./resources/technologies_infrastructure.png)
 
 ## Features
 
@@ -110,7 +116,7 @@ The rest of the user sequence diagrams are here [sequence diagrams](/Booker/UML/
 ## Development
 We created endpoints for every feature. And we have used Swagger to showcase every one of them.
 
-![Swagger](./Resources/swagger.jpg)
+![Swagger](./resources/swagger.jpg)
 
 Of course, we had to review each other's code, and here's what Omar did.
 
@@ -144,7 +150,36 @@ python3 -m run
 ```
 
 ## Conlusion
-We had so much fun while working on this project, each time we would refine and update what we have done. We have more to work on but this is the initial version of the API. We would be happy if developers used it to creat interfaces.
-By the way bellow is a meme about our collaboration, it was a fun battle.
+We had so much fun while working on this project, each time we would refine and update what we have done. We have more to work on but this is the initial version of the API. We would be happy if developers used it to create interfaces.
+By the way, below is a meme about our collaboration, it was a fun battle.
 
 https://github.com/jinDeHao/Booker/assets/70861727/f274584c-3b7a-476e-b285-a0bfd2d5968e
+
+## Contact
+For any ideas or constructive criticism feel free to contact us in our socials.
+
+
+Asmaa HADAR
+
+<a target="new" href="https://twitter.com/HadarAsmaa">
+	<img src="./resources/twitter.png" width="3%">
+</a>
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=asmaehadar32@gmail.com">
+	<img src="./resources/gmail.png" width="3%">
+</a>
+<a href="https://www.linkedin.com/in/asmaa-hadar-928b121a3/">
+	<img src="./resources/linkedin.png" width="3%">
+</a>
+
+Omar IDHMAID
+
+<a href="https://twitter.com/O_idhmaid">
+	<img src="./resources/twitter.png" width="3%">
+</a>
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=o.idhmaid@gmail.com">
+	<img src="./resources/gmail.png" width="3%">
+</a>
+<a href="https://www.linkedin.com/in/omar-id-hmaid/">
+	<img src="./resources/linkedin.png" width="3%">
+</a>
+

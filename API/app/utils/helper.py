@@ -16,7 +16,7 @@ def verify_email(user_name, user_email, verification_link):
     recipient_email = user_email
     recipient_name = user_name
     subject = "Booker email verification."
-    img_filename = f"{path}/app/templates/pictures/giphy.gif"
+    img_filename = f"{path}/resources/giphy.gif"
 
     img_data = open(img_filename, "rb").read()
 
@@ -158,15 +158,9 @@ def check_schedules(schedules_dict):
     return schedules
 
 
-def send_attachment(user_name, user_email, file_name, subject):
+def send_attachment(recipient_name, recipient_email, content, subject):
     """A function that sends attachments to users."""
-
     sender_email = "bookerapiteam@gmail.com"
-    recipient_email = user_email
-    recipient_name = user_name
-
-    with open(file_name, "rb") as attachment:
-        attachment_content = attachment.read()
 
     message_body = f"""<html>
     <body>
@@ -177,11 +171,12 @@ def send_attachment(user_name, user_email, file_name, subject):
     </body>
     </html>"""
 
-    message = MIMEMultipart("related")
+    message = MIMEMultipart()
     message.attach(MIMEText(message_body, "html"))
-    attachment_part = MIMEApplication(attachment_content)
+
+    attachment_part = MIMEApplication(content)
     attachment_part.add_header(
-        "Content-Disposition", f"attachment; filename=invoice.pdf"
+        "Content-Disposition", "attachment", filename="invoice.pdf"
     )
     message.attach(attachment_part)
 
