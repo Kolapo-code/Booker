@@ -134,10 +134,8 @@ def get_profile(request):
             map(lambda x: x.to_dict(), session.user.appointments)
         )
     if session.user.premium_account:
-        data["workspaces"] = list(
-            map(lambda x: x.to_dict(), session.user.premium_account.workspaces)
-        )
-        premium = session.user.premium_account.to_dict()
+        data["workspaces"] = list(map(lambda x: x.to_dict(),
+                                       session.user.premium_account.workspaces))
     return data
 
 
