@@ -128,8 +128,6 @@ def get_profile(request):
     if session.user.premium_account:
         data["workspaces"] = list(map(lambda x: x.to_dict(),
                                        session.user.premium_account.workspaces))
-        premium = session.user.premium_account.to_dict()
-        data["premium"] = dict(filter(lambda x: x[0] != "user_id", premium.items()))
     return data
 
 
